@@ -1,0 +1,492 @@
+[gd_scene load_steps=21 format=3 uid="uid://ci7krok20yhkb"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_yq0pe"]
+[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://themes/cyantheme.tres" id="2_ehcca"]
+[ext_resource type="Texture2D" uid="uid://blxgllmiveb00" path="res://LIAR.jpg" id="2_s33d5"]
+[ext_resource type="Script" path="res://things.gd" id="3_xbiip"]
+[ext_resource type="Script" path="res://cyyan.gd" id="4_4wn6w"]
+[ext_resource type="Script" path="res://acheivemetns.gd" id="5_jyf8n"]
+[ext_resource type="Script" path="res://settings.gd" id="5_lwn3p"]
+[ext_resource type="Script" path="res://informateion.gd" id="6_lv6x3"]
+[ext_resource type="Script" path="res://funnyegg.gd" id="8_6kn3t"]
+[ext_resource type="Script" path="res://hover.gd" id="9_6tc7o"]
+[ext_resource type="Script" path="res://popup.gd" id="10_imr1w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fobxh"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.494118)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_37kxq"]
+TabContainer/styles/panel = SubResource("StyleBoxFlat_fobxh")
+
+[sub_resource type="SystemFont" id="SystemFont_tvu4t"]
+
+[sub_resource type="Theme" id="Theme_y3ny5"]
+default_font = SubResource("SystemFont_tvu4t")
+default_font_size = 32
+
+[sub_resource type="SystemFont" id="SystemFont_t2g3b"]
+
+[sub_resource type="Theme" id="Theme_oj38x"]
+default_font = SubResource("SystemFont_t2g3b")
+default_font_size = 40
+
+[sub_resource type="SystemFont" id="SystemFont_wq8al"]
+
+[sub_resource type="Theme" id="Theme_be2a7"]
+default_font = SubResource("SystemFont_wq8al")
+default_font_size = 30
+Label/colors/font_color = Color(0.270588, 0.956863, 0.878431, 1)
+
+[sub_resource type="Theme" id="Theme_cqeht"]
+Label/font_sizes/font_size = 30
+
+[node name="game" type="Control"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_yq0pe")
+
+[node name="tabs" type="TabContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 700.0
+theme = SubResource("Theme_37kxq")
+
+[node name="things" type="TabContainer" parent="tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="normal" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("3_xbiip")
+
+[node name="thingcount" type="Label" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 632.0
+offset_bottom = 51.0
+theme = SubResource("Theme_y3ny5")
+text = "You have 0 things."
+
+[node name="information" type="Label" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 46.0
+offset_right = 202.0
+offset_bottom = 98.0
+text = "You get x things per click.
+x things per second"
+
+[node name="thingbutton" type="Button" parent="tabs/things/normal"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 109.0
+offset_right = 316.0
+offset_bottom = 242.0
+theme = SubResource("Theme_oj38x")
+text = "Thing
+Button"
+
+[node name="perclickbuy" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 246.0
+offset_right = 316.0
+offset_bottom = 313.0
+text = "more things per click"
+
+[node name="passivethingbuy" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 109.0
+offset_right = 632.0
+offset_bottom = 165.0
+text = "passive thing generation"
+
+[node name="passivethingboost" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 169.0
+offset_right = 632.0
+offset_bottom = 242.0
+text = "passive thing generation boost"
+
+[node name="passivethingmoreboost" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 246.0
+offset_right = 632.0
+offset_bottom = 339.0
+text = "more passive thing generation boost"
+
+[node name="themorethingsbutton" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 317.0
+offset_right = 316.0
+offset_bottom = 446.0
+text = "the more things button"
+
+[node name="funnyupgradebutton" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 450.0
+offset_right = 316.0
+offset_bottom = 557.0
+text = "funny upgrade button"
+
+[node name="cyyanmechanic" type="Button" parent="tabs/things/normal"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 320.0
+offset_top = 343.0
+offset_right = 632.0
+offset_bottom = 446.0
+theme = ExtResource("2_ehcca")
+text = "???
+this costs 500000 things"
+
+[node name="thetruth" type="Label" parent="tabs/things/normal"]
+layout_mode = 0
+offset_top = 585.0
+offset_right = 594.0
+offset_bottom = 637.0
+text = "The enevitabke feature and power creep that comes
+with clicker / idle games"
+
+[node name="cyyan" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("4_4wn6w")
+
+[node name="cyyanthings" type="Label" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 46.0
+offset_top = 41.0
+offset_right = 587.0
+offset_bottom = 151.0
+theme = SubResource("Theme_be2a7")
+text = "you have x cyyan things,
+giving you xx thing generation"
+
+[node name="cyyaninfo" type="Label" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 556.0
+offset_right = 458.0
+offset_bottom = 634.0
+text = "you get 1 cyyan thing every 1000000 things you get
+sdfjsdhksdf
+cyyan things give you a multiplier to your thing production"
+
+[node name="passivenocost" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 77.0
+offset_top = 147.0
+offset_right = 345.0
+offset_bottom = 265.0
+theme = ExtResource("2_ehcca")
+text = "passive thing generators no
+longer costs things
+this costs 100 cyyan things"
+
+[node name="gainclick" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 358.0
+offset_top = 147.0
+offset_right = 626.0
+offset_bottom = 265.0
+theme = ExtResource("2_ehcca")
+text = "you get 10% of your things
+per click per second
+this costs 10000 cyyan things"
+
+[node name="automatedpassive" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 639.0
+offset_top = 147.0
+offset_right = 907.0
+offset_bottom = 265.0
+theme = ExtResource("2_ehcca")
+text = "passive thing generators are
+automatically bought
+every 5 seconds
+this costs 100000 cyyan things"
+
+[node name="timeplayed" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 77.0
+offset_top = 278.0
+offset_right = 345.0
+offset_bottom = 396.0
+theme = ExtResource("2_ehcca")
+text = "you get a multiplier on thing
+generation based ontime played
+( xx )
+this costs 10000000 cyyan things"
+
+[node name="achievsquared" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 358.0
+offset_top = 278.0
+offset_right = 626.0
+offset_bottom = 396.0
+theme = ExtResource("2_ehcca")
+text = "the achievement multiplier
+is now squared
+this costs 1e10 cyyan things"
+
+[node name="acheivemetns" type="Control" parent="tabs" groups=["toupdateall"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("5_jyf8n")
+
+[node name="achtext" type="Label" parent="tabs/acheivemetns"]
+layout_mode = 0
+offset_left = 385.0
+offset_top = 36.0
+offset_right = 809.0
+offset_bottom = 154.0
+theme = SubResource("Theme_cqeht")
+text = "ACHEIVEMETNS"
+
+[node name="achcontaner" type="ScrollContainer" parent="tabs/acheivemetns"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 107.0
+offset_right = 754.0
+offset_bottom = 445.0
+
+[node name="achievementcontainer" type="GridContainer" parent="tabs/acheivemetns/achcontaner"]
+layout_mode = 2
+columns = 9
+
+[node name="achinfo" type="Label" parent="tabs/acheivemetns"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 599.0
+offset_right = 967.0
+offset_bottom = 659.0
+text = "achievements are given for whatever i want to give them for, and give a multiplier to your things
+currently: "
+
+[node name="settings" type="Control" parent="tabs" groups=["toupdateall"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("5_lwn3p")
+
+[node name="numberformattinglabel" type="Label" parent="tabs/settings"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 59.0
+offset_right = 187.0
+offset_bottom = 85.0
+text = "number  formatting"
+
+[node name="numberformatting" type="OptionButton" parent="tabs/settings"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 88.0
+offset_right = 188.0
+offset_bottom = 119.0
+item_count = 2
+selected = 0
+popup/item_0/text = "scientific"
+popup/item_0/id = 0
+popup/item_1/text = "none"
+popup/item_1/id = 1
+
+[node name="savelabel" type="Label" parent="tabs/settings"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 59.0
+offset_right = 812.0
+offset_bottom = 108.0
+text = "save goes to AppData/Roaming/Godot/app_userdata/Unnamed Clicker Game"
+
+[node name="save" type="Button" parent="tabs/settings"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 88.0
+offset_right = 379.0
+offset_bottom = 143.0
+text = "save"
+
+[node name="load" type="Button" parent="tabs/settings"]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 88.0
+offset_right = 544.0
+offset_bottom = 143.0
+text = "load"
+
+[node name="autosave" type="HSlider" parent="tabs/settings"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 552.0
+offset_top = 130.0
+offset_right = 812.0
+offset_bottom = 147.0
+max_value = 3.0
+scrollable = false
+tick_count = 4
+ticks_on_borders = true
+
+[node name="autosavelabel" type="Label" parent="tabs/settings"]
+layout_mode = 0
+offset_left = 555.0
+offset_top = 84.0
+offset_right = 689.0
+offset_bottom = 110.0
+text = "autosave interval (mins
+1                  5               10             never"
+
+[node name="informateion" type="Control" parent="tabs" groups=["toupdateperframe"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+script = ExtResource("6_lv6x3")
+
+[node name="credits" type="Label" parent="tabs/informateion"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 407.0
+offset_right = 568.0
+offset_bottom = 671.0
+text = "credits to:
+me
+antimatter dimensions
+my friends and acquaintanci
+myself
+the people who invented maths
+i
+
+if you would like to tell me how terrible this is please go to _beeka
+on discord or just comment on the itch.io page"
+
+[node name="informat" type="Label" parent="tabs/informateion"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 24.0
+offset_right = 285.0
+offset_bottom = 76.0
+text = "you have made a total of x things
+and a total of x cyyan things"
+
+[node name="gameinfo" type="Label" parent="tabs/informateion"]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 307.0
+offset_right = 838.0
+offset_bottom = 411.0
+text = "you are playing Unnamed Clicker Game v0.0.0.5
+Lines of code: 840
+Stupidity level: 10/9
+grass pieces touched: {0|*}
+time last updated: 27/07/2023
+
+enjoy ^_^
+(please report bugs to beeka)"
+
+[node name="funnyegg" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_6kn3t")
+
+[node name="eg" type="TextureButton" parent="funnyegg"]
+layout_mode = 0
+offset_left = 1011.0
+offset_top = 335.0
+offset_right = 1371.0
+offset_bottom = 695.0
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("2_s33d5")
+
+[node name="egtext" type="RichTextLabel" parent="funnyegg"]
+layout_mode = 0
+offset_left = 1098.0
+offset_top = 240.0
+offset_right = 1126.0
+offset_bottom = 271.0
+scale = Vector2(3.66, 3.66)
+text = "eg"
+
+[node name="hover" type="Panel" parent="." groups=["toupdateall", "toupdateperframe"]]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = -48.0
+offset_top = -41.0
+offset_right = -3.0
+offset_bottom = -1.0
+script = ExtResource("9_6tc7o")
+
+[node name="text" type="Label" parent="hover"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 45.0
+offset_bottom = 26.0
+text = "hover"
+
+[node name="popup" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_imr1w")
+
+[connection signal="pressed" from="tabs/things/normal/thingbutton" to="tabs/things/normal" method="_thingbutton"]
+[connection signal="pressed" from="tabs/things/normal/perclickbuy" to="tabs/things/normal" method="_perclickbuy"]
+[connection signal="pressed" from="tabs/things/normal/passivethingbuy" to="tabs/things/normal" method="_passivethingbuy"]
+[connection signal="pressed" from="tabs/things/normal/passivethingboost" to="tabs/things/normal" method="_passivethingboost"]
+[connection signal="pressed" from="tabs/things/normal/passivethingmoreboost" to="tabs/things/normal" method="_passivethingmoreboost"]
+[connection signal="pressed" from="tabs/things/normal/themorethingsbutton" to="tabs/things/normal" method="_themorethingsbutton"]
+[connection signal="pressed" from="tabs/things/normal/funnyupgradebutton" to="tabs/things/normal" method="_funnyupgradebutton"]
+[connection signal="pressed" from="tabs/things/normal/cyyanmechanic" to="tabs/things/normal" method="_cyyanmechanic"]
+[connection signal="pressed" from="tabs/things/cyyan/passivenocost" to="tabs/things/cyyan" method="_passivenocost"]
+[connection signal="pressed" from="tabs/things/cyyan/gainclick" to="tabs/things/cyyan" method="_gainclick"]
+[connection signal="pressed" from="tabs/things/cyyan/automatedpassive" to="tabs/things/cyyan" method="_automatedpassive"]
+[connection signal="pressed" from="tabs/things/cyyan/timeplayed" to="tabs/things/cyyan" method="_timeplayed"]
+[connection signal="pressed" from="tabs/things/cyyan/achievsquared" to="tabs/things/cyyan" method="_achievsquared"]
+[connection signal="item_selected" from="tabs/settings/numberformatting" to="tabs/settings" method="_numberformatting"]
+[connection signal="mouse_entered" from="tabs/settings/save" to="hover" method="_mouse_entered" binds= ["save"]]
+[connection signal="mouse_exited" from="tabs/settings/save" to="hover" method="_mouse_exited"]
+[connection signal="pressed" from="tabs/settings/save" to="." method="_save"]
+[connection signal="pressed" from="tabs/settings/load" to="." method="_load"]
+[connection signal="value_changed" from="tabs/settings/autosave" to="tabs/settings" method="_autosave"]
+[connection signal="pressed" from="funnyegg/eg" to="funnyegg" method="_pressed"]
