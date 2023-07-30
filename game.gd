@@ -24,6 +24,7 @@ var timeSaved
 var loadpanel
 var autosaveOverride = false
 
+
 func _ready():
 	_update_all()
 	if FileAccess.file_exists(SAVEDIRECTORY):
@@ -141,6 +142,7 @@ func _load():
 
 func _update_all():
 	get_tree().call_group("toupdateall", "_update_all")
+
 
 func save():
 	var save_dict = {

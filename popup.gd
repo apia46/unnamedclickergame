@@ -4,6 +4,7 @@ extends Control
 func newsidepopup(text):
 	add_child(sidepopup.new(text,0,0))
 
+
 class popup:
 	extends Panel
 	
@@ -19,6 +20,7 @@ class popup:
 		position.x = x
 		position.y = y
 		text.text = Text
+
 
 class sidepopup:
 	extends popup

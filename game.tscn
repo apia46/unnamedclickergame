@@ -1,11 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://0ymoicb81yrt"]
+[gd_scene load_steps=23 format=3 uid="uid://0ymoicb81yrt"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_yq0pe"]
 [ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://themes/cyyantheme.tres" id="3_r20yh"]
 [ext_resource type="Script" path="res://things.gd" id="3_xbiip"]
 [ext_resource type="Script" path="res://cyyan.gd" id="4_4wn6w"]
+[ext_resource type="Theme" uid="uid://dnlj0w0q4nar1" path="res://themes/magentertheme.tres" id="5_28wba"]
 [ext_resource type="Script" path="res://acheivemetns.gd" id="5_jyf8n"]
 [ext_resource type="Script" path="res://settings.gd" id="5_lwn3p"]
+[ext_resource type="Texture2D" uid="uid://i3vcyf6yr07u" path="res://assets/notliar.png" id="5_muy4j"]
+[ext_resource type="Script" path="res://magenter.gd" id="6_gp3yp"]
 [ext_resource type="Script" path="res://informateion.gd" id="6_lv6x3"]
 [ext_resource type="Script" path="res://funnyegg.gd" id="8_6kn3t"]
 [ext_resource type="Script" path="res://hover.gd" id="9_6tc7o"]
@@ -40,13 +43,6 @@ default_font_size = 32
 default_font = SubResource("SystemFont_t2g3b")
 default_font_size = 40
 
-[sub_resource type="SystemFont" id="SystemFont_wq8al"]
-
-[sub_resource type="Theme" id="Theme_be2a7"]
-default_font = SubResource("SystemFont_wq8al")
-default_font_size = 30
-Label/colors/font_color = Color(0.270588, 0.956863, 0.878431, 1)
-
 [sub_resource type="Theme" id="Theme_cqeht"]
 Label/font_sizes/font_size = 30
 
@@ -71,6 +67,7 @@ layout_mode = 2
 
 [node name="normal" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("3_xbiip")
 
@@ -191,7 +188,8 @@ offset_left = 46.0
 offset_top = 41.0
 offset_right = 587.0
 offset_bottom = 151.0
-theme = SubResource("Theme_be2a7")
+theme = ExtResource("3_r20yh")
+theme_override_font_sizes/font_size = 30
 text = "you have x cyyan things,
 giving you xx thing generation"
 
@@ -268,6 +266,91 @@ text = "the achievement multiplier
 is now squared
 this costs 1e10 cyyan things"
 
+[node name="magentermechanic" type="Button" parent="tabs/things/cyyan"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 639.0
+offset_top = 278.0
+offset_right = 907.0
+offset_bottom = 396.0
+theme = ExtResource("5_28wba")
+text = "???
+this costs 1e12 cyyan things"
+
+[node name="magenter" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("6_gp3yp")
+
+[node name="magenterthings" type="Label" parent="tabs/things/magenter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.0
+offset_top = 10.0
+offset_right = 201.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme = ExtResource("5_28wba")
+theme_override_font_sizes/font_size = 30
+text = "you have x magenter things,"
+
+[node name="magenterthings2" type="Label" parent="tabs/things/magenter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.5
+offset_top = 47.0
+offset_right = 89.5
+offset_bottom = 92.0
+grow_horizontal = 2
+theme = ExtResource("5_28wba")
+theme_override_font_sizes/font_size = 25
+text = "giving you x thing generators per second,"
+
+[node name="magenterthings3" type="Label" parent="tabs/things/magenter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_top = 79.0
+offset_right = 168.0
+offset_bottom = 124.0
+grow_horizontal = 2
+theme = ExtResource("5_28wba")
+theme_override_font_sizes/font_size = 20
+text = "giving you x extra thing generators total"
+
+[node name="magenterbutton" type="Button" parent="tabs/things/magenter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.5
+offset_top = -195.0
+offset_right = 198.5
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_28wba")
+text = "Sacrifice your time since last click (xs)
+at 1% yield for 1/1e12 of your
+cyyan things per second"
+
+[node name="notliar" type="Sprite2D" parent="tabs/things/magenter"]
+position = Vector2(263, 696)
+texture = ExtResource("5_muy4j")
+
 [node name="acheivemetns" type="Control" parent="tabs" groups=["toupdateall"]]
 unique_name_in_owner = true
 visible = false
@@ -325,12 +408,14 @@ offset_left = 33.0
 offset_top = 88.0
 offset_right = 188.0
 offset_bottom = 119.0
-item_count = 2
+item_count = 3
 selected = 0
 popup/item_0/text = "scientific"
 popup/item_0/id = 0
-popup/item_1/text = "none"
+popup/item_1/text = "comma"
 popup/item_1/id = 1
+popup/item_2/text = "none"
+popup/item_2/id = 2
 
 [node name="savelabel" type="Label" parent="tabs/settings"]
 layout_mode = 0
@@ -485,6 +570,7 @@ script = ExtResource("10_imr1w")
 [connection signal="pressed" from="tabs/things/cyyan/automatedpassive" to="tabs/things/cyyan" method="_automatedpassive"]
 [connection signal="pressed" from="tabs/things/cyyan/timeplayed" to="tabs/things/cyyan" method="_timeplayed"]
 [connection signal="pressed" from="tabs/things/cyyan/achievsquared" to="tabs/things/cyyan" method="_achievsquared"]
+[connection signal="pressed" from="tabs/things/cyyan/magentermechanic" to="tabs/things/cyyan" method="_magentermechanic"]
 [connection signal="item_selected" from="tabs/settings/numberformatting" to="tabs/settings" method="_numberformatting"]
 [connection signal="mouse_entered" from="tabs/settings/save" to="hover" method="_mouse_entered" binds= ["save"]]
 [connection signal="mouse_exited" from="tabs/settings/save" to="hover" method="_mouse_exited"]

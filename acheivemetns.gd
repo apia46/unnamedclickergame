@@ -11,6 +11,7 @@ var amount = 0
 const HEIGHT = 7
 const WIDTH = 7
 
+
 func _ready():
 	achcontainer.columns = WIDTH
 	for i in range(HEIGHT*WIDTH):
@@ -27,6 +28,7 @@ func save():
 	}
 	return save_dict
 
+
 func _update_all():
 	for i in achs:
 		i._update_all()
@@ -35,6 +37,7 @@ func _update_all():
 func _update_ach():
 	amount = achieved.count(true)
 	%achinfo.text = "achievements are given for whatever i want to give them for" + ((", and give a multiplier to your things\ncurrently: x" + format.number(amount**(2 if cyyan.achievsquared else 1))) if things.funnyupgradebuttonstage >= 3 else "")
+
 
 class achievement:
 	extends TextureButton
@@ -119,7 +122,6 @@ class achievement:
 			"13":
 				achname = "owo whats this"
 				desc = "unlock cyyan"
-				secret = 1
 			"14":
 				achname = "just in case :)"
 				desc = "save the game manually"
@@ -137,11 +139,12 @@ class achievement:
 			"21":
 				achname = "things were going slow so im speeding it up for you"
 				desc = "buy the first cyyan upgrade"
-				secret = 1
 			"22":
 				achname = "achievementception^2"
 				desc = "buy the fifth cyyan upgrade"
-				secret = 1
+			"23":
+				achname = "sword and shield"
+				desc = "unlock magenter"
 			_:
 				visible = false
 		unlocked = achiev.achieved[loc]

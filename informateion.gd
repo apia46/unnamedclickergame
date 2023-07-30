@@ -7,7 +7,11 @@ var timestarted = Time.get_unix_time_from_system()
 
 
 func _update_per_frame():
-	%informat.text = ("you have made a total of " + format.number(things.thingsalltime) + " things") + (("\nand a total of " + format.number(cyyan.cyyanthings) + " cyyan things") if (things.cyyanmechanic) else "") + ("\nyou have spent " + format.time(int(game.time)) + " on this shitsterpiece") + ("\nand you started playing " + format.time(int(Time.get_unix_time_from_system()-timestarted)) + " ago")
+	%informat.text = ("you have made a total of " + format.number(things.thingsalltime) + " things") + (("
+	and a total of " + format.number(cyyan.cyyanthings+cyyan.cyyanthingscosted) + " cyyan things") if (things.cyyanmechanic) else "") + ("
+	you have spent " + format.time(int(game.time)) + " on this shitsterpiece") + ("
+	and you started playing " + format.time(int(Time.get_unix_time_from_system()-timestarted)) + " ago")
+
 
 func save():
 	var save_dict = {

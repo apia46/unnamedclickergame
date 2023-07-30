@@ -7,6 +7,7 @@ var override = false
 var lastnode = ""
 var lasttext = ""
 
+
 func _update_all():
 	_update_per_frame()
 
@@ -36,6 +37,7 @@ func _update_hover(node="last",text="last"):
 			%text.text = "this id doesnt have text attached to it... (its " + str(node) + ", text is " + str(text) + ")"
 	
 	visible = (hover >= 1) and !override
+
 
 func _mouse_entered(node, text:=""):
 	hover += 1

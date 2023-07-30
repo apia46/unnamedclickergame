@@ -38,12 +38,12 @@ var cyyanmechanic = false
 func processthings(delta):
 	potentialthingmultiply = clampf(snapped((log(things)/5 + pow(freethinggenerators+passivethingamount, 0.55)) / thingmultiply, 0.01), 1, INF)
 	
-	timesincelastclick += 1
+	timesincelastclick += delta
 	if funnyupgradebuttonstage >= 1:
-		if timesincelastclick/float(2000) > 1:
-			funnyupgrade1boost = pow(timesincelastclick - 2000, 0.001)
+		if timesincelastclick/float(100)/3 > 1:
+			funnyupgrade1boost = pow(timesincelastclick*60 - 2000, 0.001)
 		else:
-			funnyupgrade1boost = timesincelastclick/float(2000)
+			funnyupgrade1boost = timesincelastclick*60/float(2000)
 	if funnyupgradebuttonstage >= 2:
 		if thingsalltime >= pow(2, freethinggenerators + 1):
 			freethinggenerators += 1
@@ -55,13 +55,13 @@ func processthings(delta):
 	things += delta * persecondactual
 	thingsalltime += delta * persecondactual
 	
-	if thingsalltime >= 1e5 and format.defaultnumberformat == "scientific": achiev.achs[8].unlock()
+	if thingsalltime >= 1e5 and format.defaultnumberformat == format.NUMBERFORMAT.SCIENTIFIC: achiev.achs[8].unlock()
 
 func _thingbutton():
 	if perclickactual >= 10000: achiev.achs[7].unlock()
 	things += perclickactual
 	thingsalltime += perclickactual
-	if timesincelastclick < 20 and funnyupgradebuttonstage >= 1: achiev.achs[4].unlock()
+	if timesincelastclick < 1200 and funnyupgradebuttonstage >= 1: achiev.achs[4].unlock()
 	timesincelastclick = 0
 	achiev.achs[0].unlock()
 
@@ -119,6 +119,7 @@ func _cyyanmechanic():
 	cyyanmechanic = true
 	things -= CYYANMECHANICCOST
 	achiev.achs[10].unlock()
+	_update_cyyanmechanic()
 
 
 func _update_all():
@@ -128,6 +129,7 @@ func _update_all():
 	_update_passivethingboost()
 	_update_passivethingmoreboost()
 	_update_funny_upgrade_stages()
+	_update_cyyanmechanic()
 
 func _update_per_frame():
 	%thingcount.text = ("You have " + format.number(things) + " things.")
@@ -142,13 +144,7 @@ func _update_per_frame():
 	
 	%cyyanmechanic.disabled = !(things >= CYYANMECHANICCOST) or cyyanmechanic
 	%cyyanmechanic.visible = thingsalltime > CYYANMECHANICCOST
-	if cyyanmechanic:
-		%cyyanmechanic.text = "CYYAN THINGS\nUNLOCKED"
-		%things.set_tab_disabled(1, false)
-		%things.set_tab_title(1, "cyyan")
-	else:
-		%things.set_tab_disabled(1, true)
-		%things.set_tab_title(1, "???")
+	if !cyyanmechanic:
 		if things >= CYYANMECHANICCOST:
 			%cyyanmechanic.text = ("CYYAN THINGS\nthis costs " + format.number(CYYANMECHANICCOST) + " things")
 		else:
@@ -189,7 +185,17 @@ func _update_funny_upgrade_stages():
 			funnyupgradebuttoncost = -1
 			upgrade = "youve bought all of them"
 			achiev.achs[14].unlock()
-	%funnyupgradebutton.text = ("funny upgrade button (stage " + format.number(funnyupgradebuttonstage, 0, "") + ")\n" + upgrade + (("\nthis costs " + format.number(funnyupgradebuttoncost) + " things") if funnyupgradebuttoncost != -1 else ""))
+	%funnyupgradebutton.text = ("funny upgrade button (stage " + format.number(funnyupgradebuttonstage, 0) + ")\n" + upgrade + (("\nthis costs " + format.number(funnyupgradebuttoncost) + " things") if funnyupgradebuttoncost != -1 else ""))
+
+func _update_cyyanmechanic():
+	if cyyanmechanic:
+		%cyyanmechanic.text = "CYYAN THINGS\nUNLOCKED"
+		%things.set_tab_disabled(1, false)
+		%things.set_tab_title(1, "cyyan")
+	else:
+		%things.set_tab_disabled(1, true)
+		%things.set_tab_title(1, "???")
+
 
 func save():
 	var save_dict = {
