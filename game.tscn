@@ -1,7 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bci4k4iu7wwi2"]
+[gd_scene load_steps=22 format=3 uid="uid://0ymoicb81yrt"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_yq0pe"]
-[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://themes/cyantheme.tres" id="2_ehcca"]
+[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://themes/cyyantheme.tres" id="3_r20yh"]
 [ext_resource type="Script" path="res://things.gd" id="3_xbiip"]
 [ext_resource type="Script" path="res://cyyan.gd" id="4_4wn6w"]
 [ext_resource type="Script" path="res://acheivemetns.gd" id="5_jyf8n"]
@@ -166,7 +166,7 @@ offset_left = 320.0
 offset_top = 343.0
 offset_right = 632.0
 offset_bottom = 446.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "???
 this costs 500000 things"
 
@@ -213,7 +213,7 @@ offset_left = 77.0
 offset_top = 147.0
 offset_right = 345.0
 offset_bottom = 265.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "passive thing generators no
 longer costs things
 this costs 100 cyyan things"
@@ -225,7 +225,7 @@ offset_left = 358.0
 offset_top = 147.0
 offset_right = 626.0
 offset_bottom = 265.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "you get 10% of your things
 per click per second
 this costs 10000 cyyan things"
@@ -237,7 +237,7 @@ offset_left = 639.0
 offset_top = 147.0
 offset_right = 907.0
 offset_bottom = 265.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "passive thing generators are
 automatically bought
 every 5 seconds
@@ -250,7 +250,7 @@ offset_left = 77.0
 offset_top = 278.0
 offset_right = 345.0
 offset_bottom = 396.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "you get a multiplier on thing
 generation based ontime played
 ( xx )
@@ -263,7 +263,7 @@ offset_left = 358.0
 offset_top = 278.0
 offset_right = 626.0
 offset_bottom = 396.0
-theme = ExtResource("2_ehcca")
+theme = ExtResource("3_r20yh")
 text = "the achievement multiplier
 is now squared
 this costs 1e10 cyyan things"

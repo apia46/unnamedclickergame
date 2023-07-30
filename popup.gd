@@ -13,7 +13,7 @@ class popup:
 		size = text.size
 	
 	func _init(Text, x := 0, y := 0):
-		theme = load("res://solidbg.tres")
+		theme = load("res://themes/solidbg.tres")
 		text = Label.new()
 		add_child(text)
 		position.x = x
