@@ -14,7 +14,7 @@ var time = float(0)
 
 var automatortime = float(0)
 var automatortick = float(5)
-var automatorbulk = float(25)
+var automatorbulk = float(50)
 
 var autosavetime = float(0)
 

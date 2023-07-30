@@ -29,10 +29,9 @@ var funnyupgradebuttonstage = 0
 var funnyupgradebuttoncost = float(5000)
 var timesincelastclick = float(0)
 var funnyupgrade1boost = float(0)
-var maxfreethinggenerators = 0
 var freethinggenerators = 0
 
-const CYYANMECHANICCOST = float(500000)
+const CYYANMECHANICCOST = float(1000000)
 var cyyanmechanic = false
 
 
@@ -46,13 +45,12 @@ func processthings(delta):
 		else:
 			funnyupgrade1boost = timesincelastclick/float(2000)
 	if funnyupgradebuttonstage >= 2:
-		if thingsalltime >= pow(2, maxfreethinggenerators + 1):
+		if thingsalltime >= pow(2, freethinggenerators + 1):
 			freethinggenerators += 1
-			maxfreethinggenerators += 1
 			_update_passivething()
 	
-	perclickactual = pow(perclickamount * thingmultiply, funnyupgrade1boost + 1) * %cyyan.cyyanmultiply * (funnyupgrade1boost + 1) * (achiev.amount**%cyyan.achievexponent if funnyupgradebuttonstage >= 3 else 1)
-	persecondactual = (pow((passivethingamount + freethinggenerators), passivethingmoreboostexponent)) * thingmultiply * passivethingboostmultiplier * %cyyan.cyyanmultiply * (%cyyan.timeplayedboost if %cyyan.timeplayed else 1.0) * (achiev.amount**(2 if %cyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1) + (perclickactual/10 if %cyyan.gainclick else 0.0)
+	perclickactual = pow(perclickamount * thingmultiply, funnyupgrade1boost + 1) * %cyyan.cyyanmultiply * (funnyupgrade1boost + 1) * (achiev.amount**(2 if %cyyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1)
+	persecondactual = (pow((passivethingamount + freethinggenerators), passivethingmoreboostexponent)) * thingmultiply * passivethingboostmultiplier * %cyyan.cyyanmultiply * (%cyyan.timeplayedboost if %cyyan.timeplayed else 1.0) * (achiev.amount**(2 if %cyyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1) + (perclickactual/2 if %cyyan.gainclick else 0.0)
 	
 	things += delta * persecondactual
 	thingsalltime += delta * persecondactual
@@ -141,7 +139,6 @@ func _update_per_frame():
 	%perclickbuy.disabled = !(things >= perclickcost)
 	%passivethingbuy.disabled = !(things >= floor(passivethingcost))
 	%funnyupgradebutton.disabled = !(things >= funnyupgradebuttoncost) or funnyupgradebuttoncost == -1
-	%cyyanmechanic.disabled = !(things >= CYYANMECHANICCOST) or cyyanmechanic
 	
 	%cyyanmechanic.disabled = !(things >= CYYANMECHANICCOST) or cyyanmechanic
 	%cyyanmechanic.visible = thingsalltime > CYYANMECHANICCOST
@@ -161,7 +158,7 @@ func _update_perclickbuy():
 	%perclickbuy.text = ("more things per click (" + format.number(perclickamount) + ")\nthis costs " + format.number(perclickcost) + " things")
 
 func _update_passivething():
-	%passivethingbuy.text = ("passive thing generation (" + format.number(passivethingamount) + ((" + " + format.number(freethinggenerators)) if (maxfreethinggenerators > 0) else "") + ")\nthis " + ("requires " if %cyyan.passivenocost else "costs ") + format.number(passivethingcost) + " things")
+	%passivethingbuy.text = ("passive thing generation (" + format.number(passivethingamount) + ((" + " + format.number(freethinggenerators)) if (freethinggenerators > 0) else "") + ")\nthis " + ("requires " if %cyyan.passivenocost else "costs ") + format.number(passivethingcost) + " things")
 	%passivethingboost.disabled = !((passivethingamount + freethinggenerators) >= round(passivethingboostcost))
 
 func _update_passivethingboost():
@@ -217,7 +214,6 @@ func save():
 		#"funnyupgradebuttoncost" : funnyupgradebuttoncost,
 		"timesincelastclick" : timesincelastclick,
 		"funnyupgrade1boost" : funnyupgrade1boost,
-		"maxfreethinggenerators" : maxfreethinggenerators,
 		"freethinggenerators" : freethinggenerators,
 		"cyyanmechanic" : cyyanmechanic,
 	}

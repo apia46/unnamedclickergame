@@ -26,11 +26,11 @@ var achievsquared = false
 
 func processcyyan(_delta):
 	if %normal.cyyanmechanic:
-		cyyanthings = floor(%normal.thingsalltime / thingspercyyan)
-		if pow(cyyanthings - cyyanthingscosted, 0.7) + 1 < 2e5:
-			cyyanmultiply = pow(cyyanthings - cyyanthingscosted, 0.7) + 1
+		cyyanthings = floor(%normal.thingsalltime / thingspercyyan) - cyyanthingscosted
+		if pow(cyyanthings, 0.7) + 1 < 1e6:
+			cyyanmultiply = pow(cyyanthings, 0.7) + 1
 		else:
-			cyyanmultiply = pow(log(cyyanthings - cyyanthingscosted), 4) + 2e5
+			cyyanmultiply = pow(log(cyyanthings), 4.5) + 1e6
 	@warning_ignore("integer_division")
 	timeplayedboost = clampf(game.time/500, 1, 500)
 
@@ -57,6 +57,8 @@ func _timeplayed():
 func _achievsquared():
 	cyyanthingscosted += ACHIEVSQUAREDCOST
 	achievsquared = true
+	achiev._update_ach()
+	achiev.achs[16].unlock()
 
 
 func _update_all():
@@ -65,15 +67,15 @@ func _update_all():
 	_update_automatedpassive()
 
 func _update_per_frame():
-	%cyyanthings.text = ("you have " + format.number(cyyanthings-cyyanthingscosted) + " cyyan things,\ngiving you x" + format.number(cyyanmultiply) + " thing generation")
-	%passivenocost.disabled = !((cyyanthings-cyyanthingscosted) >= PASSIVENOCOSTCOST) or passivenocost
-	%gainclick.disabled = !((cyyanthings-cyyanthingscosted) >= GAINCLICKCOST) or gainclick
-	%gainclick.text = "you get 10% of your things\nper click per second" + (("\nthis costs " + format.number(GAINCLICKCOST) + " cyyan things") if !gainclick else ("\n( +" + format.number(%normal.perclickactual/10) + " )"))
-	%automatedpassive.disabled = !((cyyanthings-cyyanthingscosted) >= AUTOMATEDPASSIVECOST) or automatedpassive
-	%timeplayed.disabled = !((cyyanthings-cyyanthingscosted) >= TIMEPLAYEDCOST) or timeplayed
+	%cyyanthings.text = ("you have " + format.number(cyyanthings) + " cyyan things,\ngiving you x" + format.number(cyyanmultiply) + " thing generation")
+	%passivenocost.disabled = !((cyyanthings) >= PASSIVENOCOSTCOST) or passivenocost
+	%gainclick.disabled = !((cyyanthings) >= GAINCLICKCOST) or gainclick
+	%gainclick.text = "you get 50% of your things\nper click per second" + (("\nthis costs " + format.number(GAINCLICKCOST) + " cyyan things") if !gainclick else ("\n( +" + format.number(%normal.perclickactual/2) + " )"))
+	%automatedpassive.disabled = !((cyyanthings) >= AUTOMATEDPASSIVECOST) or automatedpassive
+	%timeplayed.disabled = !((cyyanthings) >= TIMEPLAYEDCOST) or timeplayed
 	%timeplayed.text = "you get a multiplier on thing\ngeneration based on time played\n( " + ("capped at " if timeplayedboost == 500 else "") + "x" + format.number(timeplayedboost) + " )\n" + (("this costs " + format.number(TIMEPLAYEDCOST) + " cyyan things") if !timeplayed else "")
 	%cyyaninfo.text = "you get 1 cyyan thing every " + format.number(thingspercyyan) + " things you get\nthis menas you get " + format.number(%normal.persecondactual/thingspercyyan) + " cyyan things per second\ncyyan things give you a multiplier to your thing production"
-	%achievsquared.disabled = !((cyyanthings-cyyanthingscosted) >= ACHIEVSQUAREDCOST) or achievsquared
+	%achievsquared.disabled = !((cyyanthings) >= ACHIEVSQUAREDCOST) or achievsquared
 	%achievsquared.text = "the achievement multiplier\nis now squared" + (("\nthis costs " + format.number(ACHIEVSQUAREDCOST) + " cyyan things") if !achievsquared else "")
 
 func _update_passivenocost():

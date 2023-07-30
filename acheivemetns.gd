@@ -33,7 +33,8 @@ func _update_all():
 	_update_ach()
 
 func _update_ach():
-	%achinfo.text = "achievements are given for whatever i want to give them for" + ((", and give a multiplier to your things\ncurrently: x" + str(amount**cyyan.achievexponent)) if things.funnyupgradebuttonstage >= 3 else "")
+	amount = achieved.count(true)
+	%achinfo.text = "achievements are given for whatever i want to give them for" + ((", and give a multiplier to your things\ncurrently: x" + format.number(amount**(2 if cyyan.achievsquared else 1))) if things.funnyupgradebuttonstage >= 3 else "")
 
 class achievement:
 	extends TextureButton
@@ -64,9 +65,11 @@ class achievement:
 		texture_normal = load("res://assets/ach/-.png")
 	
 	func unlock():
+		#stupid way to do it
+		await get_tree().create_timer(0.1).timeout
 		if unlocked: return
 		popup.newsidepopup("achievemetn: " + achname)
-		achiev.amount += 1
+		achiev._update_ach()
 		if id == "06":
 			hover._update_hover("ach", text)
 		loadunlock()
@@ -134,6 +137,10 @@ class achievement:
 			"21":
 				achname = "things were going slow so im speeding it up for you"
 				desc = "buy the first cyyan upgrade"
+				secret = 1
+			"22":
+				achname = "achievementception^2"
+				desc = "buy the fifth cyyan upgrade"
 				secret = 1
 			_:
 				visible = false
