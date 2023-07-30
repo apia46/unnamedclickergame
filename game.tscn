@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://ci7krok20yhkb"]
+[gd_scene load_steps=22 format=3 uid="uid://bci4k4iu7wwi2"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_yq0pe"]
 [ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://themes/cyantheme.tres" id="2_ehcca"]
-[ext_resource type="Texture2D" uid="uid://blxgllmiveb00" path="res://LIAR.jpg" id="2_s33d5"]
 [ext_resource type="Script" path="res://things.gd" id="3_xbiip"]
 [ext_resource type="Script" path="res://cyyan.gd" id="4_4wn6w"]
 [ext_resource type="Script" path="res://acheivemetns.gd" id="5_jyf8n"]
@@ -10,7 +9,9 @@
 [ext_resource type="Script" path="res://informateion.gd" id="6_lv6x3"]
 [ext_resource type="Script" path="res://funnyegg.gd" id="8_6kn3t"]
 [ext_resource type="Script" path="res://hover.gd" id="9_6tc7o"]
+[ext_resource type="Texture2D" uid="uid://blxgllmiveb00" path="res://assets/LIAR.jpg" id="9_ra167"]
 [ext_resource type="Script" path="res://popup.gd" id="10_imr1w"]
+[ext_resource type="Theme" uid="uid://bc44sde2jlby" path="res://themes/solidbg.tres" id="10_ywr05"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fobxh"]
 content_margin_left = 0.0
@@ -437,7 +438,7 @@ offset_top = 335.0
 offset_right = 1371.0
 offset_bottom = 695.0
 scale = Vector2(0.8, 1)
-texture_normal = ExtResource("2_s33d5")
+texture_normal = ExtResource("9_ra167")
 
 [node name="egtext" type="RichTextLabel" parent="funnyegg"]
 layout_mode = 0
@@ -455,6 +456,7 @@ offset_left = -48.0
 offset_top = -41.0
 offset_right = -3.0
 offset_bottom = -1.0
+theme = ExtResource("10_ywr05")
 script = ExtResource("9_6tc7o")
 
 [node name="text" type="Label" parent="hover"]

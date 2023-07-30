@@ -64,7 +64,7 @@ func load_panel():
 	loadpanel.position.y = get_window().size.y/2-100
 	loadpanel.size.x = 300
 	loadpanel.size.y = 200
-	loadpanel.theme = load("res://solidbg.tres")
+	loadpanel.theme = load("res://themes/solidbg.tres")
 	add_child(loadpanel)
 	var loadtext = Label.new()
 	loadtext.text = "yo, you have a save file,\nwould you like to load it?"

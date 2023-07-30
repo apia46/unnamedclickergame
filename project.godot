@@ -17,7 +17,7 @@ if you arent downloading it there, uhh report it to someone ig not me though idk
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-config/icon="res://icon.svg"
+config/icon="res://assets/ach/00.png"
 
 [display]
 
