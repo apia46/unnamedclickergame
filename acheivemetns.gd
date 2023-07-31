@@ -69,6 +69,7 @@ class achievement:
 	
 	func unlock():
 		#stupid way to do it
+		if unlocked: return
 		await get_tree().create_timer(0.1).timeout
 		if unlocked: return
 		popup.newsidepopup("achievemetn: " + achname)
