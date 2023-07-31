@@ -67,7 +67,6 @@ layout_mode = 2
 
 [node name="normal" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("3_xbiip")
 
@@ -280,6 +279,7 @@ this costs 1e12 cyyan things"
 
 [node name="magenter" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("6_gp3yp")
 
@@ -344,8 +344,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_28wba")
 text = "Sacrifice your time since last click (xs)
-at 1% yield for 1/1e12 of your
-cyyan things per second"
+at 1% yield for
+x magenter things"
 
 [node name="notliar" type="Sprite2D" parent="tabs/things/magenter"]
 position = Vector2(263, 696)
@@ -571,6 +571,7 @@ script = ExtResource("10_imr1w")
 [connection signal="pressed" from="tabs/things/cyyan/timeplayed" to="tabs/things/cyyan" method="_timeplayed"]
 [connection signal="pressed" from="tabs/things/cyyan/achievsquared" to="tabs/things/cyyan" method="_achievsquared"]
 [connection signal="pressed" from="tabs/things/cyyan/magentermechanic" to="tabs/things/cyyan" method="_magentermechanic"]
+[connection signal="pressed" from="tabs/things/magenter/magenterbutton" to="tabs/things/magenter" method="_magenterbutton"]
 [connection signal="item_selected" from="tabs/settings/numberformatting" to="tabs/settings" method="_numberformatting"]
 [connection signal="mouse_entered" from="tabs/settings/save" to="hover" method="_mouse_entered" binds= ["save"]]
 [connection signal="mouse_exited" from="tabs/settings/save" to="hover" method="_mouse_exited"]

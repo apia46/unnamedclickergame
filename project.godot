@@ -23,3 +23,7 @@ config/icon="res://assets/ach/00.png"
 
 window/size/viewport_width=1000
 window/size/viewport_height=700
+
+[filesystem]
+
+import/blender/enabled=false
