@@ -114,25 +114,25 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 320.0
 offset_top = 109.0
-offset_right = 632.0
-offset_bottom = 165.0
+offset_right = 659.0
+offset_bottom = 184.0
 text = "passive thing generation"
 
 [node name="passivethingboost" type="Button" parent="tabs/things/normal"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 320.0
-offset_top = 169.0
-offset_right = 632.0
-offset_bottom = 242.0
+offset_top = 188.0
+offset_right = 659.0
+offset_bottom = 261.0
 text = "passive thing generation boost"
 
 [node name="passivethingmoreboost" type="Button" parent="tabs/things/normal"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 320.0
-offset_top = 246.0
-offset_right = 632.0
+offset_top = 265.0
+offset_right = 659.0
 offset_bottom = 339.0
 text = "more passive thing generation boost"
 
@@ -160,7 +160,7 @@ visible = false
 layout_mode = 0
 offset_left = 320.0
 offset_top = 343.0
-offset_right = 632.0
+offset_right = 659.0
 offset_bottom = 446.0
 theme = ExtResource("3_r20yh")
 text = "???
@@ -343,9 +343,30 @@ offset_bottom = -74.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_28wba")
+theme_override_font_sizes/font_size = 20
 text = "Sacrifice your time since last click (xs)
 at 1% yield for
 x magenter things"
+
+[node name="thingspercyyan" type="Button" parent="tabs/things/magenter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -36.5
+offset_right = 117.0
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_28wba")
+text = "decrease things per cyyan
+1e6 -> 9e5
+this costs 1.23e4
+magenter things"
 
 [node name="notliar" type="Sprite2D" parent="tabs/things/magenter"]
 position = Vector2(263, 696)
@@ -572,6 +593,7 @@ script = ExtResource("10_imr1w")
 [connection signal="pressed" from="tabs/things/cyyan/achievsquared" to="tabs/things/cyyan" method="_achievsquared"]
 [connection signal="pressed" from="tabs/things/cyyan/magentermechanic" to="tabs/things/cyyan" method="_magentermechanic"]
 [connection signal="pressed" from="tabs/things/magenter/magenterbutton" to="tabs/things/magenter" method="_magenterbutton"]
+[connection signal="pressed" from="tabs/things/magenter/thingspercyyan" to="tabs/things/magenter" method="_thingspercyyan"]
 [connection signal="item_selected" from="tabs/settings/numberformatting" to="tabs/settings" method="_numberformatting"]
 [connection signal="mouse_entered" from="tabs/settings/save" to="hover" method="_mouse_entered" binds= ["save"]]
 [connection signal="mouse_exited" from="tabs/settings/save" to="hover" method="_mouse_exited"]
