@@ -3,6 +3,7 @@ extends Node
 var format = preload("format.gd").new()
 @onready var things = get_node("/root/game/tabs/things/normal")
 @onready var cyyan = get_node("/root/game/tabs/things/cyyan")
+@onready var magenter = get_node("/root/game/tabs/things/magenter")
 @onready var settings = get_node("/root/game/tabs/settings")
 @onready var informateion = get_node("/root/game/tabs/informateion")
 @onready var achiev = get_node("/root/game/tabs/acheivemetns")
@@ -35,6 +36,7 @@ func _process(delta):
 	# process the numbers
 	things.processthings(delta)
 	cyyan.processcyyan(delta)
+	magenter.processmagenter(delta)
 	
 	if automatortime >= automatortick:
 		automatortime -= automatortick
