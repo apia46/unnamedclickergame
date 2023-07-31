@@ -36,7 +36,7 @@ var cyyanmechanic = false
 
 
 func processthings(delta):
-	potentialthingmultiply = clampf(snapped((log(things)/5 + pow(freethinggenerators+passivethingamount, 0.55)) / thingmultiply, 0.01), 1, INF)
+	potentialthingmultiply = clampf(snapped((log(things)/5 + pow(freethinggenerators+passivethingamount+%magenter.extrathingpassive, 0.6)) / thingmultiply, 0.01), 1, INF)
 	
 	timesincelastclick += delta
 	if funnyupgradebuttonstage >= 1:
@@ -50,7 +50,7 @@ func processthings(delta):
 			_update_passivething()
 	
 	perclickactual = pow(perclickamount * thingmultiply, funnyupgrade1boost + 1) * %cyyan.cyyanmultiply * (funnyupgrade1boost + 1) * (achiev.amount**(2 if %cyyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1)
-	persecondactual = (pow((passivethingamount + freethinggenerators), passivethingmoreboostexponent)) * thingmultiply * passivethingboostmultiplier * %cyyan.cyyanmultiply * (%cyyan.timeplayedboost if %cyyan.timeplayed else 1.0) * (achiev.amount**(2 if %cyyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1) + (perclickactual/2 if %cyyan.gainclick else 0.0)
+	persecondactual = (pow((passivethingamount + freethinggenerators + %magenter.extrathingpassive), passivethingmoreboostexponent)) * thingmultiply * passivethingboostmultiplier * %cyyan.cyyanmultiply * (%cyyan.timeplayedboost if %cyyan.timeplayed else 1.0) * (achiev.amount**(2 if %cyyan.achievsquared else 1) if funnyupgradebuttonstage >= 3 else 1) + (perclickactual/2 if %cyyan.gainclick else 0.0)
 	
 	things += delta * persecondactual
 	thingsalltime += delta * persecondactual
@@ -82,10 +82,10 @@ func _passivethingbuy():
 
 func _passivethingboost():
 	# prioritise spending free generators 
-	var freegeneratorsspent = clamp(round(passivethingboostcost), 0, freethinggenerators)
-	# maybe dont spend them
-	# freethinggenerators -= freegeneratorsspent
-	passivethingamount -= clamp((round(passivethingboostcost) - freegeneratorsspent), 0, INF)
+	var bonusgeneratorsspent = clamp(round(passivethingboostcost), 0, floor(%magenter.extrathingpassive))
+	
+	%magenter.extrathingpassive -= bonusgeneratorsspent
+	passivethingamount = clamp((passivethingamount - round(passivethingboostcost) + bonusgeneratorsspent), 0, INF)
 	
 	passivethingboostmultiplier += passivethingboostpotential
 	passivethingcost = 200 * pow(1.1, passivethingamount)
@@ -106,6 +106,7 @@ func _themorethingsbutton():
 	if potentialthingmultiply < 1.5: achiev.achs[2].unlock()
 	thingmultiply *= potentialthingmultiply
 	passivethingamount = 0
+	%magenter.extrathingpassive = 0
 	passivethingcost = 200
 	things = 0
 	_update_passivething()
@@ -149,13 +150,14 @@ func _update_per_frame():
 			%cyyanmechanic.text = ("CYYAN THINGS\nthis costs " + format.number(CYYANMECHANICCOST) + " things")
 		else:
 			%cyyanmechanic.text = ("??? this costs " + format.number(CYYANMECHANICCOST) + " things")
+	
+	%passivethingbuy.text = ("passive thing generation (" + format.number(passivethingamount) + ((" + " + format.number(freethinggenerators)) if (freethinggenerators > 0) else "") + (("\n+ " + format.number(%magenter.extrathingpassive, 0)) if %cyyan.magentermechanic else "") + ")\nthis " + ("requires " if %cyyan.passivenocost else "costs ") + format.number(passivethingcost) + " things")
 
 func _update_perclickbuy():
 	%perclickbuy.text = ("more things per click (" + format.number(perclickamount) + ")\nthis costs " + format.number(perclickcost) + " things")
 
 func _update_passivething():
-	%passivethingbuy.text = ("passive thing generation (" + format.number(passivethingamount) + ((" + " + format.number(freethinggenerators)) if (freethinggenerators > 0) else "") + ")\nthis " + ("requires " if %cyyan.passivenocost else "costs ") + format.number(passivethingcost) + " things")
-	%passivethingboost.disabled = !((passivethingamount + freethinggenerators) >= round(passivethingboostcost))
+	%passivethingboost.disabled = !((passivethingamount + freethinggenerators+%magenter.extrathingpassive) >= round(passivethingboostcost))
 	%passivethingbuy.disabled = !(things >= floor(passivethingcost))
 
 func _update_passivethingboost():
