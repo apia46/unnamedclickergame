@@ -40,7 +40,7 @@ func processthings(delta):
 	
 	timesincelastclick += delta
 	if funnyupgradebuttonstage >= 1:
-		if timesincelastclick/float(100)/3 > 1:
+		if timesincelastclick/(float(100)/3) > 1:
 			funnyupgrade1boost = pow(timesincelastclick*60 - 2000, 0.001)
 		else:
 			funnyupgrade1boost = timesincelastclick*60/float(2000)
@@ -156,6 +156,7 @@ func _update_perclickbuy():
 func _update_passivething():
 	%passivethingbuy.text = ("passive thing generation (" + format.number(passivethingamount) + ((" + " + format.number(freethinggenerators)) if (freethinggenerators > 0) else "") + ")\nthis " + ("requires " if %cyyan.passivenocost else "costs ") + format.number(passivethingcost) + " things")
 	%passivethingboost.disabled = !((passivethingamount + freethinggenerators) >= round(passivethingboostcost))
+	%passivethingbuy.disabled = !(things >= floor(passivethingcost))
 
 func _update_passivethingboost():
 	%passivethingboost.text = ("x" + format.number(passivethingboostpotential + passivethingboostmultiplier) + " passive thing generation (x" + format.number(passivethingboostmultiplier) + ")\nthis costs " + format.number(passivethingboostcost, 0) + " passive thing generators")
