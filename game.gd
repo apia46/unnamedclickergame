@@ -38,12 +38,14 @@ func _process(delta):
 	cyyan.processcyyan(delta)
 	magenter.processmagenter(delta)
 	
+	# do the time stuff
 	if automatortime >= automatortick:
 		automatortime -= automatortick
 		_trigger_automators()
 	if autosavetime >= settings.autosaveinterval and settings.autosaveinterval > 0 and !autosaveOverride:
 		autosavetime = 0
 		_save(true)
+	
 	# then change the text
 	get_tree().call_group("toupdateperframe", "_update_per_frame")
 	
@@ -89,7 +91,7 @@ func load_panel():
 	loadnah.size.x = 50
 	loadnah.size.y = 25
 	loadpanel.add_child(loadnah)
-	loadnah.pressed.connect(loadpanel.queue_free)
+	loadnah.pressed.connect(self._paneldont)
 
 func _panelload():
 	_load()
@@ -101,7 +103,8 @@ func _paneldont():
 	autosaveOverride = false
 
 func _save(autosaved:=false):
-	if !autosaved: achiev.achs[11].unlock()
+	if !autosaved: await achiev.achs[11].unlock()
+	
 	timeSaved = Time.get_unix_time_from_system()
 	_update_all()
 	var save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.WRITE)
@@ -111,11 +114,12 @@ func _save(autosaved:=false):
 	save_file.store_line(JSON.stringify(achiev.save()))
 	save_file.store_line(JSON.stringify(things.save()))
 	save_file.store_line(JSON.stringify(cyyan.save()))
+	save_file.store_line(JSON.stringify(magenter.save()))
 	popup.newsidepopup(("auto" if autosaved else "") + "saved successfully")
 
 func _load():
 	if not FileAccess.file_exists(SAVEDIRECTORY):
-		print("there is no save file")
+		popup.newsidepopup("there is no save file")
 		return
 	
 	var save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.READ)
