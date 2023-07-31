@@ -37,7 +37,7 @@ func processcyyan(_delta):
 	if pow(cyyanthings, 0.7) + 1 < 1e6:
 		cyyanmultiply = pow(cyyanthings, 0.7) + 1
 	else:
-		cyyanmultiply = pow(log(cyyanthings)*1.5, 3) + 1e6
+		cyyanmultiply = pow(log(cyyanthings-4e8), 5.1)/3 + 1e6
 	@warning_ignore("integer_division")
 	timeplayedboost = clampf(game.time/500, 1, 500)
 
@@ -103,7 +103,7 @@ func _update_per_frame():
 	%magentermechanic.disabled = !(cyyanthings >= MAGENTERMECHANICCOST) or magentermechanic
 	%magentermechanic.visible = cyyanthings+cyyanthingscosted > MAGENTERMECHANICCOST
 	if !magentermechanic:
-		if cyyanthings >= MAGENTERMECHANICCOST:
+		if cyyanthings >= MAGENTERMECHANICCOST*0.5:
 			%magentermechanic.text = ("MAGENTER THINGS\nthis costs " + format.number(MAGENTERMECHANICCOST) + " cyyan things")
 		else:
 			%magentermechanic.text = ("???\nthis costs " + format.number(MAGENTERMECHANICCOST) + " cyyan things")
