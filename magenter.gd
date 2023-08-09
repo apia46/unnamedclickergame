@@ -10,14 +10,14 @@ var magenterperclick = float(0)
 var magenterperclickactual = float(0)
 const CYYANPERMAGENTER = float(1e10)
 var thingspercyyancost = float(1)
+var multiplier
 
 func processmagenter(delta):
 	if !%cyyan.magentermechanic: return
 	magenterperclick = %cyyan.cyyanthings/CYYANPERMAGENTER
 	thingpassivepersecond = pow(magenterthings/10, 0.5)
 	extrathingpassive += thingpassivepersecond*delta
-	
-	magenterperclickactual = ((magenterperclick)**(%normal.funnyupgrade1boost*1.3))*magenteryield
+	magenterperclickactual = ((magenterperclick)**(%normal.funnyupgrade1boost))*magenteryield
 	%normal._update_passivething()
 
 func _magenterbutton():
@@ -29,7 +29,7 @@ func _magenterbutton():
 func _thingspercyyan():
 	magenterthings -= thingspercyyancost
 	thingspercyyancost *= 2
-	%cyyan.thingspercyyan *= 0.9
+	%cyyan.thingspercyyan *= multiplier
 	_update_magenterthings()
 	_update_thingspercyyan()
 
@@ -50,7 +50,8 @@ func _update_magenterthings():
 	%thingspercyyan.disabled = !(magenterthings >= thingspercyyancost)
 
 func _update_thingspercyyan():
-	%thingspercyyan.text = "decrease things per cyyan\n" + format.number(%cyyan.thingspercyyan) + " -> " + format.number(%cyyan.thingspercyyan*0.9) + "\nthis costs " + format.number(thingspercyyancost) + "\nmagenter things"
+	multiplier = 1+(-0.2/log((thingspercyyancost)**0.2+10))
+	%thingspercyyan.text = "decrease things per cyyan\n" + format.number(%cyyan.thingspercyyan) + " -> " + format.number(%cyyan.thingspercyyan*multiplier) + "\nthis costs " + format.number(thingspercyyancost) + "\nmagenter things"
 
 
 func save():
