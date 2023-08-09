@@ -36,10 +36,10 @@ func processcyyan(delta):
 	cyyanthingsalltime += %normal.persecondactual*delta / thingspercyyan
 	
 	if !%normal.cyyanmechanic: return
-	if pow(floor(cyyanthings), 0.7) + 1 < 1e6:
+	if pow(floor(cyyanthings), 0.7) + 1 < 2e8:
 		cyyanmultiply = pow(floor(cyyanthings), 0.7) + 1
 	else:
-		cyyanmultiply = pow(cyyanthings, 0.5) + 1e6
+		cyyanmultiply = pow(log(cyyanthings-6e11), 4) * 5e2
 	@warning_ignore("integer_division")
 	timeplayedboost = clampf(game.time/500, 1, 500)
 
@@ -133,6 +133,7 @@ func save():
 		"nodepath" : self.get_path(),
 		"thingspercyyan" : thingspercyyan,
 		"cyyanthings" : cyyanthings,
+		"cyyanthingsalltime" : cyyanthingsalltime,
 		#"cyyanmultiply" : cyyanmultiply,
 		"passivenocost" : passivenocost,
 		"gainclick" : gainclick,
