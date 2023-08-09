@@ -40,10 +40,10 @@ func processthings(delta):
 	
 	timesincelastclick += delta
 	if funnyupgradebuttonstage >= 1:
-		if timesincelastclick/(float(100)/3) > 1:
-			funnyupgrade1boost = pow(timesincelastclick*60 - 2000, 0.001)
+		if timesincelastclick*3/float(100) > 1:
+			funnyupgrade1boost = pow(timesincelastclick, 0.2)/2
 		else:
-			funnyupgrade1boost = timesincelastclick*60/float(2000)
+			funnyupgrade1boost = timesincelastclick*3/float(100)
 	if funnyupgradebuttonstage >= 2:
 		if thingsalltime >= pow(2, freethinggenerators + 1):
 			freethinggenerators += 1
@@ -82,10 +82,11 @@ func _passivethingbuy():
 
 func _passivethingboost():
 	# prioritise spending free generators 
-	var bonusgeneratorsspent = clamp(round(passivethingboostcost), 0, floor(%magenter.extrathingpassive))
+	var freegeneratorsspent = clamp(round(passivethingboostcost), 0, floor(freethinggenerators))
+	var bonusgeneratorsspent = clamp(round(passivethingboostcost-freegeneratorsspent), 0, floor(%magenter.extrathingpassive))
 	
 	%magenter.extrathingpassive -= bonusgeneratorsspent
-	passivethingamount = clamp((passivethingamount - round(passivethingboostcost) + bonusgeneratorsspent), 0, INF)
+	passivethingamount = clamp((passivethingamount - round(passivethingboostcost) + bonusgeneratorsspent + freegeneratorsspent), 0, INF)
 	
 	passivethingboostmultiplier += passivethingboostpotential
 	passivethingcost = 200 * pow(1.1, passivethingamount)
