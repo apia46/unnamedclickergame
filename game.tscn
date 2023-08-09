@@ -67,7 +67,6 @@ layout_mode = 2
 
 [node name="normal" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("3_xbiip")
 
@@ -177,6 +176,7 @@ with clicker / idle games"
 
 [node name="cyyan" type="Control" parent="tabs/things" groups=["toupdateall", "toupdateperframe"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("4_4wn6w")
 
