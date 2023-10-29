@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnwt7at2bj3w3"]
+[gd_scene load_steps=11 format=3 uid="uid://dnwt7at2bj3w3"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_34ew5"]
 [ext_resource type="Script" path="res://things/basic/Things.gd" id="1_lt18y"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://things/basic/ThPC.gd" id="7_x1fmr"]
 [ext_resource type="Script" path="res://things/basic/ThG.gd" id="8_yjlru"]
 [ext_resource type="Script" path="res://things/basic/MThPC.gd" id="9_gr0mf"]
-[ext_resource type="Script" path="res://things/basic/ThGM.gd" id="9_ix684"]
 [ext_resource type="Script" path="res://things/basic/FU.gd" id="10_kqa60"]
 
 [node name="game" type="Node2D"]
@@ -76,29 +75,13 @@ Costs X.XXe+XXX things
 "
 script = ExtResource("8_yjlru")
 
-[node name="ThGM" type="Button" parent="Tabs/Things/Basic"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -313.0
-offset_top = 215.0
-offset_right = -38.0
-offset_bottom = 315.0
-grow_horizontal = 0
-text = "Generator Multiplier (xX.XXe+XXX)
-Costs X.XXe+XXX generators
-"
-script = ExtResource("9_ix684")
-
 [node name="MThPC" type="Button" parent="Tabs/Things/Basic"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 38.0
-offset_top = 215.0
+offset_top = 213.0
 offset_right = 313.0
-offset_bottom = 295.0
+offset_bottom = 293.0
 text = "XXX (+1) extra things per click
 Costs X.XXe+XXX things"
 script = ExtResource("9_gr0mf")
@@ -112,7 +95,7 @@ anchor_right = 0.5
 offset_left = -137.5
 offset_top = 100.0
 offset_right = 137.5
-offset_bottom = 250.0
+offset_bottom = 200.0
 grow_horizontal = 2
 text = "Funny Upgrade X
 heres what it does

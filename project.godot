@@ -11,19 +11,21 @@ config_version=5
 [application]
 
 config/name="Unnamed Clicker Game"
-config/description="i have no clue how to use godot effectively
-official download: https://beeka274.itch.io/unnamed-clicker-game
-if you arent downloading it there, uhh report it to someone ig not me though idk how to handle it"
 run/main_scene="res://game.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
-boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://assets/ach/00.png"
 
-[display]
+[autoload]
 
-window/size/viewport_width=1000
-window/size/viewport_height=700
+Dec="*res://game/break_infinity.gd"
 
-[filesystem]
+[debug]
 
-import/blender/enabled=false
+gdscript/warnings/shadowed_global_identifier=0
+gdscript/warnings/static_called_on_instance=0
+gdscript/warnings/narrowing_conversion=0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
