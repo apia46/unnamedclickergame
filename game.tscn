@@ -146,5 +146,6 @@ layout_mode = 2
 
 [connection signal="pressed" from="Tabs/Things/Basic/ThPC" to="Tabs/Things/Basic/ThPC" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/ThG" to="Tabs/Things/Basic/ThG" method="c"]
+[connection signal="pressed" from="Tabs/Things/Basic/ThGM" to="Tabs/Things/Basic/ThGM" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/MThPC" to="Tabs/Things/Basic/MThPC" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/FU" to="Tabs/Things/Basic/FU" method="c"]

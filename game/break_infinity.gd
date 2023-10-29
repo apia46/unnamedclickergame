@@ -410,7 +410,7 @@ class Decimal:
 				return Dec.ME(newMantissa, temp)
 		
 		# Same speed and usually more accurate.
-		
+		print(value)
 		var newExponent = Dec.trunc(temp)
 		var residue = temp - newExponent
 		newMantissa = pow(10, numberValue * Dec.log10(self.m) + residue)
