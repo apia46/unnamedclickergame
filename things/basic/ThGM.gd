@@ -12,6 +12,5 @@ func c():
 	if !%ThG.n.GE(cost): return
 	n.Incr(add)
 	%ThG.n.Decr(cost)
-	#FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK (doesnt fractional powers)
-	cost = Dec.D(10).PowOf(Dec.D(1.15).PowOf(n))
+	cost = Dec.D(10).PowOf(Dec.D(1.15).PowOf(n)).Floor()
 	

@@ -101,7 +101,7 @@ static func trunc(n:float) -> float:
 
 const POW_TWO_53 = 2**53
 static func IsSafeInteger(n) -> bool:
-	return n > -(POW_TWO_53 - 1) and n < POW_TWO_53 - 1
+	return n > -(POW_TWO_53 - 1) and n < POW_TWO_53 - 1 and n == floor(n)
 static func IsFinite(n:float) -> bool:
 	return abs(n) != INF
 
@@ -410,12 +410,13 @@ class Decimal:
 				return Dec.ME(newMantissa, temp)
 		
 		# Same speed and usually more accurate.
-		print(value)
+		
 		var newExponent = Dec.trunc(temp)
+		
 		var residue = temp - newExponent
 		newMantissa = pow(10, numberValue * Dec.log10(self.m) + residue)
 		if Dec.IsFinite(newMantissa) and newMantissa != 0:
-			return Dec.ME(newExponent, newExponent)
+			return Dec.ME(newMantissa, newExponent)
 		
 		var result = Pow10(numberValue * self.AbsLog10())
 		if self.Sign() == -1:

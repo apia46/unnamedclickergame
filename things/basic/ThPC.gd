@@ -6,9 +6,10 @@ extends Button
 func _process(d):
 	timeSince.Incr(d)
 	
-	var nC = Dec.D(100)
-	nC = nC.Add(%MThPC.n)
-	if %FU.n>1: nC = nC.Mul(%FU.e1)
+	# calculating things per click
+	var nC = Dec.D(1)
+	nC.Incr(%MThPC.n)
+	if %FU.n>1: nC.Mulr(%FU.e1)
 	n = nC
 	
 	text = "Thing Button\nYou will get "+n.F()+" things"
