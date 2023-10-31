@@ -9,7 +9,7 @@ func _process(d):
 	# calculating things per click
 	var nC = Dec.D(1)
 	nC.Incr(%MThPC.n)
-	if %FU.n>1: nC.Mulr(%FU.e1)
+	if %FUpg.n>1: nC.Mulr(%FUpg.e1)
 	n = nC
 	
 	text = "Thing Button\nYou will get "+n.F()+" things"

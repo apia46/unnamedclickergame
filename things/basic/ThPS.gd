@@ -5,7 +5,7 @@ extends RichTextLabel
 func _process(d):
 	# calculating things per second
 	var nC = %ThG.n.Clone()
-	nC.Mulr(%ThGM.n)
+	nC.Mulr(%ThG.nM)
 	n = nC
 	
 	text = "and get "+n.F()+" things per second"

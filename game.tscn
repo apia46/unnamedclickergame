@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnwt7at2bj3w3"]
+[gd_scene load_steps=13 format=3 uid="uid://cpqqaev4eswca"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_34ew5"]
 [ext_resource type="Script" path="res://things/basic/Things.gd" id="1_lt18y"]
@@ -6,11 +6,12 @@
 [ext_resource type="Script" path="res://things/Things.gd" id="3_b7j7m"]
 [ext_resource type="Script" path="res://things/basic/Basic.gd" id="4_darcl"]
 [ext_resource type="Script" path="res://things/basic/ThPS.gd" id="6_7htbn"]
+[ext_resource type="Theme" uid="uid://csb1vswc257qu" path="res://things/basic/basic.tres" id="7_5x0n6"]
 [ext_resource type="Script" path="res://things/basic/ThPC.gd" id="7_x1fmr"]
 [ext_resource type="Script" path="res://things/basic/ThG.gd" id="8_yjlru"]
 [ext_resource type="Script" path="res://things/basic/MThPC.gd" id="9_gr0mf"]
 [ext_resource type="Script" path="res://things/basic/ThGM.gd" id="9_ix684"]
-[ext_resource type="Script" path="res://things/basic/FU.gd" id="10_kqa60"]
+[ext_resource type="Script" path="res://things/basic/FUpg.gd" id="11_3k0d2"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_34ew5")
@@ -56,6 +57,7 @@ offset_left = 38.0
 offset_top = 100.0
 offset_right = 313.0
 offset_bottom = 200.0
+theme = ExtResource("7_5x0n6")
 text = "Thing Button
 You will get X.XXe+XXX"
 script = ExtResource("7_x1fmr")
@@ -63,14 +65,11 @@ script = ExtResource("7_x1fmr")
 [node name="ThG" type="Button" parent="Tabs/Things/Basic"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -313.0
+offset_left = 320.0
 offset_top = 100.0
-offset_right = -38.0
+offset_right = 595.0
 offset_bottom = 200.0
-grow_horizontal = 0
+theme = ExtResource("7_5x0n6")
 text = "Thing Generator (XXX)
 Costs X.XXe+XXX things
 "
@@ -79,15 +78,13 @@ script = ExtResource("8_yjlru")
 [node name="ThGM" type="Button" parent="Tabs/Things/Basic"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -313.0
-offset_top = 215.0
-offset_right = -38.0
-offset_bottom = 315.0
-grow_horizontal = 0
-text = "Generator Multiplier (xX.XXe+XXX)
+offset_left = 320.0
+offset_top = 205.0
+offset_right = 595.0
+offset_bottom = 285.0
+theme = ExtResource("7_5x0n6")
+text = "Generator Multiplier
+xX.XXe+XXX [+X.XXe+XXX]
 Costs X.XXe+XXX generators
 "
 script = ExtResource("9_ix684")
@@ -96,29 +93,35 @@ script = ExtResource("9_ix684")
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 38.0
-offset_top = 215.0
+offset_top = 205.0
 offset_right = 313.0
-offset_bottom = 295.0
+offset_bottom = 285.0
+theme = ExtResource("7_5x0n6")
 text = "XXX (+1) extra things per click
 Costs X.XXe+XXX things"
 script = ExtResource("9_gr0mf")
 
-[node name="FU" type="Button" parent="Tabs/Things/Basic"]
+[node name="FUpg" type="Button" parent="Tabs/Things/Basic"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -137.5
+offset_left = 24.0
 offset_top = 100.0
-offset_right = 137.5
-offset_bottom = 250.0
+offset_right = 424.0
+offset_bottom = 285.0
 grow_horizontal = 2
-text = "Funny Upgrade X
-heres what it does
-it does this it would xX.XXe+XXX
-Costs X.XXe+XXX things"
-script = ExtResource("10_kqa60")
+theme = ExtResource("7_5x0n6")
+text = "Funny Upgrade XXX
+Costs X.XXe+XXX things
+Effects:
+X.XXe+XXXx multiplier to YYYYYYYY based on ZZZZZZZZZZZZZZ
+X.XXe+XXXx multiplier to YYYYYYYY based on ZZZZZZZZZZZZZZ
+X.XXe+XXXx multiplier to YYYYYYYY based on ZZZZZZZZZZZZZZ
+X.XXe+XXXx multiplier to YYYYYYYY based on ZZZZZZZZZZZZZZ
+X.XXe+XXXx multiplier to YYYYYYYY based on ZZZZZZZZZZZZZZ"
+script = ExtResource("11_3k0d2")
 
 [node name="Cyyan" type="Control" parent="Tabs/Things"]
 visible = false
@@ -128,7 +131,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Not things" type="Control" parent="Tabs"]
+[node name="Bees" type="Control" parent="Tabs"]
 visible = false
 layout_mode = 2
 
@@ -148,4 +151,4 @@ layout_mode = 2
 [connection signal="pressed" from="Tabs/Things/Basic/ThG" to="Tabs/Things/Basic/ThG" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/ThGM" to="Tabs/Things/Basic/ThGM" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/MThPC" to="Tabs/Things/Basic/MThPC" method="c"]
-[connection signal="pressed" from="Tabs/Things/Basic/FU" to="Tabs/Things/Basic/FU" method="c"]
+[connection signal="pressed" from="Tabs/Things/Basic/FUpg" to="Tabs/Things/Basic/FUpg" method="c"]

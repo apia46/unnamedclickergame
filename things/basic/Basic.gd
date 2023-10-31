@@ -8,4 +8,4 @@ extends Control
 
 @onready var ThG = get_node("ThG")
 
-@onready var FU = get_node("FU")
+@onready var FUpg = get_node("FUpg")
