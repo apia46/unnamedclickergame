@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpqqaev4eswca"]
+[gd_scene load_steps=17 format=3 uid="uid://eh3825v6dcf"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_34ew5"]
 [ext_resource type="Script" path="res://things/basic/Things.gd" id="1_lt18y"]
@@ -12,6 +12,10 @@
 [ext_resource type="Script" path="res://things/basic/MThPC.gd" id="9_gr0mf"]
 [ext_resource type="Script" path="res://things/basic/ThGM.gd" id="9_ix684"]
 [ext_resource type="Script" path="res://things/basic/FUpg.gd" id="11_3k0d2"]
+[ext_resource type="Script" path="res://achievements/Achievements.gd" id="13_4503f"]
+[ext_resource type="Script" path="res://achievements/AchCont.gd" id="14_p4vey"]
+[ext_resource type="Script" path="res://game/Hover.gd" id="15_5chup"]
+[ext_resource type="Script" path="res://game/Popup.gd" id="16_ymitl"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_34ew5")
@@ -136,8 +140,19 @@ visible = false
 layout_mode = 2
 
 [node name="Achievements" type="Control" parent="Tabs"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
+script = ExtResource("13_4503f")
+
+[node name="AchCont" type="GridContainer" parent="Tabs/Achievements"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 140.0
+offset_bottom = 140.0
+script = ExtResource("14_p4vey")
 
 [node name="Settings" type="Control" parent="Tabs"]
 visible = false
@@ -146,6 +161,18 @@ layout_mode = 2
 [node name="Information" type="Control" parent="Tabs"]
 visible = false
 layout_mode = 2
+
+[node name="Hover" type="PanelContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_5chup")
+
+[node name="Popup" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("16_ymitl")
 
 [connection signal="pressed" from="Tabs/Things/Basic/ThPC" to="Tabs/Things/Basic/ThPC" method="c"]
 [connection signal="pressed" from="Tabs/Things/Basic/ThG" to="Tabs/Things/Basic/ThG" method="c"]
