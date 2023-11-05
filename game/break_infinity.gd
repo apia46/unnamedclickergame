@@ -377,8 +377,8 @@ class Decimal:
 		return self.e + Dec.log10(self.m)
 	func AbsLog10() -> float:
 		return self.e + Dec.log10(abs(self.m))
-	func Log(base) -> float:
-		return (LN10 / log(base)) * self.Log10()
+	func Log(base) -> Decimal:
+		return Dec.D(self.Log10()).Mul(LN10 / log(base))
 	func Log2() -> float:
 		return 3.321928094887362 * self.Log10()
 	func Ln() -> float:

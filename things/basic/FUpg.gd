@@ -5,6 +5,7 @@ extends Button
 
 @onready var e1 = Dec.D(1)
 @onready var e2 = Dec.D(1)
+@onready var e3 = Dec.D(1)
 
 func _process(_d):
 	# upg 1
@@ -17,16 +18,20 @@ func _process(_d):
 	var gens = %ThG.n
 	e2 = gens.PowOf(1.1).Div(2).Add(1)
 	
+	#upg 3
+	e3 = Dec.D(%Things.n.Add(1).Ln())
+	
 	match n:
 		1: cost = Dec.D(1000)
 		2: cost = Dec.D(10000)
-		3: cost = Dec.D(80000)
+		3: cost = Dec.D(100000)
 	
 	#desc = "things gained multiplier (based on achievements)"
 	
 	text = "Funny Upgrade "+str(n)+"\nCosts "+cost.F()+" things"
 	if n > 1: text += "\nEffects:\n"+e1.F()+"x things per click (based on time since last click)"
 	if n > 2: text += "\n"+e2.F()+"x generator multiplier (based on generators bought)"
+	if n > 3: text += "\n"+e3.F()+"x things per click (based on things)"
 	
 	disabled = !%Things.n.GE(cost)
 

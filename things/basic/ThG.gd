@@ -7,7 +7,7 @@ extends Button
 func _process(_d):
 	disabled = !%Things.n.GE(cost)
 	text = "Thing Generator ("+n.F()+")\nCosts "+cost.F()+" things"
-	cost = Dec.D(200).Mul(Dec.D(1.1).PowOf(n))
+	cost = Dec.D(200).Mul(Dec.D(1.2).PowOf(n))
 	
 	var nMC = Dec.D(1)
 	nMC.Mulr(%ThGM.n)

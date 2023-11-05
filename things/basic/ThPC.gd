@@ -10,6 +10,7 @@ func _process(d):
 	var nC = Dec.D(1)
 	nC.Incr(%MThPC.n)
 	if %FUpg.n>1: nC.Mulr(%FUpg.e1)
+	if %FUpg.n>3: nC.Mulr(%FUpg.e3)
 	n = nC
 	
 	text = "Thing Button\nYou will get "+n.F()+" things"
