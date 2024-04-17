@@ -13,10 +13,21 @@ config_version=5
 config/name="Unnamed Clicker Game"
 config/description="i have no clue how to use godot effectively
 official download: https://beeka274.itch.io/unnamed-clicker-game
-if you arent downloading it there, uhh report it to someone ig not me though idk how to handle it"
+if you arent downloading it there, uhh you can tell me but idk what to do about it"
+run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 config/icon="res://assets/achievements/00.png"
+
+[autoload]
+
+Dec="*res://addons/break_infinity.gd"
+
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/static_called_on_instance=0
+gdscript/warnings/narrowing_conversion=0
 
 [display]
 

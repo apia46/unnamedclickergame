@@ -19,8 +19,11 @@ const NUMBER_EXP_MAX = 308;
 # The smallest exponent that can appear in a Number, though not all mantissas are valid here.
 const NUMBER_EXP_MIN = -324;
 
-# Tolerance which is used for Number conversion to compensate floating-point error.
+# Tolerance which is used for Number conversion to compensate for floating-point error.
 const ROUND_TOLERANCE = 1e-10;
+
+# Tolerance which is used for equality checks to compensate for floating point error
+const EPSILON = 1e-10
 
 # ===== CONSTANTS =====
 
@@ -193,6 +196,9 @@ class Decimal:
 			return round(result)
 		return result
 	
+	func ToInt() -> int:
+		return int(self.ToFloat())
+	
 	# ===== MATH OPERATIONS =====
 	
 	
@@ -305,7 +311,7 @@ class Decimal:
 	func DividedBy(value) -> Decimal:
 		return self.Div(value)
 	
-	func Cmp(value) -> int:
+	func Cmp(value) -> int: # Compares NaN values
 		var decimal = Dec.D(value)
 		if self.IsNaN():
 			if decimal.IsNaN():
@@ -317,7 +323,7 @@ class Decimal:
 	
 	func Eq(value) -> bool:
 		var decimal = Dec.D(value)
-		return self.e == decimal.e and self.m == decimal.m
+		return self.e == decimal.e and abs(self.m - decimal.m) < EPSILON
 	func Equals(value) -> bool:
 		return self.Eq(value)
 	func Neq(value) -> bool:
@@ -480,10 +486,18 @@ class Decimal:
 			(810 * pow(n,6))), n).Mul(sqrt(TAU / n)
 		)
 	
-	func F() -> String:
-		return Format()
+	func Plural() -> bool:
+		return self.NotEquals(1)
 	
-	func Format() -> String:
+	func F(noun:="") -> String:
+		return Format(noun)
+	
+	func Format(noun:="") -> String:
+		# affix a noun for convenience
+		var affix = ""
+		if noun != "":
+			affix = " " + (getPluralForm(noun) if self.Plural() else noun)
+		
 		var num = self
 		var prefix = ""
 		if num.L(0):
@@ -491,6 +505,7 @@ class Decimal:
 			prefix = "-"
 		var selfLog10 = num.Clone().Log10()
 		if selfLog10 < 6:
+			# to not display scientific notation
 			var toFloat = num.Clone().ToFloat()
 			var residue = fmod(toFloat, 1)
 			var truncated
@@ -505,10 +520,11 @@ class Decimal:
 			if selfLog10 >= 3:
 				truncated = truncated.insert(len(truncated)-3,",")
 			if residue == 0:
-				return prefix+truncated
+				return prefix+truncated+affix
 			else:
-				return prefix+truncated + str(snapped(residue, 0.01)).erase(0)
+				return prefix+truncated + str(snapped(residue, 0.01)).erase(0)+affix
 		else:
+			# to display scientific notation
 			var toReturn = ""
 			if selfLog10 < 1000000:
 				toReturn = str(snapped(num.m, 0.01))
@@ -517,4 +533,7 @@ class Decimal:
 			elif selfLog10 < 1e12:
 				toReturn = str(snapped(num.m, 1))
 			toReturn += "e" + str(Dec.D(floor(num.e)).Format())
-			return prefix+toReturn
+			return prefix+toReturn+affix
+	
+	func getPluralForm(noun) -> String:
+		return noun + "s"
