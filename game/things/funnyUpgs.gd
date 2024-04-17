@@ -21,8 +21,10 @@ func _funnyUpg_buy():
 	updateFunnyUpgEffects()
 
 func updateFunnyUpgEffects():
-	if upg > 1:
-		things.generators.mulGensPer(2)
+	pass
+
+func removeLatest():
+	remove_child(upgButtons[-1])
 
 func update():
 	upgButtons = []

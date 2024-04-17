@@ -44,6 +44,7 @@ layout_mode = 2
 [node name="clicks" type="VBoxContainer" parent="cont/main/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 script = ExtResource("3_0smp3")
 
 [node name="thingButton" type="Button" parent="cont/main/topside/clicks"]
@@ -64,7 +65,7 @@ Currently +0.00e+000"
 [node name="generators" type="VBoxContainer" parent="cont/main/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 script = ExtResource("4_2lbu8")
 
 [node name="gensButton" type="Button" parent="cont/main/topside/generators"]

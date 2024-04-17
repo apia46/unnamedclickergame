@@ -29,8 +29,9 @@ func _ready():
 			cost = Dec.D(10000)
 			effect = "The sixth one"
 		_:
-			cost = Dec.D(-1)
-			effect = "invalid funnyUpg id"
+			cost = 0
+			effect = ""
+			parent.removeLatest()
 
 func set_data(Id,Bought:=false):
 	id = Id
@@ -46,6 +47,7 @@ func updateButtons():
 	disabled = bought or parent.things.things.LessThan(cost)
 
 func updateText():
+	if effect == "": return
 	text = "Funny Upgrade "+str(id+1)+"
 "+("costs "+cost.F("thing")+"
 " if !bought else "")+(effect if bought else "???")

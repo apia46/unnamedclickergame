@@ -19,31 +19,27 @@ func addGens(amount):
 
 func costGens(amount):
 	gens.Decr(amount)
-	updateGensCost()
 
 func procGens():
+	gensCost = Dec.D(200).Mul(Dec.D(1.2).PowOf(gens.Div(gensPer)))
+	
 	genMultiplier = Dec.D(1) # base
 	genMultiplier.Incr(genMult)
+	
+	gensPer = Dec.D(1) # base
+	if things.funnyUpgs.upg > 1: gensPer.Mulr(2)
 	
 	tpsPerGen = Dec.D(1) # base
 	tpsPerGen.Mulr(genMultiplier)
 
-func mulGensPer(amount):
-	gensPer.Mulr(amount)
-	updateGensCost()
-
 func _gens_buy():
 	things.costThings(gensCost)
 	addGens(gensPer)
-	updateGensCost()
 
 func _genMult_buy():
 	costGens(genMultCost)
 	genMultCost = Dec.D(5).PowOf(Dec.D(1.15).PowOf(genMult.Add(1))).Floor()
 	genMult.Incr(genMultPer)
-
-func updateGensCost():
-	gensCost = Dec.D(200).Mul(Dec.D(1.2).PowOf(gens.Div(gensPer)))
 
 func updateButtons():
 	$"gensButton".disabled = things.things.LessThan(gensCost)
