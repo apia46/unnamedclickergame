@@ -7,20 +7,25 @@ extends MarginContainer
 @onready var thingsTotal = Dec.D(0)
 # computed
 @onready var TPS = Dec.D(0)
+@onready var gensOutput = Dec.D(0)
 
 func _ready(): pass
 
-func addThings(amount:Dec.Decimal):
+func addThings(amount):
 	things.Incr(amount)
 	thingsTotal.Incr(amount)
 
-func costThings(amount:Dec.Decimal):
+func costThings(amount):
 	things.Decr(amount)
 
 # processes things per second
 func procTPS(delta):
-	TPS = Dec.D(0) # base
-	TPS.Incr(generators.gens.Mul(generators.tpsPerGen))
+	gensOutput = Dec.D(0)
+	gensOutput = generators.gens.Mul(generators.tpsPerGen)
+	if funnyUpgs.stage > 4: gensOutput.PowOfr(1.1)
+	
+	TPS = Dec.D(0)
+	TPS.Incr(gensOutput)
 	
 	addThings(TPS.Mul(delta))
 
@@ -31,7 +36,7 @@ func updateButtons():
 
 func updateText():
 	$"cont/textCont/thingsLabel".text = "You have "+things.F("thing")
-	$"cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing")+" per second"
+	$"cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing")+" per second (TPS)"
 	
 	clicks.updateText()
 	generators.updateText()

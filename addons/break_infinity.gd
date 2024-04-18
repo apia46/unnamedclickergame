@@ -1,7 +1,6 @@
 extends Node
 
 # credit to @m_rld; idk what half of this does
-# probably credit to Big (https://github.com/ChronoDK/GodotBigNumberClass) as well
 # and of course to break_infinity.js (https://github.com/Patashu/break_infinity.js)
 
 # ===== CONSTANTS =====
@@ -25,7 +24,13 @@ const ROUND_TOLERANCE = 1e-10;
 # Tolerance which is used for equality checks to compensate for floating point error
 const EPSILON = 1e-10
 
+enum {SCIENTIFIC, STANDARD, STANDARDFULL, LONG}
+
 # ===== CONSTANTS =====
+
+var format = SCIENTIFIC
+var seperator = Format.SEPERATOR.COMMA
+var decimalPoint = Format.SEPERATOR.PERIOD
 
 #func _init(mantissa, exponent := 0.0):
 #	if typeof(m) == TYPE_STRING:
@@ -257,6 +262,11 @@ class Decimal:
 		self.m = added.m
 		self.e = added.e
 	
+	func PowOfr(value):
+		var added = self.PowOf(value)
+		self.m = added.m
+		self.e = added.e
+	
 	func Add(value) -> Decimal:
 		
 		var decimal = Dec.D(value)
@@ -387,8 +397,8 @@ class Decimal:
 		return Dec.D(self.Log10()).Mul(LN10 / log(base))
 	func Log2() -> float:
 		return 3.321928094887362 * self.Log10()
-	func Ln() -> float:
-		return 2.302585092994045 * self.Log10()
+	func Ln() -> Decimal:
+		return Dec.D(2.302585092994045 * self.Log10())
 	
 	static func Pow10(value) -> Decimal:
 		if typeof(value) == TYPE_INT:
@@ -490,50 +500,18 @@ class Decimal:
 		return self.NotEquals(1)
 	
 	func F(noun:="") -> String:
-		return Format(noun)
-	
-	func Format(noun:="") -> String:
 		# affix a noun for convenience
 		var affix = ""
 		if noun != "":
 			affix = " " + (getPluralForm(noun) if self.Plural() else noun)
-		
-		var num = self
-		var prefix = ""
-		if num.L(0):
-			num = num.Neg()
-			prefix = "-"
-		var selfLog10 = num.Clone().Log10()
-		if selfLog10 < 6:
-			# to not display scientific notation
-			var toFloat = num.Clone().ToFloat()
-			var residue = fmod(toFloat, 1)
-			var truncated
-			if residue > 0.995:
-				truncated = toFloat - residue + 1
-				residue = 0
-			else:
-				truncated = toFloat - residue
-			truncated = str(truncated)
-			if selfLog10 >= 6:
-				truncated = truncated.insert(len(truncated)-6,",")
-			if selfLog10 >= 3:
-				truncated = truncated.insert(len(truncated)-3,",")
-			if residue == 0:
-				return prefix+truncated+affix
-			else:
-				return prefix+truncated + str(snapped(residue, 0.01)).erase(0)+affix
-		else:
-			# to display scientific notation
-			var toReturn = ""
-			if selfLog10 < 1000000:
-				toReturn = str(snapped(num.m, 0.01))
-			elif selfLog10 < 1e9:
-				toReturn = str(snapped(num.m, 0.1))
-			elif selfLog10 < 1e12:
-				toReturn = str(snapped(num.m, 1))
-			toReturn += "e" + str(Dec.D(floor(num.e)).Format())
-			return prefix+toReturn+affix
+		match Dec.format:
+			SCIENTIFIC:
+				if 0 <= self.e and self.e < 6: return Format.formatDecimalLong(self, 2, Dec.seperator, Dec.decimalPoint) + affix
+				else: return Format.formatDecimalScientific(self, 2, Dec.seperator, Dec.decimalPoint) + affix
+			STANDARD: return Format.formatDecimalStandard(self, 2, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint) + affix
+			STANDARDFULL: return Format.formatDecimalStandard(self, 2, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint) + affix
+			LONG: return Format.formatDecimalLong(self, 2, Dec.seperator, Dec.decimalPoint) + affix
+			_: return "error"
 	
 	func getPluralForm(noun) -> String:
 		return noun + "s"

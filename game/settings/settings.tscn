@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2n2e3aho4km8"]
+
+[ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_nyjgj"]
+[ext_resource type="Script" path="res://game/settings/settings.gd" id="2_ebn27"]
+[ext_resource type="Script" path="res://game/settings/formatting.gd" id="3_n8mdx"]
+
+[node name="settings" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nyjgj")
+script = ExtResource("2_ebn27")
+
+[node name="cont" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="topside" type="HBoxContainer" parent="cont"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+alignment = 1
+
+[node name="formatting" type="VBoxContainer" parent="cont/topside"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 1
+script = ExtResource("3_n8mdx")
+
+[node name="formattingLabel" type="RichTextLabel" parent="cont/topside/formatting"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Number Formatting"
+fit_content = true
+
+[node name="formattingExample" type="RichTextLabel" parent="cont/topside/formatting"]
+layout_mode = 2
+text = "Example: 1234567.890123"
+fit_content = true
+
+[node name="formattingOptions" type="OptionButton" parent="cont/topside/formatting"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Scientific"
+popup/item_0/id = 0
+popup/item_1/text = "Standard"
+popup/item_1/id = 1
+popup/item_2/text = "Standard (full)"
+popup/item_2/id = 4
+popup/item_3/text = "Long"
+popup/item_3/id = 3
+
+[node name="seperatorOptions" type="OptionButton" parent="cont/topside/formatting"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Commas, period"
+popup/item_0/id = 0
+popup/item_1/text = "Periods, comma"
+popup/item_1/id = 1
+popup/item_2/text = "None, period"
+popup/item_2/id = 2
+popup/item_3/text = "None, comma"
+popup/item_3/id = 3
+
+[connection signal="item_selected" from="cont/topside/formatting/formattingOptions" to="cont/topside/formatting" method="_formattingOptions_select"]
+[connection signal="item_selected" from="cont/topside/formatting/seperatorOptions" to="cont/topside/formatting" method="_seperatorOptions_select"]

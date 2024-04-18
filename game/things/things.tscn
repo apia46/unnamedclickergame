@@ -30,7 +30,7 @@ fit_content = true
 [node name="tpsLabel" type="RichTextLabel" parent="cont/textCont"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
-text = "You are gaining 0.00e+000 things per second"
+text = "You are gaining 0.00e+000 things per second (TPS)"
 fit_content = true
 
 [node name="main" type="VBoxContainer" parent="cont"]

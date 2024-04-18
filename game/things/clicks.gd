@@ -2,22 +2,40 @@ extends VBoxContainer
 @onready var things = $"../../../.." # has to be relative (/things moves)
 
 @onready var clicks = Dec.D(0)
+@onready var timeSinceClick = Dec.D(0)
 
 @onready var perClickUpg = Dec.D(0)
 @onready var perClickUpgPer = Dec.D(1)
 @onready var perClickUpgCost = Dec.D(1) # cost in things
 # computed
 @onready var thingsPerClick = Dec.D(1)
+@onready var funnyUpg2 = Dec.D(1)
+@onready var funnyUpg6 = Dec.D(1)
 
 func _ready(): pass
 
 func procThingsPerClick():
-	thingsPerClick = Dec.D(1) # base
+	thingsPerClick = Dec.D(1)
 	thingsPerClick.Incr(perClickUpg)
+	
+	if things.funnyUpgs.stage > 2:
+		funnyUpg2 = Dec.D(1)
+		if timeSinceClick.LessThan(3): funnyUpg2 = timeSinceClick.Squared().Mul(4).Add(1)
+		else:
+			funnyUpg2 = timeSinceClick.Mul(3).Add(timeSinceClick.Neg().Add(2.8).Reciprocal()).Add(33)
+		thingsPerClick.Mulr(funnyUpg2)
+	
+	if things.funnyUpgs.stage > 6:
+		funnyUpg6 = things.things.Add(1).Ln()
+		thingsPerClick.Mulr(funnyUpg6)
+
+func procTimeSinceClick(delta):
+	timeSinceClick.Incr(delta)
 
 func _clicked():
 	things.addThings(thingsPerClick)
 	clicks.Incr(1)
+	timeSinceClick = Dec.D(0)
 
 func _upg_buy():
 	things.costThings(perClickUpgCost)

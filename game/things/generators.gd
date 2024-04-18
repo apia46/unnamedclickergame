@@ -23,13 +23,13 @@ func costGens(amount):
 func procGens():
 	gensCost = Dec.D(200).Mul(Dec.D(1.2).PowOf(gens.Div(gensPer)))
 	
-	genMultiplier = Dec.D(1) # base
+	genMultiplier = Dec.D(1)
 	genMultiplier.Incr(genMult)
 	
-	gensPer = Dec.D(1) # base
-	if things.funnyUpgs.upg > 1: gensPer.Mulr(2)
+	gensPer = Dec.D(1)
+	if things.funnyUpgs.stage > 1: gensPer.Mulr(2)
 	
-	tpsPerGen = Dec.D(1) # base
+	tpsPerGen = Dec.D(1)
 	tpsPerGen.Mulr(genMultiplier)
 
 func _gens_buy():
@@ -49,7 +49,7 @@ func updateText():
 	$"gensButton".text = "Thing Generators
 +"+gensPer.F()+" costs "+gensCost.F("thing")+"
 Currently "+gens.F("generator")+"
-"+("each " if gens.Plural() else "")+"producing "+tpsPerGen.F("thing")+" per second"
+"+("each " if gens.Plural() else "")+"producing "+(things.gensOutput.Div(gens) if gens.GreaterThan(0) else tpsPerGen).F("thing")+" per second"
 	$"genMultButton".text = "Thing Generator Multiplier
 +"+genMultPer.F()+"x costs "+genMultCost.F("thing generator")+"
 Currently +"+genMult.F()+"x"
