@@ -31,6 +31,7 @@ enum {SCIENTIFIC, STANDARD, STANDARDFULL, LONG}
 var format = SCIENTIFIC
 var seperator = Format.SEPERATOR.COMMA
 var decimalPoint = Format.SEPERATOR.PERIOD
+var digitsShown = 2
 
 #func _init(mantissa, exponent := 0.0):
 #	if typeof(m) == TYPE_STRING:
@@ -83,6 +84,12 @@ static func FromString(value):
 	new.SetFromString(value)
 	return new
 
+
+static func fromArray(array) -> Decimal:
+	assert(array[0] == "Decimal", "tried to unpack nondecimal")
+	return ME(array[1], array[2])
+
+
 # We need this lookup table because Math.pow(10, exponent)
 # when exponent's absolute value is large is slightly inaccurate.
 # You can fix it with the power of math... or just make a lookup table.
@@ -117,6 +124,9 @@ class Decimal:
 	
 	var m: float = 0.0
 	var e: float = 0.0
+	
+	func asArray():
+		return ["Decimal", self.m, self.e]
 	
 	func SetMantissaExponent(mantissa, exponent):
 		self.m = mantissa
@@ -506,11 +516,11 @@ class Decimal:
 			affix = " " + (getPluralForm(noun) if self.Plural() else noun)
 		match Dec.format:
 			SCIENTIFIC:
-				if 0 <= self.e and self.e < 6: return Format.formatDecimalLong(self, 2, Dec.seperator, Dec.decimalPoint) + affix
-				else: return Format.formatDecimalScientific(self, 2, Dec.seperator, Dec.decimalPoint) + affix
-			STANDARD: return Format.formatDecimalStandard(self, 2, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint) + affix
-			STANDARDFULL: return Format.formatDecimalStandard(self, 2, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint) + affix
-			LONG: return Format.formatDecimalLong(self, 2, Dec.seperator, Dec.decimalPoint) + affix
+				if 0 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
+				else: return Format.formatDecimalScientific(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
+			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint) + affix
+			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint) + affix
+			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
 			_: return "error"
 	
 	func getPluralForm(noun) -> String:

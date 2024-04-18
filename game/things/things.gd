@@ -41,3 +41,10 @@ func updateText():
 	clicks.updateText()
 	generators.updateText()
 	funnyUpgs.updateText()
+
+func save():
+	return {
+		"nodepath" : self.get_path(),
+		"things" : things.asArray(),
+		"thingsTotal": thingsTotal.asArray(),
+	}

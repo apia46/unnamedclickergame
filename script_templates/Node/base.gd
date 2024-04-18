@@ -16,3 +16,8 @@ func _ready(): pass # likely just pass
 # _listeners here
 
 # updates here
+
+func save():
+	return {
+		"nodepath" : self.get_path(),
+	}

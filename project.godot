@@ -1,3 +1,11 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
@@ -6,11 +14,11 @@ config/name="Unnamed Clicker Game"
 config/description="i have no clue how to use godot effectively
 official download: https://beeka274.itch.io/unnamed-clicker-game
 if you arent downloading it there, uhh you can tell me but idk what to do about it"
+config/tags=PackedStringArray("clickergame")
 run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 config/icon="res://assets/achievements/00.png"
-config/tags=PackedStringArray("clickergame")
 
 [autoload]
 

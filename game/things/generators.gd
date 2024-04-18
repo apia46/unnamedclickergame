@@ -53,3 +53,13 @@ Currently "+gens.F("generator")+"
 	$"genMultButton".text = "Thing Generator Multiplier
 +"+genMultPer.F()+"x costs "+genMultCost.F("thing generator")+"
 Currently +"+genMult.F()+"x"
+
+func save():
+	return {
+		"nodepath" : self.get_path(),
+		"gens" : gens.asArray(),
+		"gensPer": gensPer.asArray(),
+		
+		"genMult": genMult.asArray(),
+		"genMultPer": genMultPer.asArray(),
+	}

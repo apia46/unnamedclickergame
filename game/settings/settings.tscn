@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2n2e3aho4km8"]
+[gd_scene load_steps=5 format=3 uid="uid://b2n2e3aho4km8"]
 
 [ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_nyjgj"]
 [ext_resource type="Script" path="res://game/settings/settings.gd" id="2_ebn27"]
 [ext_resource type="Script" path="res://game/settings/formatting.gd" id="3_n8mdx"]
+[ext_resource type="Script" path="res://game/settings/saving.gd" id="4_6x42h"]
 
 [node name="settings" type="MarginContainer"]
 anchors_preset = 15
@@ -16,29 +17,35 @@ script = ExtResource("2_ebn27")
 [node name="cont" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="topside" type="HBoxContainer" parent="cont"]
+[node name="topside" type="ScrollContainer" parent="cont"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="cont" type="HBoxContainer" parent="cont/topside"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 
-[node name="formatting" type="VBoxContainer" parent="cont/topside"]
+[node name="formatting" type="VBoxContainer" parent="cont/topside/cont"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("3_n8mdx")
 
-[node name="formattingLabel" type="RichTextLabel" parent="cont/topside/formatting"]
+[node name="formattingLabel" type="RichTextLabel" parent="cont/topside/cont/formatting"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Number Formatting"
 fit_content = true
 
-[node name="formattingExample" type="RichTextLabel" parent="cont/topside/formatting"]
+[node name="formattingExample" type="RichTextLabel" parent="cont/topside/cont/formatting"]
 layout_mode = 2
 text = "Example: 1234567.890123"
 fit_content = true
 
-[node name="formattingOptions" type="OptionButton" parent="cont/topside/formatting"]
+[node name="formattingOptions" type="OptionButton" parent="cont/topside/cont/formatting"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -51,7 +58,7 @@ popup/item_2/id = 4
 popup/item_3/text = "Long"
 popup/item_3/id = 3
 
-[node name="seperatorOptions" type="OptionButton" parent="cont/topside/formatting"]
+[node name="seperatorOptions" type="OptionButton" parent="cont/topside/cont/formatting"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -64,5 +71,124 @@ popup/item_2/id = 2
 popup/item_3/text = "None, comma"
 popup/item_3/id = 3
 
-[connection signal="item_selected" from="cont/topside/formatting/formattingOptions" to="cont/topside/formatting" method="_formattingOptions_select"]
-[connection signal="item_selected" from="cont/topside/formatting/seperatorOptions" to="cont/topside/formatting" method="_seperatorOptions_select"]
+[node name="digitsShown" type="HBoxContainer" parent="cont/topside/cont/formatting"]
+layout_mode = 2
+
+[node name="digitsShownLabel" type="RichTextLabel" parent="cont/topside/cont/formatting/digitsShown"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Digits after point"
+fit_content = true
+
+[node name="digitsShownOptions" type="SpinBox" parent="cont/topside/cont/formatting/digitsShown"]
+layout_mode = 2
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="saving" type="HBoxContainer" parent="cont/topside/cont"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("4_6x42h")
+
+[node name="autosave" type="VBoxContainer" parent="cont/topside/cont/saving"]
+custom_minimum_size = Vector2(215, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="autosaveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Autosave Settings"
+fit_content = true
+
+[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "Autosave Interval (0 for no autosave)"
+fit_content = true
+
+[node name="interval" type="HBoxContainer" parent="cont/topside/cont/saving/autosave"]
+layout_mode = 2
+alignment = 1
+
+[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave/interval"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 10
+text = "0 mins"
+fit_content = true
+
+[node name="intervalSlider" type="HSlider" parent="cont/topside/cont/saving/autosave/interval"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 30.0
+value = 5.0
+tick_count = 7
+ticks_on_borders = true
+
+[node name="intervalMax" type="RichTextLabel" parent="cont/topside/cont/saving/autosave/interval"]
+custom_minimum_size = Vector2(61, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 10
+text = "30 mins"
+fit_content = true
+
+[node name="save" type="VBoxContainer" parent="cont/topside/cont/saving"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="saveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/save"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Save"
+fit_content = true
+
+[node name="saveFileButton" type="Button" parent="cont/topside/cont/saving/save"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 12
+text = "Save to File"
+
+[node name="saveClipboardButton" type="Button" parent="cont/topside/cont/saving/save"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Export to Clipboard"
+
+[node name="load" type="VBoxContainer" parent="cont/topside/cont/saving"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="loadLabel" type="RichTextLabel" parent="cont/topside/cont/saving/load"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Load"
+fit_content = true
+
+[node name="loadFileButton" type="Button" parent="cont/topside/cont/saving/load"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 12
+text = "Load from File"
+
+[node name="loadClipboardButton" type="Button" parent="cont/topside/cont/saving/load"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Import from Clipboard"
+
+[connection signal="item_selected" from="cont/topside/cont/formatting/formattingOptions" to="cont/topside/cont/formatting" method="_formattingOptions_select"]
+[connection signal="item_selected" from="cont/topside/cont/formatting/seperatorOptions" to="cont/topside/cont/formatting" method="_seperatorOptions_select"]
+[connection signal="value_changed" from="cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
+[connection signal="value_changed" from="cont/topside/cont/saving/autosave/interval/intervalSlider" to="cont/topside/cont/saving" method="_intervalSlider_changed"]
+[connection signal="pressed" from="cont/topside/cont/saving/save/saveFileButton" to="cont/topside/cont/saving" method="_saveFileButton_pressed"]
+[connection signal="pressed" from="cont/topside/cont/saving/load/loadFileButton" to="cont/topside/cont/saving" method="_loadFileButton_pressed"]

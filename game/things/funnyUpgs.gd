@@ -3,12 +3,12 @@ var funnyUpgButton = preload("res://game/things/funnyUpgButton.tscn")
 @onready var things = $"../../../../.."
 
 const maxUpgs = 7
-var upgButtons = []
+
 var stage = 1
 var upg5Triggered = false
 var upg7Triggered = false
 # computed
-@onready var computed # computed vars
+var upgButtons = []
 
 func _ready(): pass
 
@@ -45,3 +45,11 @@ func updateButtons():
 
 func updateText():
 	for button in upgButtons: button.updateText()
+
+func save():
+	return {
+		"nodepath" : self.get_path(),
+		"stage" : stage,
+		"upg5Triggered" : upg5Triggered,
+		"upg7Triggered" : upg7Triggered,
+	}

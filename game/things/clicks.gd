@@ -51,3 +51,14 @@ func updateText():
 	$"perClickUpgButton".text = "More things per click
 +"+perClickUpgPer.F()+" costs "+perClickUpgCost.F("thing")+"
 Currently +"+perClickUpg.F()
+
+func save():
+	return {
+		"nodepath" : self.get_path(),
+		"clicks" : clicks.asArray(),
+		"timeSinceClick": timeSinceClick.asArray(),
+		
+		"perClickUpg": perClickUpg.asArray(),
+		"perClickUpgPer": perClickUpgPer.asArray(),
+		"perClickUpgCost": perClickUpgCost.asArray(),
+	}

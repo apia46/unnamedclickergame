@@ -39,9 +39,9 @@ func updateText():
 		1: effect = "Things per click multipler\nbased on time since last click\nCurrently x"+parent.things.clicks.funnyUpg2.F()
 		2: effect = "The knowledge that these\nupgrades can be \"funny\""
 		3: effect = "Total generator output ^1.1"
-		4: effect = "+20001 things\n:)"
+		4: effect = "+"+Dec.D(20001).F()+" things\n:)"
 		5: effect = "Things per click multiplier\nbased on current things\nCurrently x"+parent.things.clicks.funnyUpg6.F()
-		6: effect = "+59999 things\n:("
+		6: effect = "+"+Dec.D(59999).F()+" things\n:("
 		7: effect = "+1 bonus generator per\npower of 2 of things you get\nCurrently +"
 		_: effect = "Error: you have too many funny upgs somehow"
 	text = "Funny Upgrade "+str(id+1)+"

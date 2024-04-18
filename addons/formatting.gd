@@ -27,6 +27,7 @@ enum AFFIX_LENS {SHORT, LONG}
 enum SEPERATOR {COMMA, PERIOD, NONE}
 
 static func formatPisInt(number:int, seperator) -> String:
+	if number == -9223372036854775808: return "TOO LONG; CHOOSE DIFFERENT FORMAT"
 	assert(number >= 0, "int not pisitive")
 	var string = str(number)
 	if seperator == SEPERATOR.NONE: return string
