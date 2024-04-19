@@ -26,16 +26,22 @@ enum AFFIX_LENS {SHORT, LONG}
 
 enum SEPERATOR {COMMA, PERIOD, NONE}
 
-static func formatPisInt(number:int, seperator) -> String:
-	if number == -9223372036854775808: return "TOO LONG; CHOOSE DIFFERENT FORMAT"
-	assert(number >= 0, "int not pisitive")
-	var string = str(number)
-	if seperator == SEPERATOR.NONE: return string
-	var spots = range(int((len(string)-1)/3))
+const EXPONENT_CUTOFF = 1e12
+
+static func formatPisIntString(number:String, seperator) -> String:
+	if seperator == SEPERATOR.NONE: return number
+	var spots = range(int((len(number)-1)/3))
 	spots.reverse()
+	var string = number
 	for spot in spots:
 		string = string.insert(len(string)-3*(spot+1),("," if seperator == SEPERATOR.COMMA else "."))
 	return string
+
+static func formatPisInt(number:int, seperator) -> String:
+	if number == -9223372036854775808: return "TOO LONG; CHOOSE DIFFERENT FORMAT"
+	assert(number >= 0, "int not pisitive")
+	return formatPisIntString(str(number), seperator)
+	
 
 static func formatInt(number:int, seperator) -> String:
 	var affix = ""
@@ -54,12 +60,11 @@ static func formatPisResidueToDigits(number:float, digitsAfter, decimalPoint) ->
 
 static func formatPisFloat(number:float, digitsAfter, seperator, decimalPoint) -> String:
 	assert(number >= 0, "float not pisitive")
-	var whole = int(number)
-	var residue = fmod(number, 1)
+	var whole = floor(number)
+	var residue = (fmod(number, 1) if number < 1e16 else 0)
 	if snapFloat(residue, digitsAfter) == 1:
-		whole += 1
-		residue = 0
-	return formatPisInt(whole, seperator) + formatPisResidueToDigits(residue, digitsAfter, decimalPoint)
+		residue = (10.0**digitsAfter-1)/10.0**digitsAfter
+	return formatPisIntString(str(whole), seperator) + formatPisResidueToDigits(residue, digitsAfter, decimalPoint)
 
 static func formatFloat(number:float, digitsAfter, seperator, decimalPoint) -> String:
 	if snapFloat(number, digitsAfter) == 0: return "0"
@@ -68,17 +73,20 @@ static func formatFloat(number:float, digitsAfter, seperator, decimalPoint) -> S
 	return affix + formatPisFloat(abs(number), digitsAfter, seperator, decimalPoint)
 
 static func formatDecimalLong(number:Dec.Decimal, digitsAfter, seperator, decimalPoint) -> String:
-	if abs(number.ToFloat()) == INF: return "TOO LONG; CHOOSE DIFFERENT FORMAT"
+	if number.e > 308: return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + formatFloat(number.e, digitsAfter, seperator, decimalPoint)
 	else: return formatFloat(number.ToFloat(), digitsAfter, seperator, decimalPoint)
 
 static func formatDecimalScientific(number:Dec.Decimal, digitsAfter, seperator, decimalPoint) -> String:
 	if number.Eq(0): return "0"
-	return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + formatInt(number.e, seperator)
+	var exponent = formatInt(number.e, seperator) if number.e < EXPONENT_CUTOFF else formatDecimalScientific(Dec.D(number.e), digitsAfter, seperator, decimalPoint)
+	return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + exponent
 
 static func formatDecimalStandard(number:Dec.Decimal, digitsAfter, affixLen, seperator, decimalPoint) -> String:
 	var mod = (int(number.e)%3+3)%3
 	var whole = int(number.e - (2 if number.e < 0 else 0))/3
-	return formatFloat(number.m * 10**mod, digitsAfter, seperator, decimalPoint) + getStandardAffix(whole, affixLen)
+	if number.e < EXPONENT_CUTOFF: return formatFloat(number.m * 10**mod, digitsAfter, seperator, decimalPoint) + getStandardAffix(whole, affixLen)
+	else: return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + ("(" if affixLen == AFFIX_LENS.LONG else "") + formatDecimalStandard(Dec.D(number.e), digitsAfter, affixLen, seperator, decimalPoint) + (")" if affixLen == AFFIX_LENS.LONG else "")
+	
 
 # directly copying from antimatter dimensions, lmao
 static func getStandardAffix(number, affixLen) -> String:

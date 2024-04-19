@@ -93,28 +93,31 @@ size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("4_6x42h")
 
-[node name="autosave" type="VBoxContainer" parent="cont/topside/cont/saving"]
+[node name="main" type="VBoxContainer" parent="cont/topside/cont/saving"]
 custom_minimum_size = Vector2(215, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="autosaveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave"]
+[node name="autosave" type="VBoxContainer" parent="cont/topside/cont/saving/main"]
+layout_mode = 2
+
+[node name="autosaveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Autosave Settings"
 fit_content = true
 
-[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave"]
+[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 text = "Autosave Interval (0 for no autosave)"
 fit_content = true
 
-[node name="interval" type="HBoxContainer" parent="cont/topside/cont/saving/autosave"]
+[node name="interval" type="HBoxContainer" parent="cont/topside/cont/saving/main/autosave"]
 layout_mode = 2
 alignment = 1
 
-[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/autosave/interval"]
+[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave/interval"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -122,7 +125,7 @@ theme_override_font_sizes/normal_font_size = 10
 text = "0 mins"
 fit_content = true
 
-[node name="intervalSlider" type="HSlider" parent="cont/topside/cont/saving/autosave/interval"]
+[node name="intervalSlider" type="HSlider" parent="cont/topside/cont/saving/main/autosave/interval"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -131,7 +134,7 @@ value = 5.0
 tick_count = 7
 ticks_on_borders = true
 
-[node name="intervalMax" type="RichTextLabel" parent="cont/topside/cont/saving/autosave/interval"]
+[node name="intervalMax" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave/interval"]
 custom_minimum_size = Vector2(61, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -139,6 +142,31 @@ size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 10
 text = "30 mins"
 fit_content = true
+
+[node name="debug" type="VBoxContainer" parent="cont/topside/cont/saving/main"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="debugLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/debug"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Debug"
+fit_content = true
+
+[node name="main" type="HBoxContainer" parent="cont/topside/cont/saving/main/debug"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="updateButton" type="Button" parent="cont/topside/cont/saving/main/debug/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Update"
+
+[node name="loadFromBackupButton" type="Button" parent="cont/topside/cont/saving/main/debug/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load from Backup"
 
 [node name="save" type="VBoxContainer" parent="cont/topside/cont/saving"]
 custom_minimum_size = Vector2(200, 0)
@@ -189,6 +217,10 @@ text = "Import from Clipboard"
 [connection signal="item_selected" from="cont/topside/cont/formatting/formattingOptions" to="cont/topside/cont/formatting" method="_formattingOptions_select"]
 [connection signal="item_selected" from="cont/topside/cont/formatting/seperatorOptions" to="cont/topside/cont/formatting" method="_seperatorOptions_select"]
 [connection signal="value_changed" from="cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
-[connection signal="value_changed" from="cont/topside/cont/saving/autosave/interval/intervalSlider" to="cont/topside/cont/saving" method="_intervalSlider_changed"]
+[connection signal="value_changed" from="cont/topside/cont/saving/main/autosave/interval/intervalSlider" to="cont/topside/cont/saving" method="_intervalSlider_changed"]
+[connection signal="pressed" from="cont/topside/cont/saving/main/debug/main/updateButton" to="cont/topside/cont/saving" method="_updateButton_pressed"]
+[connection signal="pressed" from="cont/topside/cont/saving/main/debug/main/loadFromBackupButton" to="cont/topside/cont/saving" method="_loadFromBackupButton_pressed"]
 [connection signal="pressed" from="cont/topside/cont/saving/save/saveFileButton" to="cont/topside/cont/saving" method="_saveFileButton_pressed"]
+[connection signal="pressed" from="cont/topside/cont/saving/save/saveClipboardButton" to="cont/topside/cont/saving" method="_saveClipboardButton_pressed"]
 [connection signal="pressed" from="cont/topside/cont/saving/load/loadFileButton" to="cont/topside/cont/saving" method="_loadFileButton_pressed"]
+[connection signal="pressed" from="cont/topside/cont/saving/load/loadClipboardButton" to="cont/topside/cont/saving" method="_loadClipboardButton_pressed"]

@@ -195,6 +195,7 @@ class Decimal:
 		
 	
 	func ToFloat() -> float:
+		if self.e == -4: breakpoint
 		if self.e > NUMBER_EXP_MAX:
 			if self.m > 0:
 				return INF
@@ -205,7 +206,6 @@ class Decimal:
 			if self.m > 0:
 				return 5e-324
 			return -5e-324
-		
 		var result = self.m * Dec.PowerOf10(self.e)
 		if abs(round(result) - result) < ROUND_TOLERANCE:
 			return round(result)
@@ -405,8 +405,8 @@ class Decimal:
 		return self.e + Dec.log10(abs(self.m))
 	func Log(base) -> Decimal:
 		return Dec.D(self.Log10()).Mul(LN10 / log(base))
-	func Log2() -> float:
-		return 3.321928094887362 * self.Log10()
+	func Log2() -> Decimal:
+		return Dec.D(3.321928094887362 * self.Log10())
 	func Ln() -> Decimal:
 		return Dec.D(2.302585092994045 * self.Log10())
 	
@@ -516,12 +516,15 @@ class Decimal:
 			affix = " " + (getPluralForm(noun) if self.Plural() else noun)
 		match Dec.format:
 			SCIENTIFIC:
-				if 0 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
+				if -2 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
 				else: return Format.formatDecimalScientific(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
 			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint) + affix
 			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint) + affix
 			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
 			_: return "error"
 	
+	const INFINITIVES = ["bonus"]
+	
 	func getPluralForm(noun) -> String:
-		return noun + "s"
+		if noun in INFINITIVES: return noun
+		else: return noun + "s"

@@ -9,7 +9,10 @@ var digitsShownOptionsValue = 2
 
 func _ready(): pass # likely just pass
 
-# functions here
+func setFromData():
+	$"formattingOptions".selected = formattingOptionsSelected
+	$"seperatorOptions".selected = seperatorOptionsSelected
+	$digitsShown/digitsShownOptions.value = digitsShownOptionsValue
 
 # processes here
 
@@ -38,11 +41,6 @@ func updateFormatting():
 		2: Dec.seperator = Format.SEPERATOR.NONE; Dec.decimalPoint = Format.SEPERATOR.PERIOD
 		3: Dec.seperator = Format.SEPERATOR.NONE; Dec.decimalPoint = Format.SEPERATOR.COMMA
 	Dec.digitsShown = digitsShownOptionsValue
-
-func setOptionsFromSelected():
-	$"formattingOptions".selected = formattingOptionsSelected
-	$"seperatorOptions".selected = seperatorOptionsSelected
-	$digitsShown/digitsShownOptions.value = digitsShownOptionsValue
 
 func updateText():
 	$"formattingExample".text = "Example: "+Dec.D(123456789.0123456789).F()

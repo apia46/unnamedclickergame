@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8fl1r28w7hch"]
+
+[ext_resource type="Theme" uid="uid://cfhu3l88g8bgt" path="res://assets/themes/unclickablecyyan.tres" id="1_7lyll"]
+[ext_resource type="Script" path="res://game/cyyan/milestone.gd" id="2_ij1x4"]
+
+[node name="milestone" type="Button"]
+custom_minimum_size = Vector2(200, 100)
+theme = ExtResource("1_7lyll")
+text = "Milestone 000
+Requires 0.00e000 cyyan things
+???"
+script = ExtResource("2_ij1x4")

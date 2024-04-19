@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://crovyq06ehflk"]
+
+[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://assets/themes/cyyantheme.tres" id="1_8k7lc"]
+[ext_resource type="Script" path="res://game/cyyan/cyyan.gd" id="1_cyipp"]
+[ext_resource type="Script" path="res://game/cyyan/milestones.gd" id="3_am1h6"]
+
+[node name="cyyan" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8k7lc")
+script = ExtResource("1_cyipp")
+
+[node name="cont" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="textCont" type="VBoxContainer" parent="cont"]
+layout_mode = 2
+
+[node name="cyyanLabel" type="RichTextLabel" parent="cont/textCont"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "You have 0.00e000 cyyan things"
+fit_content = true
+
+[node name="cyyanPerSecondLabel" type="RichTextLabel" parent="cont/textCont"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "You are gaining 0.00e000 cyyan things per second"
+fit_content = true
+
+[node name="perLabel" type="RichTextLabel" parent="cont/textCont"]
+layout_mode = 2
+text = "+1 cyyan thing per 1,000,000 things you get, 999,999 until next"
+fit_content = true
+
+[node name="topside" type="ScrollContainer" parent="cont"]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="margins" type="MarginContainer" parent="cont/topside"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="milestones" type="HBoxContainer" parent="cont/topside/margins"]
+layout_mode = 2
+script = ExtResource("3_am1h6")

@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo86fjb3bt40v"]
+
+[ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_7c8ov"]
+[ext_resource type="Script" path="res://game/information/informationLabel.gd" id="2_fohf5"]
+
+[node name="information" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7c8ov")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="informationLabel" type="RichTextLabel" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[font_size=24]You are playing [rainbow freq=0.5 sat=0.2 val=1][wave amp=25.0 freq=2.5.0 connected=1][b]Unnamed Clicker Game v0.0.1.0[/b][/wave][/rainbow].[/font_size]
+
+Unnamed Clicker Game is created and maintained by beeka
+You can find me at @_beeka on discord
+The github repo for this game can be found [color=\"cyan\"][url=\"https://github.com/Beeka274/unnamedclickergame\"]here[/url][/color]
+The itch.io for this game can be found [color=\"cyan\"][url=\"https://beeka274.itch.io/unnamed-clicker-game\"]here[/url][/color]
+anywhere else is unofficial
+
+Lines of code: 528+119 + 6 + 57+30+22 + 65+50+56+66+51 + 105 = 1155
+Last updated: 2024-right-now
+
+[u][font_size=16]Credits to:[/font_size][/u]
+Inspiration
+	[color=\"14F9F9\"]Antimatter Dimensions[/color]
+	[color=\"69006F\"]Prestige Tree[/color]
+Code
+	[color=\"FFFF00\"]Antimatter Dimensions[/color]
+	[color=\"69D7A6\"]M_rld[/color]
+	Stack exchange, reddit, etc
+Playtesters
+	[color=\"ABEDF9\"]Kiro_astrus[/color]
+	[color=\"FFB806\"]Theopold[/color]
+	[color=\"62FB02\"]Clicktuck[/color]
+	[color=\"00FFFF\"]A.random_person[/color]
+	[color=\"8CBDE3\"]enterham[/color]
+My friends and acquaintances who made this enjoyable
+	(you know who you are)
+
+You!!hi thanks for indulging my videos game"
+fit_content = true
+script = ExtResource("2_fohf5")

@@ -12,6 +12,10 @@ func _ready(): pass # likely just pass
 
 # processes here
 
+func setFromData():
+	formatting.setFromData()
+	saving.setFromData()
+
 func updateText():
 	formatting.updateText()
 
