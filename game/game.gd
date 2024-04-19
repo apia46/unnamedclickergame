@@ -77,8 +77,9 @@ func initiateSave(autosaved:=false, toClipboard:=false):
 	timeSaved = Time.get_unix_time_from_system()
 	update()
 	var save_file : FileAccess
-	if toClipboard: save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ_WRITE)
+	if toClipboard: save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.WRITE)
 	else: save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.WRITE)
+	
 	save_file.store_line(JSON.stringify(save()))
 	save_file.store_line(JSON.stringify(things.save()))
 	save_file.store_line(JSON.stringify(things.generators.save()))
@@ -91,7 +92,10 @@ func initiateSave(autosaved:=false, toClipboard:=false):
 	save_file.store_line(JSON.stringify(settings.save()))
 	save_file.store_line(JSON.stringify(settings.formatting.save()))
 	save_file.store_line(JSON.stringify(settings.saving.save()))
-	if toClipboard: DisplayServer.clipboard_set(save_file.get_as_text())
+	if toClipboard:
+		save_file.close()
+		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ)
+		DisplayServer.clipboard_set(save_file.get_as_text())
 	print(("auto" if autosaved else "") + "saved")
 
 func initiateLoad(fromClipboard:=false, fromBackup:=false):
@@ -101,7 +105,7 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 	
 	var save_file : FileAccess
 	if fromClipboard:
-		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ_WRITE)
+		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.WRITE)
 		save_file.store_string(DisplayServer.clipboard_get())
 		save_file.close()
 	if fromBackup: save_file = FileAccess.open(BACKUPDIRECTORY, FileAccess.READ)

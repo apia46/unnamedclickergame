@@ -15,7 +15,7 @@ game
 	information
 		informationLabel: 6
 	settings
-		formatting: 55
+		formatting: 56
 		saving: 43
 		settings: 26
 	things
@@ -24,9 +24,9 @@ game
 		funnyUpgs: 60
 		generators: 83
 		things: 63
-	game: 144
+	game: 148
 script_templates
 	Node
 		base: 24
 this: 33
-total: 1476
+total: 1481

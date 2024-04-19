@@ -14,6 +14,7 @@ config/name="Unnamed Clicker Game"
 config/description="i have no clue how to use godot effectively
 official download: https://beeka274.itch.io/unnamed-clicker-game
 if you arent downloading it there, uhh you can tell me but idk what to do about it"
+config/version="0.0.1.0"
 config/tags=PackedStringArray("clickergame")
 run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")

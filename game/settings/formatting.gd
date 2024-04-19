@@ -1,9 +1,9 @@
 extends VBoxContainer
 @onready var reference # references to other nodes
 
-var formattingOptionsSelected = 0
-var seperatorOptionsSelected = 0
-var digitsShownOptionsValue = 2
+var formattingOptionsSelected : int = 0
+var seperatorOptionsSelected : int = 0
+var digitsShownOptionsValue : int = 2
 # computed
 @onready var computed # computed vars
 
@@ -13,6 +13,7 @@ func setFromData():
 	$"formattingOptions".selected = formattingOptionsSelected
 	$"seperatorOptions".selected = seperatorOptionsSelected
 	$digitsShown/digitsShownOptions.value = digitsShownOptionsValue
+	updateFormatting()
 
 # processes here
 

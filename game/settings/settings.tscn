@@ -83,9 +83,7 @@ fit_content = true
 
 [node name="digitsShownOptions" type="SpinBox" parent="cont/topside/cont/formatting/digitsShown"]
 layout_mode = 2
-min_value = 1.0
 max_value = 8.0
-value = 1.0
 
 [node name="saving" type="HBoxContainer" parent="cont/topside/cont"]
 layout_mode = 2
@@ -144,7 +142,6 @@ text = "30 mins"
 fit_content = true
 
 [node name="debug" type="VBoxContainer" parent="cont/topside/cont/saving/main"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

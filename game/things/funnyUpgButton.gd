@@ -59,7 +59,7 @@ func updateText():
 		11: effect = "Boost to upgrade 1\nbased on cyyan things\nCurrently +x"+parent.things.generators.funnyUpg12.F()
 		12: effect = "Button for you to press\nin case you get bored\n:)"
 		13: effect = "+0.05 to upgrade 9\nper funny upgrade purchased\nCurrently +^"+parent.things.clicks.funnyUpg14.F()
-		14: effect = "Multiplier to upgrade 7\nbased on things per click\nCurrently x"+parent.things.generators.funnyUpg15.F()
+		14: effect = "Multiplier to upgrade 8\nbased on things per click\nCurrently x"+parent.things.generators.funnyUpg15.F()
 		_: effect = "Error: you have too many funny upgs somehow"
 	text = "Funny Upgrade "+str(id+1)+"
 "+("costs "+cost.F("thing")+"

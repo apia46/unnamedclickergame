@@ -1,7 +1,7 @@
 extends HBoxContainer
 @onready var game = $"/root/game"
 
-var autosaveInterval = 5
+var autosaveInterval : int = 5
 # computed
 @onready var computed # computed vars
 
