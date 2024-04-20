@@ -17,7 +17,8 @@ game
 	settings
 		formatting: 56
 		saving: 43
-		settings: 26
+		settings: 28
+		uiScaling: 28
 	things
 		clicks: 74
 		funnyUpgButton: 67
@@ -28,5 +29,5 @@ game
 script_templates
 	Node
 		base: 24
-this: 33
-total: 1481
+this: 34
+total: 1512
