@@ -1,7 +1,7 @@
 extends MarginContainer
-@onready var clicks = $cont/main/topside/clicks
-@onready var generators = $cont/main/topside/generators
-@onready var funnyUpgs = $cont/main/main/margins/funnyUpgs
+@onready var clicks = $cont/cont/main/topside/clicks
+@onready var generators = $cont/cont/main/topside/generators
+@onready var funnyUpgs = $cont/cont/main/main/margins/funnyUpgs
 @onready var game = $"/root/game"
 
 @onready var things = Dec.D(0)
@@ -47,8 +47,8 @@ func updateButtons():
 	funnyUpgs.updateButtons()
 
 func updateText():
-	$"cont/textCont/thingsLabel".text = "You have "+things.F("thing")
-	$"cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing")+" per second (TPS)"
+	$"cont/cont/textCont/thingsLabel".text = "You have "+things.F("thing")
+	$"cont/cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing")+" per second (TPS)"
 	
 	clicks.updateText()
 	generators.updateText()

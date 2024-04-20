@@ -13,38 +13,44 @@ grow_vertical = 2
 theme = ExtResource("1_8k7lc")
 script = ExtResource("1_cyipp")
 
-[node name="cont" type="VBoxContainer" parent="."]
+[node name="cont" type="ScrollContainer" parent="."]
 layout_mode = 2
 
-[node name="textCont" type="VBoxContainer" parent="cont"]
+[node name="cont" type="VBoxContainer" parent="cont"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="textCont" type="VBoxContainer" parent="cont/cont"]
 layout_mode = 2
 
-[node name="cyyanLabel" type="RichTextLabel" parent="cont/textCont"]
+[node name="cyyanLabel" type="RichTextLabel" parent="cont/cont/textCont"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "You have 0.00e000 cyyan things"
 fit_content = true
 
-[node name="cyyanPerSecondLabel" type="RichTextLabel" parent="cont/textCont"]
+[node name="cyyanPerSecondLabel" type="RichTextLabel" parent="cont/cont/textCont"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 text = "You are gaining 0.00e000 cyyan things per second"
 fit_content = true
 
-[node name="perLabel" type="RichTextLabel" parent="cont/textCont"]
+[node name="perLabel" type="RichTextLabel" parent="cont/cont/textCont"]
 layout_mode = 2
 text = "+1 cyyan thing per 1,000,000 things you get, 999,999 until next"
 fit_content = true
 
-[node name="topside" type="ScrollContainer" parent="cont"]
+[node name="topside" type="ScrollContainer" parent="cont/cont"]
 layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="margins" type="MarginContainer" parent="cont/topside"]
+[node name="margins" type="MarginContainer" parent="cont/cont/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="milestones" type="HBoxContainer" parent="cont/topside/margins"]
+[node name="milestones" type="HBoxContainer" parent="cont/cont/topside/margins"]
 layout_mode = 2
 script = ExtResource("3_am1h6")

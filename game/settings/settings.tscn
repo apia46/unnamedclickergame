@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2n2e3aho4km8"]
+[gd_scene load_steps=6 format=3 uid="uid://b2n2e3aho4km8"]
 
 [ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_nyjgj"]
 [ext_resource type="Script" path="res://game/settings/settings.gd" id="2_ebn27"]
 [ext_resource type="Script" path="res://game/settings/formatting.gd" id="3_n8mdx"]
 [ext_resource type="Script" path="res://game/settings/saving.gd" id="4_6x42h"]
+[ext_resource type="Script" path="res://game/settings/uiScaling.gd" id="5_yi3pt"]
 
 [node name="settings" type="MarginContainer"]
 anchors_preset = 15
@@ -18,7 +19,6 @@ script = ExtResource("2_ebn27")
 layout_mode = 2
 
 [node name="topside" type="ScrollContainer" parent="cont"]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 vertical_scroll_mode = 0
 
@@ -211,6 +211,43 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
 text = "Import from Clipboard"
 
+[node name="midside" type="HBoxContainer" parent="cont"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="uiScaling" type="VBoxContainer" parent="cont/midside"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+script = ExtResource("5_yi3pt")
+
+[node name="uiScalingLabel" type="RichTextLabel" parent="cont/midside/uiScaling"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "UI scaling"
+fit_content = true
+
+[node name="scaling" type="HBoxContainer" parent="cont/midside/uiScaling"]
+layout_mode = 2
+
+[node name="scalingLabel" type="RichTextLabel" parent="cont/midside/uiScaling/scaling"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "50%"
+
+[node name="uiScalingSlider" type="HSlider" parent="cont/midside/uiScaling/scaling"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 2.5
+step = 0.25
+value = 0.5
+
+[node name="intervalMax" type="RichTextLabel" parent="cont/midside/uiScaling/scaling"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+text = "250%"
+fit_content = true
+
 [connection signal="item_selected" from="cont/topside/cont/formatting/formattingOptions" to="cont/topside/cont/formatting" method="_formattingOptions_select"]
 [connection signal="item_selected" from="cont/topside/cont/formatting/seperatorOptions" to="cont/topside/cont/formatting" method="_seperatorOptions_select"]
 [connection signal="value_changed" from="cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
@@ -221,3 +258,4 @@ text = "Import from Clipboard"
 [connection signal="pressed" from="cont/topside/cont/saving/save/saveClipboardButton" to="cont/topside/cont/saving" method="_saveClipboardButton_pressed"]
 [connection signal="pressed" from="cont/topside/cont/saving/load/loadFileButton" to="cont/topside/cont/saving" method="_loadFileButton_pressed"]
 [connection signal="pressed" from="cont/topside/cont/saving/load/loadClipboardButton" to="cont/topside/cont/saving" method="_loadClipboardButton_pressed"]
+[connection signal="drag_ended" from="cont/midside/uiScaling/scaling/uiScalingSlider" to="cont/midside/uiScaling" method="_uiScalingSlider_changed"]

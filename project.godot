@@ -8,6 +8,8 @@
 
 config_version=5
 
+display/window/stretch/scale=1.0
+
 [application]
 
 config/name="Unnamed Clicker Game"
@@ -36,6 +38,8 @@ gdscript/warnings/narrowing_conversion=0
 
 window/size/viewport_width=1000
 window/size/viewport_height=700
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [filesystem]
 

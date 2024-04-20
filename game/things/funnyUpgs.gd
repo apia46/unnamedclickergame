@@ -1,6 +1,6 @@
 extends HFlowContainer
 const FUNNYUPGBUTTON = preload("res://game/things/funnyUpgButton.tscn")
-@onready var things = $"../../../../.."
+@onready var things = $"../../../../../.."
 @onready var game = $"/root/game"
 
 var stage = 1

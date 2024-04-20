@@ -1,5 +1,5 @@
 extends VBoxContainer
-@onready var things = $"../../../.." # has to be relative (/things moves)
+@onready var things = $"../../../../.." # has to be relative (/things moves)
 
 @onready var gens = Dec.D(0)
 @onready var gensPer = Dec.D(1)

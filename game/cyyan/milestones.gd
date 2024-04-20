@@ -1,7 +1,7 @@
 extends HBoxContainer
 const MILESTONE = preload("res://game/cyyan/milestone.tscn")
 @onready var game = $"/root/game"
-@onready var cyyan = $"../../../.."
+@onready var cyyan = $"../../../../.."
 
 const MAXMILESTONES = 4
 

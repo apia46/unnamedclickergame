@@ -15,39 +15,45 @@ grow_vertical = 2
 theme = ExtResource("1_0sugn")
 script = ExtResource("2_avej2")
 
-[node name="cont" type="VBoxContainer" parent="."]
+[node name="cont" type="ScrollContainer" parent="."]
 layout_mode = 2
 
-[node name="textCont" type="VBoxContainer" parent="cont"]
+[node name="cont" type="VBoxContainer" parent="cont"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="textCont" type="VBoxContainer" parent="cont/cont"]
 layout_mode = 2
 
-[node name="thingsLabel" type="RichTextLabel" parent="cont/textCont"]
+[node name="thingsLabel" type="RichTextLabel" parent="cont/cont/textCont"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "You have 0.00e+000 things"
 fit_content = true
 
-[node name="tpsLabel" type="RichTextLabel" parent="cont/textCont"]
+[node name="tpsLabel" type="RichTextLabel" parent="cont/cont/textCont"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 text = "You are gaining 0.00e+000 things per second (TPS)"
 fit_content = true
 
-[node name="main" type="VBoxContainer" parent="cont"]
+[node name="main" type="VBoxContainer" parent="cont/cont"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="topside" type="HBoxContainer" parent="cont/main"]
+[node name="topside" type="HBoxContainer" parent="cont/cont/main"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="clicks" type="VBoxContainer" parent="cont/main/topside"]
+[node name="clicks" type="VBoxContainer" parent="cont/cont/main/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 script = ExtResource("3_0smp3")
 
-[node name="thingButton" type="Button" parent="cont/main/topside/clicks"]
+[node name="thingButton" type="Button" parent="cont/cont/main/topside/clicks"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
@@ -55,20 +61,20 @@ theme_override_font_sizes/font_size = 20
 text = "Thing Button
 + 0.00e000 things"
 
-[node name="perClickUpgButton" type="Button" parent="cont/main/topside/clicks"]
+[node name="perClickUpgButton" type="Button" parent="cont/cont/main/topside/clicks"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "More things per click
 +000 costs 0.00e+000 things
 Currently +0.00e+000"
 
-[node name="generators" type="VBoxContainer" parent="cont/main/topside"]
+[node name="generators" type="VBoxContainer" parent="cont/cont/main/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 script = ExtResource("4_2lbu8")
 
-[node name="gensButton" type="Button" parent="cont/main/topside/generators"]
+[node name="gensButton" type="Button" parent="cont/cont/main/topside/generators"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
@@ -77,29 +83,29 @@ text = "Thing Generators
 Currently 0.00e+000 + 0.00e+000 bonus
 each producing 0.00e+000 things per second"
 
-[node name="genMultButton" type="Button" parent="cont/main/topside/generators"]
+[node name="genMultButton" type="Button" parent="cont/cont/main/topside/generators"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Thing Generator Multiplier
 +000x costs 0.00e+000 thing generators
 Currently +0.00e+000x"
 
-[node name="main" type="ScrollContainer" parent="cont/main"]
+[node name="main" type="ScrollContainer" parent="cont/cont/main"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="margins" type="MarginContainer" parent="cont/main/main"]
+[node name="margins" type="MarginContainer" parent="cont/cont/main/main"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="funnyUpgs" type="HFlowContainer" parent="cont/main/main/margins"]
+[node name="funnyUpgs" type="HFlowContainer" parent="cont/cont/main/main/margins"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("5_24rfq")
 
-[connection signal="pressed" from="cont/main/topside/clicks/thingButton" to="cont/main/topside/clicks" method="_clicked"]
-[connection signal="pressed" from="cont/main/topside/clicks/perClickUpgButton" to="cont/main/topside/clicks" method="_upg_buy"]
-[connection signal="pressed" from="cont/main/topside/generators/gensButton" to="cont/main/topside/generators" method="_gens_buy"]
-[connection signal="pressed" from="cont/main/topside/generators/genMultButton" to="cont/main/topside/generators" method="_genMult_buy"]
+[connection signal="pressed" from="cont/cont/main/topside/clicks/thingButton" to="cont/cont/main/topside/clicks" method="_clicked"]
+[connection signal="pressed" from="cont/cont/main/topside/clicks/perClickUpgButton" to="cont/cont/main/topside/clicks" method="_upg_buy"]
+[connection signal="pressed" from="cont/cont/main/topside/generators/gensButton" to="cont/cont/main/topside/generators" method="_gens_buy"]
+[connection signal="pressed" from="cont/cont/main/topside/generators/genMultButton" to="cont/cont/main/topside/generators" method="_genMult_buy"]
