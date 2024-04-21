@@ -1,7 +1,7 @@
 extends HBoxContainer
 @onready var game = $"/root/game"
 
-var autosaveInterval : int = 5
+var autosaveInterval : int = 30
 # computed
 @onready var computed # computed vars
 
@@ -33,7 +33,9 @@ func _updateButton_pressed(): # debug
 func _loadFromBackupButton_pressed(): # debug
 	game.initiateLoad(false, true)
 
-# updates here
+func updateText():
+	$"main/autosave/interval/intervalLabel".text = ("none" if autosaveInterval == 0 else str(autosaveInterval) + " secs" )
+	$"main/autosave/intervalLabel".text = "Autosave Interval (0 for no autosave) " + ("" if autosaveInterval == 0 else Dec.D(game.timeSinceAutosave).F("sec") + " since autosave")
 
 func save():
 	return {

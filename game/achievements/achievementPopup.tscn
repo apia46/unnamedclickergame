@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://5gd8btgfq7mx"]
+
+[ext_resource type="PackedScene" uid="uid://drb1pdmxvkw4t" path="res://assets/ui/popup.tscn" id="1_7igfc"]
+[ext_resource type="Script" path="res://game/achievements/achievementPopup.gd" id="2_a8dvq"]
+[ext_resource type="Texture2D" uid="uid://doikxmlga5dcq" path="res://assets/achievements/basic0.png" id="2_npqop"]
+
+[node name="popup" instance=ExtResource("1_7igfc")]
+custom_minimum_size = Vector2(400, 80)
+script = ExtResource("2_a8dvq")
+
+[node name="cont" type="MarginContainer" parent="." index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="cont" type="HBoxContainer" parent="cont" index="0"]
+layout_mode = 2
+
+[node name="image" type="TextureRect" parent="cont/cont" index="0"]
+layout_mode = 2
+texture = ExtResource("2_npqop")
+stretch_mode = 2
+
+[node name="textCont" type="VBoxContainer" parent="cont/cont" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="titleLabel" type="RichTextLabel" parent="cont/cont/textCont" index="0"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Title of the achievement"
+fit_content = true
+autowrap_mode = 0
+
+[node name="descLabel" type="RichTextLabel" parent="cont/cont/textCont" index="1"]
+custom_minimum_size = Vector2(0, 37)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "Desc"

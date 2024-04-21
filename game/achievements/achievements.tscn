@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b04uyig4lll3a"]
+
+[ext_resource type="PackedScene" uid="uid://bpcl2g44rnjcd" path="res://assets/ui/dropdownContainer.tscn" id="1_uu5m7"]
+[ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_yg34q"]
+[ext_resource type="Script" path="res://game/achievements/achievements.gd" id="2_rv5nq"]
+
+[node name="achievements" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yg34q")
+script = ExtResource("2_rv5nq")
+
+[node name="cont" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 2
+
+[node name="cont" type="VBoxContainer" parent="cont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="basicAchievements" parent="cont/cont" instance=ExtResource("1_uu5m7")]
+layout_mode = 2
+
+[editable path="cont/cont/basicAchievements"]

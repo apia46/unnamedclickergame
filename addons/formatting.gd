@@ -51,41 +51,43 @@ static func formatInt(number:int, seperator) -> String:
 static func snapFloat(number:float, digitsAfter) -> float:
 	return snapped(number, 10.0**-digitsAfter)
 
-static func formatPisResidueToDigits(number:float, digitsAfter, decimalPoint) -> String:
+static func formatPisResidueToDigits(number:float, digitsAfter, decimalPoint, preventFlickering) -> String:
+	var snapped = snapFloat(number, digitsAfter)
 	assert(0 <= number and number < 1, "invalid residue")
 	assert(digitsAfter >= 0, "invalid digitsAfter")
-	assert(snapFloat(number, digitsAfter) != 1, "residue rounds up")
-	if snapFloat(number, digitsAfter) == 0: return ""
-	return ("." if decimalPoint == SEPERATOR.PERIOD else ",") + str(snapFloat(number, digitsAfter)).erase(0,2)
+	assert(snapped != 1, "residue rounds up")
+	var zeros = ""
+	if preventFlickering: for i in (digitsAfter+(1 if snapped == 0 else 2)-len(str(snapped))): zeros += "0"
+	if snapped == 0: return ("." + zeros if preventFlickering else "")
+	return ("." if decimalPoint == SEPERATOR.PERIOD else ",") + str(snapped).erase(0,2) + zeros
 
-static func formatPisFloat(number:float, digitsAfter, seperator, decimalPoint) -> String:
+static func formatPisFloat(number:float, digitsAfter, seperator, decimalPoint, preventFlickering) -> String:
 	assert(number >= 0, "float not pisitive")
 	var whole = floor(number)
 	var residue = (fmod(number, 1) if number < 1e16 else 0)
 	if snapFloat(residue, digitsAfter) == 1:
 		residue = (10.0**digitsAfter-1)/10.0**digitsAfter
-	return formatPisIntString(str(whole), seperator) + formatPisResidueToDigits(residue, digitsAfter, decimalPoint)
+	return formatPisIntString(str(whole), seperator) + formatPisResidueToDigits(residue, digitsAfter, decimalPoint, preventFlickering)
 
-static func formatFloat(number:float, digitsAfter, seperator, decimalPoint) -> String:
-	if snapFloat(number, digitsAfter) == 0: return "0"
+static func formatFloat(number:float, digitsAfter, seperator, decimalPoint, preventFlickering) -> String:
 	var affix = ""
 	if number < 0: affix = "-"
-	return affix + formatPisFloat(abs(number), digitsAfter, seperator, decimalPoint)
+	return affix + formatPisFloat(abs(number), digitsAfter, seperator, decimalPoint, preventFlickering)
 
-static func formatDecimalLong(number:Dec.Decimal, digitsAfter, seperator, decimalPoint) -> String:
-	if number.e > 308: return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + formatFloat(number.e, digitsAfter, seperator, decimalPoint)
-	else: return formatFloat(number.ToFloat(), digitsAfter, seperator, decimalPoint)
+static func formatDecimalLong(number:Dec.Decimal, digitsAfter, seperator, decimalPoint, preventFlickering) -> String:
+	if number.e > 308: return formatFloat(number.m, digitsAfter, seperator, decimalPoint, preventFlickering) + "e" + formatFloat(number.e, digitsAfter, seperator, decimalPoint, preventFlickering)
+	else: return formatFloat(number.ToFloat(), digitsAfter, seperator, decimalPoint, preventFlickering)
 
-static func formatDecimalScientific(number:Dec.Decimal, digitsAfter, seperator, decimalPoint) -> String:
+static func formatDecimalScientific(number:Dec.Decimal, digitsAfter, seperator, decimalPoint, preventFlickering) -> String:
 	if number.Eq(0): return "0"
-	var exponent = formatInt(number.e, seperator) if number.e < EXPONENT_CUTOFF else formatDecimalScientific(Dec.D(number.e), digitsAfter, seperator, decimalPoint)
-	return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + exponent
+	var exponent = formatInt(number.e, seperator) if number.e < EXPONENT_CUTOFF else formatDecimalScientific(Dec.D(number.e), digitsAfter, seperator, decimalPoint, preventFlickering)
+	return formatFloat(number.m, digitsAfter, seperator, decimalPoint, preventFlickering) + "e" + exponent
 
-static func formatDecimalStandard(number:Dec.Decimal, digitsAfter, affixLen, seperator, decimalPoint) -> String:
+static func formatDecimalStandard(number:Dec.Decimal, digitsAfter, affixLen, seperator, decimalPoint, preventFlickering) -> String:
 	var mod = (int(number.e)%3+3)%3
 	var whole = int(number.e - (2 if number.e < 0 else 0))/3
-	if number.e < EXPONENT_CUTOFF: return formatFloat(number.m * 10**mod, digitsAfter, seperator, decimalPoint) + getStandardAffix(whole, affixLen)
-	else: return formatFloat(number.m, digitsAfter, seperator, decimalPoint) + "e" + ("(" if affixLen == AFFIX_LENS.LONG else "") + formatDecimalStandard(Dec.D(number.e), digitsAfter, affixLen, seperator, decimalPoint) + (")" if affixLen == AFFIX_LENS.LONG else "")
+	if number.e < EXPONENT_CUTOFF: return formatFloat(number.m * 10**mod, digitsAfter, seperator, decimalPoint, preventFlickering) + getStandardAffix(whole, affixLen)
+	else: return formatFloat(number.m, digitsAfter, seperator, decimalPoint, preventFlickering) + "e" + ("(" if affixLen == AFFIX_LENS.LONG else "") + formatDecimalStandard(Dec.D(number.e), digitsAfter, affixLen, seperator, decimalPoint, preventFlickering) + (")" if affixLen == AFFIX_LENS.LONG else "")
 	
 
 # directly copying from antimatter dimensions, lmao

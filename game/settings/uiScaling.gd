@@ -19,6 +19,9 @@ func _uiScalingSlider_changed(value_changed):
 func updateScaling():
 	get_window().content_scale_factor = uiScalingSliderValue
 
+func updateText():
+	$"scaling/scalingLabel".text = str(round($"scaling/uiScalingSlider".value*100)) + "%"
+
 func save():
 	return {
 		"nodepath" : self.get_path(),

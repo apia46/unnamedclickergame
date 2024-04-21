@@ -29,8 +29,7 @@ func procThingsPerClick():
 	if things.funnyUpgs.stage > 2:
 		funnyUpg2 = Dec.D(1)
 		if timeSinceClick.LessThan(3): funnyUpg2 = timeSinceClick.Squared().Mul(4).Add(1)
-		else:
-			funnyUpg2 = timeSinceClick.Mul(3).Add(timeSinceClick.Neg().Add(2.8).Reciprocal()).Add(33)
+		else: funnyUpg2 = timeSinceClick.Mul(3).Add(timeSinceClick.Neg().Add(2.8).Reciprocal()).Add(33)
 		if things.game.cyyanUnlocked and things.game.cyyan.milestones.stage > 3: funnyUpg2 = funnyUpg2.PowOf(1.5)
 		thingsPerClick.Mulr(funnyUpg2)
 	
@@ -56,10 +55,10 @@ func updateButtons():
 
 func updateText():
 	$"thingButton".text = "Thing Button
-+"+thingsPerClick.F("thing")
++"+thingsPerClick.F("thing", !things.funnyUpgs.stage > 2)
 	$"perClickUpgButton".text = "More things per click
-+"+effectivePerClickUpgPer.F()+" costs "+perClickUpgCost.F("thing")+"
-Currently +"+perClickUpgEffect.F()
++"+effectivePerClickUpgPer.F("",true)+" costs "+perClickUpgCost.F("thing", true)+"
+Currently +"+perClickUpgEffect.F("",true)
 
 func save():
 	return {

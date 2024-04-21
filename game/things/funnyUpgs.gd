@@ -35,7 +35,7 @@ func updateUpgs():
 		game.updateTabs(game.UNLOCK.CYYAN)
 
 func update():
-	for button in upgButtons: remove_child(button)
+	for button in upgButtons: button.queue_free()
 	upgButtons = []
 	for i in range(min(stage, maxUpgs)):
 		upgButtons.append(FUNNYUPGBUTTON.instantiate().set_data(i, i<stage-1))

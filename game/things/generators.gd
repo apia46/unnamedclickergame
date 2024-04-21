@@ -62,14 +62,14 @@ func updateButtons():
 	$"genMultButton".disabled = gensTotal.LessThan(genMultCost)
 
 func updateText():
-	var bonusText = " + "+bonusGens.F("bonus") + " = " + gensTotal.F()
+	var bonusText = " + "+bonusGens.F("bonus",!things.funnyUpgs.stage > 15) + " = " + gensTotal.F("",!things.funnyUpgs.stage > 15)
 	$"gensButton".text = "Thing Generators
-+"+gensPer.F()+" costs "+gensCost.F("thing")+"
-Currently "+gens.F("generator")+(bonusText if things.funnyUpgs.stage > 8 else "")+"
-"+("each " if gens.Plural() else "")+"producing "+(things.gensOutput.Div(gens) if gens.GreaterThan(0) else tpsPerGen).F("thing")+" per second"
++"+gensPer.F("",!things.funnyUpgs.stage > 12)+" costs "+gensCost.F("thing", !things.funnyUpgs.stage > 12)+"
+Currently "+gens.F("generator",!things.funnyUpgs.stage > 12)+(bonusText if things.funnyUpgs.stage > 8 else "")+"
+"+("each " if gens.Plural() else "")+"producing "+(things.gensOutput.Div(gens) if gens.GreaterThan(0) else tpsPerGen).F("thing",!things.funnyUpgs.stage > 15)+" per second"
 	$"genMultButton".text = "Thing Generator Multiplier
-+"+genMultPer.F()+"x costs "+genMultCost.F("thing generator")+"
-Currently +"+genMult.F()+"x"
++"+genMultPer.F("", true)+"x costs "+genMultCost.F("thing generator", true)+"
+Currently +"+genMult.F("", true)+"x"
 
 func save():
 	return {

@@ -36,10 +36,10 @@ func updateText():
 		0: effect = "TPS multiplier\nbased on cyyan things\nCurrently x"+parent.game.things.milestone1.F()
 		1: effect = "Unlocks 5 more funny upgrades"
 		2: effect = "Funny upgrade 2 effect ^1.5"
-		3: effect = "Win condition (for now)"
+		3: effect = "Win condition (for now )"
 		_: effect = "Error: you have too many milestones somehow"
 	text = "Milestone "+str(id+1)+"
-(requires "+requirement.F("total cyyan thing")+")
+(requires "+requirement.F("total cyyan thing",true)+")
 "+(effect if active else "???")
 
 func save():

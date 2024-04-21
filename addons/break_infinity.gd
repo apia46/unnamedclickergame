@@ -32,6 +32,7 @@ var format = SCIENTIFIC
 var seperator = Format.SEPERATOR.COMMA
 var decimalPoint = Format.SEPERATOR.PERIOD
 var digitsShown = 2
+var preventFlickering = true
 
 #func _init(mantissa, exponent := 0.0):
 #	if typeof(m) == TYPE_STRING:
@@ -509,18 +510,19 @@ class Decimal:
 	func Plural() -> bool:
 		return self.NotEquals(1)
 	
-	func F(noun:="") -> String:
+	func F(noun:="", ignorePreventFlickering:=false) -> String:
+		var prevent = Dec.preventFlickering and !ignorePreventFlickering
 		# affix a noun for convenience
 		var affix = ""
 		if noun != "":
 			affix = " " + (getPluralForm(noun) if self.Plural() else noun)
 		match Dec.format:
 			SCIENTIFIC:
-				if -2 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
-				else: return Format.formatDecimalScientific(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
-			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint) + affix
-			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint) + affix
-			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint) + affix
+				if -2 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
+				else: return Format.formatDecimalScientific(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
 			_: return "error"
 	
 	const INFINITIVES = ["bonus"]

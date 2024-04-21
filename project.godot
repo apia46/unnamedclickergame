@@ -8,8 +8,6 @@
 
 config_version=5
 
-display/window/stretch/scale=1.0
-
 [application]
 
 config/name="Unnamed Clicker Game"
@@ -21,12 +19,14 @@ config/tags=PackedStringArray("clickergame")
 run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-config/icon="res://assets/achievements/00.png"
+config/icon="res://assets/achievements/basic0.png"
 
 [autoload]
 
 Dec="*res://addons/break_infinity.gd"
 Format="*res://addons/formatting.gd"
+uiPopup="*res://assets/ui/popup.gd"
+hover="*res://assets/ui/hover.gd"
 
 [debug]
 
@@ -38,7 +38,6 @@ gdscript/warnings/narrowing_conversion=0
 
 window/size/viewport_width=1000
 window/size/viewport_height=700
-window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [filesystem]

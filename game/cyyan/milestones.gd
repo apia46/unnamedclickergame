@@ -29,7 +29,7 @@ func updateMilestones():
 	if stage > 2: game.things.funnyUpgs.maxUpgs = 15; game.things.funnyUpgs.update()
 
 func update():
-	for button in milestoneButtons: remove_child(button)
+	for button in milestoneButtons: button.queue_free()
 	milestoneButtons = []
 	for i in range(min(stage, MAXMILESTONES)):
 		milestoneButtons.append(MILESTONE.instantiate().set_data(i, i<stage-1))

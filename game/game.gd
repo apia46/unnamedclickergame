@@ -7,12 +7,14 @@
 extends TabContainer
 @onready var things = %things
 @onready var settings = %settings
+@onready var achievements = %achievements
 
 const BACKUPDIRECTORY = "user://backup.save" # debug
 const SAVEDIRECTORY = "user://savegame.save"
 const TEMPSAVEDIRECTORY = "user://tempsavegame.save"
 const THINGSCONT = preload("res://game/thingsCont.tscn")
 const CYYAN = preload("res://game/cyyan/cyyan.tscn")
+const TEXTPOPUP = preload("res://assets/ui/textPopup.tscn")
 enum UNLOCK {NONE, CYYAN}
 
 @onready var timePlayed = Dec.D(0)
@@ -46,19 +48,22 @@ func _process(delta):
 	# update the text on everything
 	things.updateText()
 	if cyyanUnlocked: cyyan.updateText()
+	achievements.updateText()
 	settings.updateText()
+	get_tree().call_group("hover", "updateText")
 	
 	# autosaving
 	timeSinceAutosave += delta
-	if timeSinceAutosave > settings.saving.autosaveInterval*60 and settings.saving.autosaveInterval != 0:
+	if timeSinceAutosave > settings.saving.autosaveInterval and settings.saving.autosaveInterval != 0:
 		initiateSave(true)
 		timeSinceAutosave = 0
 
 func updateTabs(unlock:=UNLOCK.NONE):
 	if unlock == UNLOCK.CYYAN: cyyanUnlocked = true
 	set_tab_title(0, "Things")
-	set_tab_title(1, "Settings")
-	set_tab_title(2, "Information")
+	set_tab_title(1, "Achievements")
+	set_tab_title(2, "Settings")
+	set_tab_title(3, "Information")
 	if cyyanUnlocked:
 		if has_node(^"things"):
 			# surgery
@@ -92,15 +97,17 @@ func initiateSave(autosaved:=false, toClipboard:=false):
 	save_file.store_line(JSON.stringify(settings.save()))
 	save_file.store_line(JSON.stringify(settings.formatting.save()))
 	save_file.store_line(JSON.stringify(settings.saving.save()))
+	
+	save_file.store_line(JSON.stringify(achievements.save()))
 	if toClipboard:
 		save_file.close()
 		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ)
 		DisplayServer.clipboard_set(save_file.get_as_text())
-	print(("auto" if autosaved else "") + "saved")
+	$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("Autosaved" if autosaved else "Saved"))
 
 func initiateLoad(fromClipboard:=false, fromBackup:=false):
 	if not FileAccess.file_exists(SAVEDIRECTORY):
-		print("there is no save file")
+		$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("There is no save file"))
 		return
 	
 	var save_file : FileAccess
@@ -108,8 +115,10 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.WRITE)
 		save_file.store_string(DisplayServer.clipboard_get())
 		save_file.close()
-	if fromBackup: save_file = FileAccess.open(BACKUPDIRECTORY, FileAccess.READ)
+		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ)
+	elif fromBackup: save_file = FileAccess.open(BACKUPDIRECTORY, FileAccess.READ)
 	else: save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.READ)
+	
 	while save_file.get_position() < save_file.get_length():
 		var json_string = save_file.get_line()
 		# [Creates the helper class to interact with JSON]
@@ -120,7 +129,7 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 		# [Check if there is any error while parsing the JSON string, skip in case of failure]
 		if !(check == OK):
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			print("please send save file; JSON Parse Error: " + json.get_error_message() + " in save file at line " + str(json.get_error_line()))
+			$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("please send save file; JSON Parse Error: " + json.get_error_message() + " in save file at line " + str(json.get_error_line())))
 			return
 		
 		var node_data = json.get_data()
@@ -130,12 +139,12 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 				else: get_node(node_data["nodepath"]).set(variable, node_data[variable])
 		if node_data["nodepath"] == "/root/game": updateTabs()
 	update()
-	print("loaded successfully")
-
+	$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("Loaded"))
 
 func update(): # for one time updates; this is an "update all"
 	things.funnyUpgs.update()
 	if cyyanUnlocked: cyyan.milestones.update()
+	achievements.update()
 	settings.setFromData()
 
 func save():

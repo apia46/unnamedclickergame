@@ -15,37 +15,41 @@ grow_vertical = 2
 theme = ExtResource("1_nyjgj")
 script = ExtResource("2_ebn27")
 
-[node name="cont" type="VBoxContainer" parent="."]
+[node name="cont" type="ScrollContainer" parent="."]
 layout_mode = 2
 
-[node name="topside" type="ScrollContainer" parent="cont"]
+[node name="cont" type="VBoxContainer" parent="cont"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="topside" type="ScrollContainer" parent="cont/cont"]
 layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="cont" type="HBoxContainer" parent="cont/topside"]
+[node name="cont" type="HBoxContainer" parent="cont/cont/topside"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="formatting" type="VBoxContainer" parent="cont/topside/cont"]
+[node name="formatting" type="VBoxContainer" parent="cont/cont/topside/cont"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-alignment = 1
 script = ExtResource("3_n8mdx")
 
-[node name="formattingLabel" type="RichTextLabel" parent="cont/topside/cont/formatting"]
+[node name="formattingLabel" type="RichTextLabel" parent="cont/cont/topside/cont/formatting"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Number Formatting"
 fit_content = true
 
-[node name="formattingExample" type="RichTextLabel" parent="cont/topside/cont/formatting"]
+[node name="formattingExample" type="RichTextLabel" parent="cont/cont/topside/cont/formatting"]
 layout_mode = 2
 text = "Example: 1234567.890123"
 fit_content = true
 
-[node name="formattingOptions" type="OptionButton" parent="cont/topside/cont/formatting"]
+[node name="formattingOptions" type="OptionButton" parent="cont/cont/topside/cont/formatting"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -58,7 +62,7 @@ popup/item_2/id = 4
 popup/item_3/text = "Long"
 popup/item_3/id = 3
 
-[node name="seperatorOptions" type="OptionButton" parent="cont/topside/cont/formatting"]
+[node name="seperatorOptions" type="OptionButton" parent="cont/cont/topside/cont/formatting"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -71,191 +75,205 @@ popup/item_2/id = 2
 popup/item_3/text = "None, comma"
 popup/item_3/id = 3
 
-[node name="digitsShown" type="HBoxContainer" parent="cont/topside/cont/formatting"]
+[node name="digitsShown" type="HBoxContainer" parent="cont/cont/topside/cont/formatting"]
 layout_mode = 2
 
-[node name="digitsShownLabel" type="RichTextLabel" parent="cont/topside/cont/formatting/digitsShown"]
+[node name="digitsShownLabel" type="RichTextLabel" parent="cont/cont/topside/cont/formatting/digitsShown"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "Digits after point"
 fit_content = true
 
-[node name="digitsShownOptions" type="SpinBox" parent="cont/topside/cont/formatting/digitsShown"]
+[node name="digitsShownOptions" type="SpinBox" parent="cont/cont/topside/cont/formatting/digitsShown"]
 layout_mode = 2
 max_value = 8.0
 
-[node name="saving" type="HBoxContainer" parent="cont/topside/cont"]
+[node name="preventFlickering" type="CheckButton" parent="cont/cont/topside/cont/formatting"]
+layout_mode = 2
+button_pressed = true
+text = "Prevent Flickering"
+
+[node name="main" type="VBoxContainer" parent="cont/cont/topside/cont"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="saving" type="HBoxContainer" parent="cont/cont/topside/cont/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 2
 script = ExtResource("4_6x42h")
 
-[node name="main" type="VBoxContainer" parent="cont/topside/cont/saving"]
+[node name="main" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving"]
 custom_minimum_size = Vector2(215, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="autosave" type="VBoxContainer" parent="cont/topside/cont/saving/main"]
+[node name="autosave" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving/main"]
 layout_mode = 2
 
-[node name="autosaveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave"]
+[node name="autosaveLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/autosave"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Autosave Settings"
 fit_content = true
 
-[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave"]
+[node name="intervalLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/autosave"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 text = "Autosave Interval (0 for no autosave)"
 fit_content = true
 
-[node name="interval" type="HBoxContainer" parent="cont/topside/cont/saving/main/autosave"]
+[node name="interval" type="HBoxContainer" parent="cont/cont/topside/cont/main/saving/main/autosave"]
 layout_mode = 2
 alignment = 1
 
-[node name="intervalLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave/interval"]
-custom_minimum_size = Vector2(32, 0)
+[node name="intervalLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/autosave/interval"]
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 10
-text = "0 mins"
+text = "0 secs"
 fit_content = true
+autowrap_mode = 0
 
-[node name="intervalSlider" type="HSlider" parent="cont/topside/cont/saving/main/autosave/interval"]
+[node name="intervalSlider" type="HSlider" parent="cont/cont/topside/cont/main/saving/main/autosave/interval"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-max_value = 30.0
-value = 5.0
+max_value = 60.0
+step = 10.0
+value = 30.0
 tick_count = 7
 ticks_on_borders = true
 
-[node name="intervalMax" type="RichTextLabel" parent="cont/topside/cont/saving/main/autosave/interval"]
-custom_minimum_size = Vector2(61, 0)
+[node name="intervalMax" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/autosave/interval"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 10
-text = "30 mins"
+text = "60 secs"
 fit_content = true
+autowrap_mode = 0
 
-[node name="debug" type="VBoxContainer" parent="cont/topside/cont/saving/main"]
+[node name="debug" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving/main"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="debugLabel" type="RichTextLabel" parent="cont/topside/cont/saving/main/debug"]
+[node name="debugLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/debug"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Debug"
 fit_content = true
 
-[node name="main" type="HBoxContainer" parent="cont/topside/cont/saving/main/debug"]
+[node name="main" type="HBoxContainer" parent="cont/cont/topside/cont/main/saving/main/debug"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="updateButton" type="Button" parent="cont/topside/cont/saving/main/debug/main"]
+[node name="updateButton" type="Button" parent="cont/cont/topside/cont/main/saving/main/debug/main"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Update"
 
-[node name="loadFromBackupButton" type="Button" parent="cont/topside/cont/saving/main/debug/main"]
+[node name="loadFromBackupButton" type="Button" parent="cont/cont/topside/cont/main/saving/main/debug/main"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Load from Backup"
 
-[node name="save" type="VBoxContainer" parent="cont/topside/cont/saving"]
+[node name="save" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="saveLabel" type="RichTextLabel" parent="cont/topside/cont/saving/save"]
+[node name="saveLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/save"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Save"
 fit_content = true
 
-[node name="saveFileButton" type="Button" parent="cont/topside/cont/saving/save"]
+[node name="saveFileButton" type="Button" parent="cont/cont/topside/cont/main/saving/save"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 12
 text = "Save to File"
 
-[node name="saveClipboardButton" type="Button" parent="cont/topside/cont/saving/save"]
+[node name="saveClipboardButton" type="Button" parent="cont/cont/topside/cont/main/saving/save"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
 text = "Export to Clipboard"
 
-[node name="load" type="VBoxContainer" parent="cont/topside/cont/saving"]
+[node name="load" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="loadLabel" type="RichTextLabel" parent="cont/topside/cont/saving/load"]
+[node name="loadLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/load"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Load"
 fit_content = true
 
-[node name="loadFileButton" type="Button" parent="cont/topside/cont/saving/load"]
+[node name="loadFileButton" type="Button" parent="cont/cont/topside/cont/main/saving/load"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_font_sizes/font_size = 12
 text = "Load from File"
 
-[node name="loadClipboardButton" type="Button" parent="cont/topside/cont/saving/load"]
+[node name="loadClipboardButton" type="Button" parent="cont/cont/topside/cont/main/saving/load"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
 text = "Import from Clipboard"
 
-[node name="midside" type="HBoxContainer" parent="cont"]
-custom_minimum_size = Vector2(0, 100)
+[node name="main" type="HBoxContainer" parent="cont/cont/topside/cont/main"]
 layout_mode = 2
 
-[node name="uiScaling" type="VBoxContainer" parent="cont/midside"]
+[node name="uiScaling" type="VBoxContainer" parent="cont/cont/topside/cont/main/main"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("5_yi3pt")
 
-[node name="uiScalingLabel" type="RichTextLabel" parent="cont/midside/uiScaling"]
+[node name="uiScalingLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/main/uiScaling"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "UI scaling"
 fit_content = true
 
-[node name="scaling" type="HBoxContainer" parent="cont/midside/uiScaling"]
+[node name="scaling" type="HBoxContainer" parent="cont/cont/topside/cont/main/main/uiScaling"]
 layout_mode = 2
 
-[node name="scalingLabel" type="RichTextLabel" parent="cont/midside/uiScaling/scaling"]
-custom_minimum_size = Vector2(25, 0)
+[node name="scalingLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/main/uiScaling/scaling"]
+custom_minimum_size = Vector2(31, 0)
 layout_mode = 2
 text = "50%"
+fit_content = true
+autowrap_mode = 0
 
-[node name="uiScalingSlider" type="HSlider" parent="cont/midside/uiScaling/scaling"]
+[node name="uiScalingSlider" type="HSlider" parent="cont/cont/topside/cont/main/main/uiScaling/scaling"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 0.5
-max_value = 2.5
+max_value = 4.0
 step = 0.25
 value = 0.5
 
-[node name="intervalMax" type="RichTextLabel" parent="cont/midside/uiScaling/scaling"]
-custom_minimum_size = Vector2(31, 0)
+[node name="intervalMax" type="RichTextLabel" parent="cont/cont/topside/cont/main/main/uiScaling/scaling"]
 layout_mode = 2
-text = "250%"
+text = "400%"
 fit_content = true
+autowrap_mode = 0
 
-[connection signal="item_selected" from="cont/topside/cont/formatting/formattingOptions" to="cont/topside/cont/formatting" method="_formattingOptions_select"]
-[connection signal="item_selected" from="cont/topside/cont/formatting/seperatorOptions" to="cont/topside/cont/formatting" method="_seperatorOptions_select"]
-[connection signal="value_changed" from="cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
-[connection signal="value_changed" from="cont/topside/cont/saving/main/autosave/interval/intervalSlider" to="cont/topside/cont/saving" method="_intervalSlider_changed"]
-[connection signal="pressed" from="cont/topside/cont/saving/main/debug/main/updateButton" to="cont/topside/cont/saving" method="_updateButton_pressed"]
-[connection signal="pressed" from="cont/topside/cont/saving/main/debug/main/loadFromBackupButton" to="cont/topside/cont/saving" method="_loadFromBackupButton_pressed"]
-[connection signal="pressed" from="cont/topside/cont/saving/save/saveFileButton" to="cont/topside/cont/saving" method="_saveFileButton_pressed"]
-[connection signal="pressed" from="cont/topside/cont/saving/save/saveClipboardButton" to="cont/topside/cont/saving" method="_saveClipboardButton_pressed"]
-[connection signal="pressed" from="cont/topside/cont/saving/load/loadFileButton" to="cont/topside/cont/saving" method="_loadFileButton_pressed"]
-[connection signal="pressed" from="cont/topside/cont/saving/load/loadClipboardButton" to="cont/topside/cont/saving" method="_loadClipboardButton_pressed"]
-[connection signal="drag_ended" from="cont/midside/uiScaling/scaling/uiScalingSlider" to="cont/midside/uiScaling" method="_uiScalingSlider_changed"]
+[connection signal="item_selected" from="cont/cont/topside/cont/formatting/formattingOptions" to="cont/cont/topside/cont/formatting" method="_formattingOptions_select"]
+[connection signal="item_selected" from="cont/cont/topside/cont/formatting/seperatorOptions" to="cont/cont/topside/cont/formatting" method="_seperatorOptions_select"]
+[connection signal="value_changed" from="cont/cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
+[connection signal="toggled" from="cont/cont/topside/cont/formatting/preventFlickering" to="cont/cont/topside/cont/formatting" method="_preventFlickering_toggled"]
+[connection signal="value_changed" from="cont/cont/topside/cont/main/saving/main/autosave/interval/intervalSlider" to="cont/cont/topside/cont/main/saving" method="_intervalSlider_changed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/main/debug/main/updateButton" to="cont/cont/topside/cont/main/saving" method="_updateButton_pressed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/main/debug/main/loadFromBackupButton" to="cont/cont/topside/cont/main/saving" method="_loadFromBackupButton_pressed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/save/saveFileButton" to="cont/cont/topside/cont/main/saving" method="_saveFileButton_pressed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/save/saveClipboardButton" to="cont/cont/topside/cont/main/saving" method="_saveClipboardButton_pressed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/load/loadFileButton" to="cont/cont/topside/cont/main/saving" method="_loadFileButton_pressed"]
+[connection signal="pressed" from="cont/cont/topside/cont/main/saving/load/loadClipboardButton" to="cont/cont/topside/cont/main/saving" method="_loadClipboardButton_pressed"]
+[connection signal="drag_ended" from="cont/cont/topside/cont/main/main/uiScaling/scaling/uiScalingSlider" to="cont/cont/topside/cont/main/main/uiScaling" method="_uiScalingSlider_changed"]

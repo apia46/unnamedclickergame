@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://beynvw3s72vjy"]
+[gd_scene load_steps=6 format=3 uid="uid://beynvw3s72vjy"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_egskk"]
 [ext_resource type="PackedScene" uid="uid://du5jhscbv8jxx" path="res://game/things/things.tscn" id="1_j61cc"]
 [ext_resource type="PackedScene" uid="uid://b2n2e3aho4km8" path="res://game/settings/settings.tscn" id="3_jq1cr"]
+[ext_resource type="PackedScene" uid="uid://b04uyig4lll3a" path="res://game/achievements/achievements.tscn" id="3_x5vdf"]
 [ext_resource type="PackedScene" uid="uid://bo86fjb3bt40v" path="res://game/information/information.tscn" id="4_wfujg"]
 
 [node name="game" type="TabContainer"]
@@ -11,16 +12,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
 script = ExtResource("1_egskk")
 
 [node name="things" parent="." instance=ExtResource("1_j61cc")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="achievements" parent="." instance=ExtResource("3_x5vdf")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
 [node name="settings" parent="." instance=ExtResource("3_jq1cr")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="information" parent="." instance=ExtResource("4_wfujg")]

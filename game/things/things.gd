@@ -3,6 +3,7 @@ extends MarginContainer
 @onready var generators = $cont/cont/main/topside/generators
 @onready var funnyUpgs = $cont/cont/main/main/margins/funnyUpgs
 @onready var game = $"/root/game"
+@onready var achievements = $"/root/game/achievements"
 
 @onready var things = Dec.D(0)
 @onready var thingsTotal = Dec.D(0)
@@ -16,6 +17,7 @@ extends MarginContainer
 func _ready(): pass
 
 func addThings(amount):
+	if amount.GreaterThan(0): achievements.unlockAch("basic",0)
 	things.Incr(amount)
 	thingsTotal.Incr(amount)
 	if game.cyyanUnlocked: game.cyyan.addCyyanFromThings(amount)
@@ -47,8 +49,8 @@ func updateButtons():
 	funnyUpgs.updateButtons()
 
 func updateText():
-	$"cont/cont/textCont/thingsLabel".text = "You have "+things.F("thing")
-	$"cont/cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing")+" per second (TPS)"
+	$"cont/cont/textCont/thingsLabel".text = "You have "+things.F("thing", gensOutput.Eq(0))
+	$"cont/cont/textCont/tpsLabel".text = "You are gaining "+TPS.F("thing", gensOutput.Eq(0))+" per second (TPS)"
 	
 	clicks.updateText()
 	generators.updateText()
