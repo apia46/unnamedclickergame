@@ -74,4 +74,3 @@ func save():
 		"nodepath" : self.get_path(),
 		"achs" : achs,
 	}
-

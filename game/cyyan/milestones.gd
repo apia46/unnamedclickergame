@@ -49,4 +49,3 @@ func save():
 		"nodepath" : self.get_path(),
 		"stage" : self.stage,
 	}
-

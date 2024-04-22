@@ -46,4 +46,3 @@ func save():
 	return {
 		"nodepath" : self.get_path(),
 	}
-

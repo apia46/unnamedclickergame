@@ -34,4 +34,3 @@ func save():
 		"nodepath" : self.get_path(),
 		"cyyan" : cyyan.asArray(),
 	}
-
