@@ -1,17 +1,34 @@
 extends MarginContainer
-@onready var reference # references to other nodes
+@onready var achConts = {
+	"basic": $"cont/cont/basicAchievements",
+	"cyyan": $"cont/cont/cyyanAchievements",
+	"secret": $"cont/cont/secretAchievements",
+}
 const ACHIEVEMENT = preload("res://game/achievements/achievement.tscn")
 const POPUP = preload("res://game/achievements/achievementPopup.tscn")
 
 var achs = {
-	"basic": [false],
+	"basic": [false, false, false, false, false, false, false],
+	"cyyan": [false, false, false, false],
+	"secret": [false, false, false, false],
 }
 # computed
 var achObjs = {
-	"basic": []
+	"basic": [],
+	"cyyan": [],
+	"secret": [],
 }
+var unlocked = {
+	"basic": true,
+	"cyyan": false,
+	"secret": true,
+}
+var achCounts = {}
 
-func _ready(): pass # likely just pass
+var achCount = 0
+var totalAchCount = 0
+
+func _ready(): pass
 
 func unlockAch(category, ach):
 	if achs[category][ach]: return
@@ -23,7 +40,16 @@ func unlockAch(category, ach):
 
 # _listeners here
 
-func updateAchs(): pass
+func updateAchs():
+	achCount = 0
+	totalAchCount = 0
+	for category in achs:
+		if category != "secret":
+			var count = achs[category].count(true)
+			if count > 0: unlocked[category] = true
+			achCount += count
+			achCounts[category] = count
+			totalAchCount += len(achs[category])
 
 func update():
 	for category in achObjs: for ach in achObjs[category]: ach.queue_free()
@@ -32,12 +58,15 @@ func update():
 		for i in range(len(achs[category])):
 			achObjs[category].append(ACHIEVEMENT.instantiate().set_data(category + str(i), achs[category][i]))
 			var ach = achObjs[category][i]
-			match category:
-				"basic": $"cont/cont/basicAchievements".add(ach)
+			achConts[category].add(ach)
 	updateAchs()
 
 func updateText():
-	$"cont/cont/basicAchievements".updateText("Basic Achievements ("+str(achs.basic.count(true))+"/"+str(len(achs.basic))+")")
+	for category in achObjs:
+		if category != "secret":
+			if unlocked[category]: achConts[category].updateText(category[0].to_upper() + category.substr(1,-1)+" Achievements ("+Dec.D(achCounts[category]).F("", true)+"/"+Dec.D(len(achs[category])).F("", true)+")")
+			achConts[category].visible = unlocked[category]
+	$"cont/cont/secretAchievements".updateText("Total: "+Dec.D(achCount).F("", true)+"/"+Dec.D(totalAchCount).F("", true))
 	for category in achObjs: for ach in achObjs[category]: ach.updateText()
 
 func save():

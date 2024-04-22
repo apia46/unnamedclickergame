@@ -4,7 +4,7 @@ extends MarginContainer
 
 @onready var cyyan = Dec.D(1)
 # computed
-@onready var thingsPerCyyan = Dec.D(1000000)
+@onready var thingsPerCyyan = Dec.D(1e6)
 @onready var cyyanPerSecond = Dec.D(0)
 
 func _ready(): pass # likely just pass
@@ -25,7 +25,7 @@ func updateText():
 	$"cont/cont/textCont/cyyanLabel".text = "You have "+cyyan.F("cyyan thing")
 	$"cont/cont/textCont/cyyanPerSecondLabel".text = "You are gaining "+cyyanPerSecond.F("cyyan thing")+" per second"
 	var until = thingsPerCyyan.Mul(1-fmod(cyyan.ToFloat(),1))
-	$"cont/cont/textCont/perLabel".text = "+1 cyyan thing per "+thingsPerCyyan.F("thing")+" you get"+(", "+until.F()+" until next" if cyyan.LessThan(1e16) else "")
+	$"cont/cont/textCont/perLabel".text = "+1 cyyan thing per "+thingsPerCyyan.F("thing",true)+" you get"+(", "+until.F()+" until next" if cyyan.LessThan(1e16) else "")
 	
 	milestones.updateText()
 

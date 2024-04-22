@@ -27,6 +27,7 @@ func unlockMilestone():
 
 func updateMilestones():
 	if stage > 2: game.things.funnyUpgs.maxUpgs = 15; game.things.funnyUpgs.update()
+	if stage > 3: game.achievements.unlockAch("cyyan",3)
 
 func update():
 	for button in milestoneButtons: button.queue_free()

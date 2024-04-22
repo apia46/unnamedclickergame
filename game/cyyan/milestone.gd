@@ -21,9 +21,9 @@ func set_data(Id,Active:=false):
 func updateButtons():
 	match id:
 		0: requirement = Dec.D(1)
-		1: requirement = Dec.D(10)
+		1: requirement = Dec.D(5)
 		2: requirement = Dec.D(50)
-		3: requirement = Dec.D(500)
+		3: requirement = Dec.D(1000)
 		_: requirement = Dec.D(0)
 	
 	if !active and parent.cyyan.cyyan.GE(requirement):

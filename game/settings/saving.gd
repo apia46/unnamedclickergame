@@ -34,8 +34,8 @@ func _loadFromBackupButton_pressed(): # debug
 	game.initiateLoad(false, true)
 
 func updateText():
-	$"main/autosave/interval/intervalLabel".text = ("none" if autosaveInterval == 0 else str(autosaveInterval) + " secs" )
-	$"main/autosave/intervalLabel".text = "Autosave Interval (0 for no autosave) " + ("" if autosaveInterval == 0 else Dec.D(game.timeSinceAutosave).F("sec") + " since autosave")
+	$"main/autosave/interval/intervalLabel".text = ("none" if autosaveInterval == 0 else Dec.D(autosaveInterval).F("sec", true))
+	$"main/autosave/intervalLabel".text = "Autosave Interval (0 for none) " + ("" if autosaveInterval == 0 else Dec.D(game.timeSinceSave).F("sec") + " since save")
 
 func save():
 	return {

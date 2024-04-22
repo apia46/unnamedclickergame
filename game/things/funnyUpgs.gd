@@ -25,11 +25,19 @@ func _funnyUpg_buy():
 	updateUpgs()
 
 func updateUpgs():
+	if stage > 1: game.achievements.unlockAch("basic",1)
+	if stage > 3: game.achievements.unlockAch("basic",2)
+	if stage > 5: game.achievements.unlockAch("basic",3)
+	if stage > 7: game.achievements.unlockAch("basic",4)
+	if stage > 9: game.achievements.unlockAch("basic",5)
+	if stage > 10: game.achievements.unlockAch("cyyan",0)
+	if stage > 11: game.achievements.unlockAch("cyyan",1)
+	if stage > 13: game.achievements.unlockAch("cyyan",2)
 	if !upg5Triggered and stage > 5:
-		things.addThings(20001)
+		things.addThings(Dec.D(20001))
 		upg5Triggered = true
 	if !upg7Triggered and stage > 7:
-		things.addThings(59999)
+		things.addThings(Dec.D(59999))
 		upg7Triggered = true
 	if !game.cyyanUnlocked and stage > 10:
 		game.updateTabs(game.UNLOCK.CYYAN)

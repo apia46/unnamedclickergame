@@ -13,17 +13,17 @@ extends VBoxContainer
 @onready var funnyUpg6 = Dec.D(1)
 @onready var perClickUpgEffect = Dec.D(0)
 @onready var effectivePerClickUpgPer = Dec.D(1)
-@onready var funnyUpg14 = Dec.D(0)
+@onready var funnyUpg12 = Dec.D(0)
 
 func _ready(): pass
 
 func procThingsPerClick():
 	thingsPerClick = Dec.D(1)
 	perClickUpgEffect = perClickUpg
-	if things.funnyUpgs.stage > 14: funnyUpg14 = Dec.D(things.funnyUpgs.stage).Mul(0.05)
+	if things.funnyUpgs.stage > 12: funnyUpg12 = Dec.D(things.funnyUpgs.stage).Mul(0.05)
 	if things.funnyUpgs.stage > 9:
-		perClickUpgEffect = perClickUpg.PowOf(Dec.D(2).Add(funnyUpg14))
-		effectivePerClickUpgPer = perClickUpg.Add(perClickUpgPer).PowOf(Dec.D(2).Add(funnyUpg14)).Minus(perClickUpgEffect)
+		perClickUpgEffect = perClickUpg.PowOf(Dec.D(2).Add(funnyUpg12))
+		effectivePerClickUpgPer = perClickUpg.Add(perClickUpgPer).PowOf(Dec.D(2).Add(funnyUpg12)).Minus(perClickUpgEffect)
 	thingsPerClick.Incr(perClickUpgEffect)
 	
 	if things.funnyUpgs.stage > 2:

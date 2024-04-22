@@ -1,5 +1,5 @@
 extends VBoxContainer
-@onready var reference # references to other nodes
+@onready var game = $"/root/game"
 
 var formattingOptionsSelected : int = 0
 var seperatorOptionsSelected : int = 0
@@ -41,6 +41,7 @@ func updateFormatting():
 		1: Dec.format = Dec.STANDARD
 		2: Dec.format = Dec.STANDARDFULL
 		3: Dec.format = Dec.LONG
+		4: Dec.format = Dec.BLIND; game.achievements.unlockAch("secret",1)
 		_: print("invalid formatting option")
 	match seperatorOptionsSelected:
 		0: Dec.seperator = Format.SEPERATOR.COMMA; Dec.decimalPoint = Format.SEPERATOR.PERIOD

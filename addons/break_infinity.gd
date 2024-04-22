@@ -24,7 +24,7 @@ const ROUND_TOLERANCE = 1e-10;
 # Tolerance which is used for equality checks to compensate for floating point error
 const EPSILON = 1e-10
 
-enum {SCIENTIFIC, STANDARD, STANDARDFULL, LONG}
+enum {SCIENTIFIC, STANDARD, STANDARDFULL, LONG, BLIND}
 
 # ===== CONSTANTS =====
 
@@ -523,6 +523,9 @@ class Decimal:
 			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint, prevent) + affix
 			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint, prevent) + affix
 			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			BLIND:
+				if noun != "": return "some " + getPluralForm(noun)
+				else: return "a number"
 			_: return "error"
 	
 	const INFINITIVES = ["bonus"]

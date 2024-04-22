@@ -21,15 +21,22 @@ enum UNLOCK {NONE, CYYAN}
 var timeSaved = 0.0
 var cyyanUnlocked = false
 # computed
-var timeSinceAutosave = 0.0
+var timeSinceSave = 0.0
 var thingsCont
 var cyyan
+var impatientSaveCount = 0.0
 
 func _ready(): update()
 
 func _process(delta):
 	# here is the main processing of the game
 	# all things that happen by procedure in a frame should go here
+	# autosaving
+	timeSinceSave += delta
+	if timeSinceSave > settings.saving.autosaveInterval and settings.saving.autosaveInterval != 0:
+		initiateSave(true)
+	impatientSaveCount -= 2*delta
+	impatientSaveCount = max(impatientSaveCount,0)
 	
 	# PROCESSING
 	timePlayed.Incr(delta)
@@ -51,12 +58,6 @@ func _process(delta):
 	achievements.updateText()
 	settings.updateText()
 	get_tree().call_group("hover", "updateText")
-	
-	# autosaving
-	timeSinceAutosave += delta
-	if timeSinceAutosave > settings.saving.autosaveInterval and settings.saving.autosaveInterval != 0:
-		initiateSave(true)
-		timeSinceAutosave = 0
 
 func updateTabs(unlock:=UNLOCK.NONE):
 	if unlock == UNLOCK.CYYAN: cyyanUnlocked = true
@@ -79,6 +80,10 @@ func updateTabs(unlock:=UNLOCK.NONE):
 		thingsCont.set_tab_title(1, "Cyyan")
 
 func initiateSave(autosaved:=false, toClipboard:=false):
+	if timeSinceSave < 0.5: 
+		impatientSaveCount += 1
+		if impatientSaveCount >= 10: achievements.unlockAch("secret", 3)
+	timeSinceSave = 0
 	timeSaved = Time.get_unix_time_from_system()
 	update()
 	var save_file : FileAccess
@@ -136,6 +141,9 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 		for variable in node_data.keys():
 			if variable != "nodepath":
 				if typeof(node_data[variable]) == TYPE_ARRAY and node_data[variable][0] == "Decimal": get_node(node_data["nodepath"]).set(variable, Dec.fromArray(node_data[variable]))
+				elif typeof(node_data[variable]) == TYPE_DICTIONARY:
+					for key in node_data[variable]:
+						get_node(node_data["nodepath"]).set(variable + "." + key, node_data[variable][key])
 				else: get_node(node_data["nodepath"]).set(variable, node_data[variable])
 		if node_data["nodepath"] == "/root/game": updateTabs()
 	update()

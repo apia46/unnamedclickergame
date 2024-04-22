@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpijawf1rpn8w"
-path="res://.godot/imported/12.png-193890a459812a1e5ad0b2301c6a2d79.ctex"
+uid="uid://cwt1vfg1rg64n"
+path="res://.godot/imported/cyyan1.png-ef01647710618703b8fbdf3a06b1ef7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/achievements/12.png"
-dest_files=["res://.godot/imported/12.png-193890a459812a1e5ad0b2301c6a2d79.ctex"]
+source_file="res://assets/achievements/cyyan1.png"
+dest_files=["res://.godot/imported/cyyan1.png-ef01647710618703b8fbdf3a06b1ef7f.ctex"]
 
 [params]
 

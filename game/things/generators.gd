@@ -16,7 +16,7 @@ extends VBoxContainer
 @onready var untilNextBonus = Dec.D(0)
 @onready var gensTotal = Dec.D(0)
 
-@onready var funnyUpg12 = Dec.D(0)
+@onready var funnyUpg13 = Dec.D(0)
 @onready var baseBonusGens = Dec.D(0)
 @onready var funnyUpg15 = Dec.D(1)
 
@@ -42,9 +42,9 @@ func procGens():
 	genMultiplier = Dec.D(1)
 	genMultiplier.Incr(genMult)
 	
-	if things.funnyUpgs.stage > 12: funnyUpg12 = Dec.Decimal.Max(things.game.cyyan.cyyan.Floor().Ln().Ln(), 0)
+	if things.funnyUpgs.stage > 13: funnyUpg13 = Dec.Decimal.Max(things.game.cyyan.cyyan.Floor().Ln().Ln(), 0)
 	gensPer = Dec.D(1)
-	if things.funnyUpgs.stage > 1: gensPer.Mulr(Dec.D(2).Add(funnyUpg12))
+	if things.funnyUpgs.stage > 1: gensPer.Mulr(Dec.D(2).Add(funnyUpg13))
 	
 	tpsPerGen = Dec.D(1)
 	tpsPerGen.Mulr(genMultiplier)
@@ -64,8 +64,8 @@ func updateButtons():
 func updateText():
 	var bonusText = " + "+bonusGens.F("bonus",!things.funnyUpgs.stage > 15) + " = " + gensTotal.F("",!things.funnyUpgs.stage > 15)
 	$"gensButton".text = "Thing Generators
-+"+gensPer.F("",!things.funnyUpgs.stage > 12)+" costs "+gensCost.F("thing", !things.funnyUpgs.stage > 12)+"
-Currently "+gens.F("generator",!things.funnyUpgs.stage > 12)+(bonusText if things.funnyUpgs.stage > 8 else "")+"
++"+gensPer.F("",!things.funnyUpgs.stage > 13)+" costs "+gensCost.F("thing", !things.funnyUpgs.stage > 13)+"
+Currently "+gens.F("generator",!things.funnyUpgs.stage > 13)+(bonusText if things.funnyUpgs.stage > 8 else "")+"
 "+("each " if gens.Plural() else "")+"producing "+(things.gensOutput.Div(gens) if gens.GreaterThan(0) else tpsPerGen).F("thing",!things.funnyUpgs.stage > 15)+" per second"
 	$"genMultButton".text = "Thing Generator Multiplier
 +"+genMultPer.F("", true)+"x costs "+genMultCost.F("thing generator", true)+"

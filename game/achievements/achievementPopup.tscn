@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drb1pdmxvkw4t" path="res://assets/ui/popup.tscn" id="1_7igfc"]
 [ext_resource type="Script" path="res://game/achievements/achievementPopup.gd" id="2_a8dvq"]
-[ext_resource type="Texture2D" uid="uid://doikxmlga5dcq" path="res://assets/achievements/basic0.png" id="2_npqop"]
+[ext_resource type="Texture2D" uid="uid://dgkey1ayknhyk" path="res://assets/achievements/basic0.png" id="2_npqop"]
 
 [node name="popup" instance=ExtResource("1_7igfc")]
 custom_minimum_size = Vector2(400, 80)

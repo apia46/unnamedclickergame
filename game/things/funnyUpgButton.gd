@@ -40,25 +40,25 @@ func updateButtons():
 		13: cost = Dec.D(2e7)
 		14: cost = Dec.D(1e8)
 		_: cost = Dec.D(0)
-	disabled = (bought and id != 12) or (!bought and parent.things.things.LessThan(cost))
+	disabled = (bought and id != 13) or (!bought and parent.things.things.LessThan(cost))
 
 func updateText():
 	if id > 8: theme = CYYANTHEME
 	match id:
-		0: effect = "x"+Dec.D(2).Add(parent.things.generators.funnyUpg12).F()+" generators per purchase"
-		1: effect = "Things per click multipler\nbased on time since last click\nCurrently x"+parent.things.clicks.funnyUpg2.F()
+		0: effect = "x"+Dec.D(2).Add(parent.things.generators.funnyUpg13).F("",!parent.stage>13)+" generators per purchase"
+		1: effect = "Things per click multipler\nbased on time since last click\nCurrently x"+parent.things.clicks.funnyUpg2.F()+"\n(softcapped at 3 seconds)"
 		2: effect = "The knowledge that these\nupgrades can be \"funny\""
 		3: effect = "Total generator output ^"+Dec.D(1.1).Add(parent.things.funnyUpg11).F("",true)
 		4: effect = "+"+Dec.D(20001).F("thing", true)+"\n:)"
 		5: effect = "Things per click multiplier\nbased on current things\nCurrently x"+parent.things.clicks.funnyUpg6.F()
 		6: effect = "+"+Dec.D(59999).F("thing", true)+"\n:("
-		7: effect = "+"+Dec.D(parent.things.generators.funnyUpg15).F()+" bonus generator per\nlog 2 of total things\nCurrently +"+parent.things.generators.bonusGens.F() + "\n" + parent.things.generators.untilNextBonus.F("thing") +" until next"
-		8: effect = "More things per click effect ^"+Dec.D(2).Add(parent.things.clicks.funnyUpg14).F("",true)
+		7: effect = "+"+Dec.D(parent.things.generators.funnyUpg15).F("", !parent.stage>15)+" bonus generator per\nlog "+Dec.D(2).F("",true)+" of total things\nCurrently +"+parent.things.generators.bonusGens.F("",!parent.stage>15) + "\n" + parent.things.generators.untilNextBonus.F("thing") +" until next"
+		8: effect = "More things per click effect ^"+Dec.D(2).Add(parent.things.clicks.funnyUpg12).F("",true)
 		9: effect = "Unlock cyyan things"
-		10: effect = "+^0.01 to upgrade 4\nper generator multiplier\nCurrently +^"+parent.things.funnyUpg11.F()
-		11: effect = "Boost to upgrade 1\nbased on cyyan things\nCurrently +x"+parent.things.generators.funnyUpg12.F()
-		12: effect = "Button for you to press\nin case you get bored\n:)"
-		13: effect = "+0.05 to upgrade 9\nper funny upgrade purchased\nCurrently +^"+parent.things.clicks.funnyUpg14.F()
+		10: effect = "+^"+Dec.D(0.01).F("", true)+" to upgrade 4\nper generator multiplier\nCurrently +^"+parent.things.funnyUpg11.F()
+		11: effect = "+"+Dec.D(0.05).F("", true)+" to upgrade 9\nper funny upgrade purchased\nCurrently +^"+parent.things.clicks.funnyUpg12.F()
+		12: effect = "Boost to upgrade 1\nbased on cyyan things\nCurrently +x"+parent.things.generators.funnyUpg13.F()
+		13: effect = "Button for you to press\nin case you get bored\n:)"
 		14: effect = "Multiplier to upgrade 8\nbased on things per click\nCurrently x"+parent.things.generators.funnyUpg15.F()
 		_: effect = "Error: you have too many funny upgs somehow"
 	text = "Funny Upgrade "+str(id+1)+"

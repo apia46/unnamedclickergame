@@ -20,7 +20,7 @@ func updateScaling():
 	get_window().content_scale_factor = uiScalingSliderValue
 
 func updateText():
-	$"scaling/scalingLabel".text = str(round($"scaling/uiScalingSlider".value*100)) + "%"
+	$"scaling/scalingLabel".text = Dec.D(round($"scaling/uiScalingSlider".value*100)).F("", true) + "%"
 
 func save():
 	return {

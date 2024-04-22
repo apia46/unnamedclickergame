@@ -56,6 +56,7 @@ static func formatPisResidueToDigits(number:float, digitsAfter, decimalPoint, pr
 	assert(0 <= number and number < 1, "invalid residue")
 	assert(digitsAfter >= 0, "invalid digitsAfter")
 	assert(snapped != 1, "residue rounds up")
+	if snapped == 0 and digitsAfter == 0: return ""
 	var zeros = ""
 	if preventFlickering: for i in (digitsAfter+(1 if snapped == 0 else 2)-len(str(snapped))): zeros += "0"
 	if snapped == 0: return ("." + zeros if preventFlickering else "")
