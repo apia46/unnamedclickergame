@@ -7,7 +7,7 @@ var unlocked = false
 var hoverInstance
 # computed
 @onready var unlockedImg = load("res://assets/achievements/" + id + ".png")
-var lockedImg = preload("res://assets/achievements/-.png")
+var lockedImg = preload("res://assets/achievements/locked.png")
 var title = ""
 var desc = ""
 
