@@ -160,6 +160,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="debug" type="VBoxContainer" parent="cont/cont/topside/cont/main/saving/main"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
