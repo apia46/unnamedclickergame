@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://41eh4shjjtst"]
+
+[ext_resource type="Script" path="res://game/things/funnyUpgButton.gd" id="1_gbc2k"]
+
+[node name="funnyUpgButton" type="Button"]
+custom_minimum_size = Vector2(220, 100)
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Funny Upgrade 000
+costs 0.00e000 things
+???"
+script = ExtResource("1_gbc2k")
+
+[connection signal="pressed" from="." to="." method="_funnyUpg_buy"]

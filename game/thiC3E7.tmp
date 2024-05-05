@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://du5jhscbv8jxx"]
+
+[ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_lrut1"]
+[ext_resource type="Script" path="res://game/things.gd" id="2_vn3ya"]
+[ext_resource type="Script" path="res://game/clicks.gd" id="3_b25yc"]
+
+[node name="things" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lrut1")
+script = ExtResource("2_vn3ya")
+
+[node name="cont" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="textCont" type="VBoxContainer" parent="cont"]
+layout_mode = 2
+
+[node name="thingsLabel" type="RichTextLabel" parent="cont/textCont"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "You have 0.00e+000 things"
+fit_content = true
+
+[node name="tpsLabel" type="RichTextLabel" parent="cont/textCont"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+text = "You are gaining 0.00e+000 things per second"
+fit_content = true
+
+[node name="main" type="VBoxContainer" parent="cont"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="topside" type="HBoxContainer" parent="cont/main"]
+layout_mode = 2
+
+[node name="clicks" type="VBoxContainer" parent="cont/main/topside"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_b25yc")
+
+[node name="thingButton" type="Button" parent="cont/main/topside/clicks"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+text = "Thing Button
++ 0.00e000 things"
+
+[node name="perClickUpgButton" type="Button" parent="cont/main/topside/clicks"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "More things per click
++000 costs 0.00e+000 things
+Currently 0.00e+000"
+
+[node name="generators" type="VBoxContainer" parent="cont/main/topside"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="thingGenButton" type="Button" parent="cont/main/topside/generators"]
+layout_mode = 2
+text = "Thing Generators
++000 costs 0.00e000 things
+Currently 0.00e+000 + 0.00e+000 bonus
+each producing 0.00e+000 things per second"
+
+[node name="genMultButton" type="Button" parent="cont/main/topside/generators"]
+layout_mode = 2
+text = "Thing Generator Multiplier
++000x costs 0.00e+000 thing generators
+Currently 0.00e+000x"
+
+[node name="main" type="ScrollContainer" parent="cont/main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="margins" type="MarginContainer" parent="cont/main/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="funnyUpgs" type="HFlowContainer" parent="cont/main/main/margins"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[connection signal="pressed" from="cont/main/topside/clicks/thingButton" to="cont/main/topside/clicks" method="_clicked"]

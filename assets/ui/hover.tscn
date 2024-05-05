@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjo3tj0ewuucl"]
+
+[ext_resource type="Script" path="res://assets/ui/hover.gd" id="1_118bb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwhcm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="hover" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwhcm")
+script = ExtResource("1_118bb")

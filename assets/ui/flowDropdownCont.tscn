@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8jpm4oujln53"]
+
+[ext_resource type="PackedScene" uid="uid://bpcl2g44rnjcd" path="res://assets/ui/dropdownContainer.tscn" id="1_jg758"]
+
+[node name="dropdownContainer" instance=ExtResource("1_jg758")]
+
+[node name="cont" type="HFlowContainer" parent="cont" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0

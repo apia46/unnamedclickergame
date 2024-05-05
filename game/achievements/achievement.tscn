@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds6svnqnu834v"]
+
+[ext_resource type="Script" path="res://game/achievements/achievement.gd" id="1_3ho2a"]
+
+[node name="achievement" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+script = ExtResource("1_3ho2a")
+
+[connection signal="mouse_entered" from="." to="." method="_hoverStart"]
+[connection signal="mouse_exited" from="." to="." method="_hoverEnd"]

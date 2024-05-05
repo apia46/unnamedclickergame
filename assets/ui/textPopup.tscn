@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://duu3kpfdq18a4"]
+
+[ext_resource type="PackedScene" uid="uid://drb1pdmxvkw4t" path="res://assets/ui/popup.tscn" id="1_t47n1"]
+[ext_resource type="Script" path="res://assets/ui/textPopup.gd" id="2_fcs35"]
+
+[node name="textPopup" instance=ExtResource("1_t47n1")]
+script = ExtResource("2_fcs35")
+
+[node name="cont" type="MarginContainer" parent="." index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="text" type="RichTextLabel" parent="cont" index="0"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Text display"
+fit_content = true
+autowrap_mode = 0
