@@ -5,16 +5,22 @@ var formattingOptionsSelected : int = 0
 var seperatorOptionsSelected : int = 0
 var digitsShownOptionsValue : int = 2
 var preventFlickeringValue = true
+
+var timeSeperatorOptionsSelected : int = 1
+var timeUnitsShownOptionsValue : int = 2
 # computed
 @onready var computed # computed vars
 
 func _ready(): pass # likely just pass
 
 func setFromData():
-	$"formattingOptions".selected = formattingOptionsSelected
-	$"seperatorOptions".selected = seperatorOptionsSelected
-	$"digitsShown/digitsShownOptions".value = digitsShownOptionsValue
-	$"preventFlickering".button_pressed = preventFlickeringValue
+	$"number/formattingOptions".selected = formattingOptionsSelected
+	$"number/seperatorOptions".selected = seperatorOptionsSelected
+	$"number/digitsShown/digitsShownOptions".value = digitsShownOptionsValue
+	$"number/preventFlickering".button_pressed = preventFlickeringValue
+	
+	$"time/seperatorOptions".selected = timeSeperatorOptionsSelected
+	$"time/unitsShown/unitsShownOptions".value = timeUnitsShownOptionsValue
 	updateFormatting()
 
 # processes here
@@ -35,6 +41,15 @@ func _preventFlickering_toggled(toggled):
 	preventFlickeringValue = toggled
 	updateFormatting()
 
+
+func _timeSeperatorOptions_select(index):
+	timeSeperatorOptionsSelected = index
+	updateFormatting()
+
+func _timeUnitsShownOptions_changed(value):
+	timeUnitsShownOptionsValue = value
+	updateFormatting()
+
 func updateFormatting():
 	match formattingOptionsSelected:
 		0: Dec.format = Dec.SCIENTIFIC
@@ -50,14 +65,25 @@ func updateFormatting():
 		3: Dec.seperator = Format.SEPERATOR.NONE; Dec.decimalPoint = Format.SEPERATOR.COMMA
 	Dec.digitsShown = digitsShownOptionsValue
 	Dec.preventFlickering = preventFlickeringValue
+	
+	match timeSeperatorOptionsSelected:
+		0: Dec.timeAnd = false; Dec.timeCommas = false; Dec.timeOxford = false
+		1: Dec.timeAnd = false; Dec.timeCommas = true; Dec.timeOxford = true
+		2: Dec.timeAnd = true; Dec.timeCommas = true; Dec.timeOxford = false
+		3: Dec.timeAnd = true; Dec.timeCommas = false; Dec.timeOxford = false
+		4: Dec.timeAnd = true; Dec.timeCommas = true; Dec.timeOxford = true
+	Dec.timeUnits = timeUnitsShownOptionsValue
 
 func updateText():
-	$"formattingExample".text = "Example: "+Dec.D(123456789.0123456789).F()
+	$"number/formattingExample".text = "Example: "+Dec.D(123456789.0123456789).F()
+	$"time/formattingExample".text = "Example: "+Dec.D(123456789.0123456789).FT()
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 		"formattingOptionsSelected" : formattingOptionsSelected,
 		"seperatorOptionsSelected" : seperatorOptionsSelected,
 		"digitsShownOptionsValue" : digitsShownOptionsValue,
+		"timeSeperatorOptionsSelected" : timeSeperatorOptionsSelected,
+		"timeUnitsShownOptionsValue" : timeUnitsShownOptionsValue,
 	}

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b0m4rq4jlttg3"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://de7wfs7cjg7ob"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbpwd"]
 content_margin_left = 4.0
@@ -11,7 +11,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.286275, 0.905882, 0.921569, 1)
+border_color = Color(0.403922, 0.905882, 0.803922, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -28,7 +28,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0823529, 0.596078, 0.6, 1)
+border_color = Color(0.2, 0.596078, 0.482353, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -45,7 +45,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0823529, 0.596078, 0.6, 1)
+border_color = Color(0.2, 0.596078, 0.482353, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -57,12 +57,12 @@ corner_detail = 5
 [resource]
 default_font = SubResource("SystemFont_7dans")
 default_font_size = 12
-Button/colors/font_color = Color(0.286275, 0.905882, 0.921569, 1)
-Button/colors/font_disabled_color = Color(0, 0.741176, 0.65098, 0.501961)
-Button/colors/font_focus_color = Color(0.286275, 0.905882, 0.921569, 1)
-Button/colors/font_hover_color = Color(0.286275, 0.905882, 0.921569, 1)
-Button/colors/font_hover_pressed_color = Color(0.286275, 0.905882, 0.921569, 1)
-Button/colors/font_pressed_color = Color(0.74902, 0.980392, 0.984314, 1)
+Button/colors/font_color = Color(0.403922, 0.905882, 0.803922, 1)
+Button/colors/font_disabled_color = Color(0.117647, 0.741176, 0.533333, 0.501961)
+Button/colors/font_focus_color = Color(0.403922, 0.905882, 0.803922, 1)
+Button/colors/font_hover_color = Color(0.403922, 0.905882, 0.803922, 1)
+Button/colors/font_hover_pressed_color = Color(0.403922, 0.905882, 0.803922, 1)
+Button/colors/font_pressed_color = Color(0.866667, 0.980392, 0.866667, 1)
 Button/styles/focus = SubResource("StyleBoxFlat_vbpwd")
 Button/styles/hover = SubResource("StyleBoxFlat_xs3tu")
 Button/styles/normal = SubResource("StyleBoxFlat_lmrai")

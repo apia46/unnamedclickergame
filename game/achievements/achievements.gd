@@ -2,6 +2,7 @@ extends MarginContainer
 @onready var achConts = {
 	"basic": $"cont/cont/basicAchievements",
 	"cyyan": $"cont/cont/cyyanAchievements",
+	"magenter": $"cont/cont/magenterAchievements",
 	"secret": $"cont/cont/secretAchievements",
 }
 const ACHIEVEMENT = preload("res://game/achievements/achievement.tscn")
@@ -9,18 +10,21 @@ const POPUP = preload("res://game/achievements/achievementPopup.tscn")
 
 var achs = {
 	"basic": [false, false, false, false, false, false, false],
-	"cyyan": [false, false, false, false],
-	"secret": [false, false, false, false],
+	"cyyan": [false, false, false, false, false, false, false, false, false],
+	"magenter": [false],
+	"secret": [false, false, false, false, false],
 }
 # computed
 var achObjs = {
 	"basic": [],
 	"cyyan": [],
+	"magenter": [],
 	"secret": [],
 }
 var unlocked = {
 	"basic": true,
 	"cyyan": false,
+	"magenter": false,
 	"secret": true,
 }
 var achCounts = {}
@@ -30,11 +34,16 @@ var totalAchCount = 0
 
 func _ready(): pass
 
-func unlockAch(category, ach):
-	if achs[category][ach]: return
+func unlockAch(category, ach, other:= ""):
+	if typeof(achs[category][ach]) == TYPE_STRING or achs[category][ach]: return
 	var achiev = achObjs[category][ach]
 	achiev.unlocked = true
 	achs[category][ach] = true
+	if other != "":
+		achiev.unlocked = other
+		achs[category][ach] = other
+		achiev.updateOther()
+	achObjs[category][ach].updateText()
 	$"/root".add_child.call_deferred(POPUP.instantiate().set_data(achiev.unlockedImg, achiev.title, achiev.desc))
 	updateAchs()
 
@@ -45,7 +54,7 @@ func updateAchs():
 	totalAchCount = 0
 	for category in achs:
 		if category != "secret":
-			var count = achs[category].count(true)
+			var count = len(achs[category]) - achs[category].count(false)
 			if count > 0: unlocked[category] = true
 			achCount += count
 			achCounts[category] = count
@@ -71,6 +80,6 @@ func updateText():
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 		"achs" : achs,
 	}

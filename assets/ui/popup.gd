@@ -19,5 +19,7 @@ func _ready():
 	add_to_group("sidepopup")
 
 func _process(_delta):
-	position.x = int((get_window().size.x + addedx) / get_window().content_scale_factor)
+	var windowScale = get_window().content_scale_factor
+	scale = Vector2(windowScale,windowScale)
+	position.x = int(get_window().size.x/windowScale+addedx*windowScale)
 	position.y = basey + addedy

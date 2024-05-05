@@ -19,5 +19,5 @@ func _ready(): pass # likely just pass
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 	}

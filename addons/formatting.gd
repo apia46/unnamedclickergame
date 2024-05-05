@@ -1,5 +1,7 @@
 extends Node
 
+######################### NUMBERS ##############################
+
 # credit to https://github.com/antimatter-dimensions/notations
 # and https://kyodaisuu.github.io/illion/conway.html
 
@@ -127,3 +129,46 @@ static func getStandardAffix(number, affixLen) -> String:
 	regex.compile("-$")
 	abbreviation = regex.sub(abbreviation, "")
 	return abbreviation + th
+
+######################### TIME ##############################
+
+const UNITVALUES = [0.001, 1, 60, 3600, 86400, 31556941] # round(86400 *  365.242374) (or maybe its 365.242189??? i dont know; apparently there are random variations in years and i dont know where these numbers are even coming from
+const UNITNAMES = ["millisecond", "second", "minute", "hour", "day", "year"]
+enum UNITS {MS, S, M, H, D, Y}
+
+func formatTimeWithOneUnit(number, unit, stable, floor) -> String:
+	if floor: return number.Div(UNITVALUES[unit]).Floor().F(UNITNAMES[unit], stable)
+	else: return number.Div(UNITVALUES[unit]).F(UNITNAMES[unit], stable)
+
+func getLargestUnit(number) -> UNITS:
+	if number.GE(UNITVALUES[5]): return UNITS.Y
+	if number.GE(UNITVALUES[4]): return UNITS.D
+	if number.GE(UNITVALUES[3]): return UNITS.H
+	if number.GE(UNITVALUES[2]): return UNITS.M
+	if number.GE(UNITVALUES[1]): return UNITS.S
+	return UNITS.MS
+
+func formatTimeWithUnits(number, units, stable:=false, And:=false, commas:=true, oxford:=true) -> String:
+	var largestUnit = getLargestUnit(number)
+	var current = Dec.D(number)
+	var toReturn = ""
+	var actualUnits = min(units, largestUnit+1)
+	var unitStrings = []
+	var stableActualUnits = 0
+	for unitNum in range(actualUnits):
+		if current.Neq(0): stableActualUnits += 1
+		var unit = largestUnit-unitNum
+		unitStrings.append(formatTimeWithOneUnit(current, unit, stable or unitNum != actualUnits-1, unitNum != actualUnits-1))
+		current.Modr(UNITVALUES[unit])
+	
+	if stable: actualUnits = stableActualUnits
+	
+	for unitNum in range(actualUnits):
+		toReturn += unitStrings[unitNum]
+		if unitNum < actualUnits-1:
+			if unitNum == actualUnits-2:
+				if oxford: toReturn += ","
+				if And: toReturn += " and"
+			elif commas: toReturn += ","
+			toReturn += " "
+	return toReturn

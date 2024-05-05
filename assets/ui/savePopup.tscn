@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://blwbiamiq0g8a"]
+
+[ext_resource type="Theme" uid="uid://d035ubju62gxw" path="res://assets/themes/whitetheme.tres" id="1_4obls"]
+[ext_resource type="Theme" uid="uid://bc44sde2jlby" path="res://assets/themes/solidbg.tres" id="1_lrfkw"]
+[ext_resource type="Script" path="res://assets/ui/savePopup.gd" id="2_i4og5"]
+
+[node name="savePopup" type="PanelContainer"]
+custom_minimum_size = Vector2(350, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lrfkw")
+script = ExtResource("2_i4og5")
+
+[node name="margins" type="MarginContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_4obls")
+
+[node name="cont" type="VBoxContainer" parent="margins"]
+layout_mode = 2
+
+[node name="topLabel" type="RichTextLabel" parent="margins/cont"]
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+text = "[center]You have a save file with
+(playtime)
+Would you like to load it?[/center]"
+fit_content = true
+
+[node name="buttons" type="HBoxContainer" parent="margins/cont"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+
+[node name="yeah" type="Button" parent="margins/cont/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "yeah"
+
+[node name="nah" type="Button" parent="margins/cont/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "nah
+"
+
+[node name="bottomLabel" type="RichTextLabel" parent="margins/cont"]
+layout_mode = 2
+size_flags_vertical = 8
+bbcode_enabled = true
+text = "[center](autosave will not turn on until this popup is closed)[/center]"
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="margins/cont/buttons/yeah" to="." method="_do"]
+[connection signal="pressed" from="margins/cont/buttons/nah" to="." method="_doNot"]

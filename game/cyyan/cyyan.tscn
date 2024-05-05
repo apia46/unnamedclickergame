@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://crovyq06ehflk"]
+[gd_scene load_steps=7 format=3 uid="uid://crovyq06ehflk"]
 
-[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://assets/themes/cyyantheme.tres" id="1_8k7lc"]
+[ext_resource type="Theme" uid="uid://b0m4rq4jlttg3" path="res://assets/themes/cyyantheme.tres" id="1_8k7lc"]
 [ext_resource type="Script" path="res://game/cyyan/cyyan.gd" id="1_cyipp"]
 [ext_resource type="Script" path="res://game/cyyan/milestones.gd" id="3_am1h6"]
+[ext_resource type="Script" path="res://game/cyyan/choices.gd" id="4_2ve60"]
+[ext_resource type="Theme" uid="uid://de7wfs7cjg7ob" path="res://assets/themes/cyyanactive.tres" id="4_8a7bj"]
+[ext_resource type="Theme" uid="uid://qi3a6mwxnemm" path="res://assets/themes/cyyanpassive.tres" id="4_hahs6"]
 
 [node name="cyyan" type="MarginContainer"]
 anchors_preset = 15
@@ -54,3 +57,144 @@ size_flags_vertical = 3
 [node name="milestones" type="HBoxContainer" parent="cont/cont/topside/margins"]
 layout_mode = 2
 script = ExtResource("3_am1h6")
+
+[node name="main" type="HBoxContainer" parent="cont/cont"]
+layout_mode = 2
+alignment = 1
+
+[node name="leftpad" type="Control" parent="cont/cont/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="margins" type="MarginContainer" parent="cont/cont/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="choices" type="VBoxContainer" parent="cont/cont/main/margins"]
+layout_mode = 2
+script = ExtResource("4_2ve60")
+
+[node name="choicesLabel" type="RichTextLabel" parent="cont/cont/main/margins/choices"]
+layout_mode = 2
+size_flags_horizontal = 4
+bbcode_enabled = true
+text = "[center][font_size=16]Cyann choice upgrades[/font_size]
+Every upgrade you purchase will 20x the prices of the other upgrades in its tier. Choose wisely!
+Left side is active upgrades, right side is passive, middle is timing.
+Note: multiplying clicks is not the same as multiplying things per click
+and so upgrades do not recognise it.[/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="level1" type="HBoxContainer" parent="cont/cont/main/margins/choices"]
+layout_mode = 2
+
+[node name="active" type="Button" parent="cont/cont/main/margins/choices/level1"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_8a7bj")
+text = "Every second click is multiplied by 2
+Every third click is multiplied by 3
+Every fourth click is multiplied by 4"
+
+[node name="passive" type="Button" parent="cont/cont/main/margins/choices/level1"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_hahs6")
+text = "Time since last click grows
+twice as fast"
+
+[node name="level2" type="HBoxContainer" parent="cont/cont/main/margins/choices"]
+layout_mode = 2
+
+[node name="active" type="Button" parent="cont/cont/main/margins/choices/level2"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_8a7bj")
+text = "Multiplier to clicks
+decreases with time since
+last click
+Currently x0.00e000"
+
+[node name="timing" type="Button" parent="cont/cont/main/margins/choices/level2"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Multiplier to clicks
+increases with time since
+last click
+Currently x0.00e000"
+
+[node name="passive" type="Button" parent="cont/cont/main/margins/choices/level2"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_hahs6")
+text = "10% of things per click
+is added to TPS
+Currently +0.00e000"
+
+[node name="level3" type="HBoxContainer" parent="cont/cont/main/margins/choices"]
+layout_mode = 2
+
+[node name="active" type="Button" parent="cont/cont/main/margins/choices/level3"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_8a7bj")
+text = "Time since last click starts at 1s"
+
+[node name="passive" type="Button" parent="cont/cont/main/margins/choices/level3"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_hahs6")
+text = "+^0.1 boost to milestone 3"
+
+[node name="level4" type="HBoxContainer" parent="cont/cont/main/margins/choices"]
+layout_mode = 2
+
+[node name="active" type="Button" parent="cont/cont/main/margins/choices/level4"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_8a7bj")
+text = "Multiplier to things per click
+increases by +0.05x per click
+decreases by 1x per second
+Currently x0.00e000
+(capped at x10)"
+
+[node name="timing" type="Button" parent="cont/cont/main/margins/choices/level4"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Softcap of Funny Upgrade 2 is
+moved to 10 seconds"
+
+[node name="passive" type="Button" parent="cont/cont/main/margins/choices/level4"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_hahs6")
+text = "+90% to choices upgrade 2,3"
+
+[node name="rightpad" type="Control" parent="cont/cont/main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[connection signal="pressed" from="cont/cont/main/margins/choices/level1/active" to="cont/cont/main/margins/choices" method="_active1_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level1/passive" to="cont/cont/main/margins/choices" method="_passive1_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level2/active" to="cont/cont/main/margins/choices" method="_active2_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level2/timing" to="cont/cont/main/margins/choices" method="_timing2_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level2/passive" to="cont/cont/main/margins/choices" method="_passive2_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level3/active" to="cont/cont/main/margins/choices" method="_active3_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level3/passive" to="cont/cont/main/margins/choices" method="_passive3_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level4/active" to="cont/cont/main/margins/choices" method="_active4_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level4/timing" to="cont/cont/main/margins/choices" method="_timing4_pressed"]
+[connection signal="pressed" from="cont/cont/main/margins/choices/level4/passive" to="cont/cont/main/margins/choices" method="_passive4_pressed"]

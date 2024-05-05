@@ -7,6 +7,7 @@ var stage = 1
 var upg5Triggered = false
 var upg7Triggered = false
 var maxUpgs = 10
+var bored = 0
 # computed
 var upgButtons = []
 
@@ -59,9 +60,11 @@ func updateText():
 
 func save():
 	return {
+		"node" : self.name,
 		"nodepath" : self.get_path(),
 		"stage" : stage,
 		"upg5Triggered" : upg5Triggered,
 		"upg7Triggered" : upg7Triggered,
 		"maxUpgs" : maxUpgs,
+		"bored" : bored,
 	}

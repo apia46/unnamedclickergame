@@ -18,38 +18,31 @@ script = ExtResource("2_ebn27")
 [node name="cont" type="ScrollContainer" parent="."]
 layout_mode = 2
 
-[node name="cont" type="VBoxContainer" parent="cont"]
+[node name="cont" type="HBoxContainer" parent="cont"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="topside" type="ScrollContainer" parent="cont/cont"]
-layout_mode = 2
-vertical_scroll_mode = 0
-
-[node name="cont" type="HBoxContainer" parent="cont/cont/topside"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-
-[node name="formatting" type="VBoxContainer" parent="cont/cont/topside/cont"]
+[node name="formatting" type="VBoxContainer" parent="cont/cont"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("3_n8mdx")
 
-[node name="formattingLabel" type="RichTextLabel" parent="cont/cont/topside/cont/formatting"]
+[node name="number" type="VBoxContainer" parent="cont/cont/formatting"]
+layout_mode = 2
+
+[node name="formattingLabel" type="RichTextLabel" parent="cont/cont/formatting/number"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Number Formatting"
 fit_content = true
 
-[node name="formattingExample" type="RichTextLabel" parent="cont/cont/topside/cont/formatting"]
+[node name="formattingExample" type="RichTextLabel" parent="cont/cont/formatting/number"]
 layout_mode = 2
 text = "Example: 1234567.890123"
 fit_content = true
 
-[node name="formattingOptions" type="OptionButton" parent="cont/cont/topside/cont/formatting"]
+[node name="formattingOptions" type="OptionButton" parent="cont/cont/formatting/number"]
 layout_mode = 2
 item_count = 5
 selected = 0
@@ -64,7 +57,7 @@ popup/item_3/id = 3
 popup/item_4/text = ""
 popup/item_4/id = 4
 
-[node name="seperatorOptions" type="OptionButton" parent="cont/cont/topside/cont/formatting"]
+[node name="seperatorOptions" type="OptionButton" parent="cont/cont/formatting/number"]
 layout_mode = 2
 item_count = 4
 selected = 0
@@ -77,30 +70,87 @@ popup/item_2/id = 2
 popup/item_3/text = "None, comma"
 popup/item_3/id = 3
 
-[node name="digitsShown" type="HBoxContainer" parent="cont/cont/topside/cont/formatting"]
+[node name="digitsShown" type="HBoxContainer" parent="cont/cont/formatting/number"]
 layout_mode = 2
 
-[node name="digitsShownLabel" type="RichTextLabel" parent="cont/cont/topside/cont/formatting/digitsShown"]
+[node name="digitsShownLabel" type="RichTextLabel" parent="cont/cont/formatting/number/digitsShown"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "Digits after point"
 fit_content = true
 
-[node name="digitsShownOptions" type="SpinBox" parent="cont/cont/topside/cont/formatting/digitsShown"]
+[node name="digitsShownOptions" type="SpinBox" parent="cont/cont/formatting/number/digitsShown"]
 layout_mode = 2
 max_value = 8.0
 
-[node name="preventFlickering" type="CheckButton" parent="cont/cont/topside/cont/formatting"]
+[node name="preventFlickering" type="CheckButton" parent="cont/cont/formatting/number"]
 layout_mode = 2
 button_pressed = true
 text = "Prevent Flickering"
+
+[node name="time" type="VBoxContainer" parent="cont/cont/formatting"]
+layout_mode = 2
+
+[node name="formattingLabel" type="RichTextLabel" parent="cont/cont/formatting/time"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+text = "Time Formatting"
+fit_content = true
+
+[node name="formattingExample" type="RichTextLabel" parent="cont/cont/formatting/time"]
+custom_minimum_size = Vector2(0, 51)
+layout_mode = 2
+text = "Example: 0.00e+000 years, 000 days, 00 hours, 00 minutes, 00 seconds, 000.00 milliseconds."
+fit_content = true
+
+[node name="seperatorOptions" type="OptionButton" parent="cont/cont/formatting/time"]
+layout_mode = 2
+item_count = 5
+selected = 1
+popup/item_0/text = "None"
+popup/item_0/id = 3
+popup/item_1/text = "Commas, oxford"
+popup/item_1/id = 1
+popup/item_2/text = "Commas, and"
+popup/item_2/id = 2
+popup/item_3/text = "And"
+popup/item_3/id = 3
+popup/item_4/text = "Commas, and, oxford"
+popup/item_4/id = 4
+
+[node name="unitsShown" type="HBoxContainer" parent="cont/cont/formatting/time"]
+layout_mode = 2
+
+[node name="unitsShownLabel" type="RichTextLabel" parent="cont/cont/formatting/time/unitsShown"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Units shown"
+fit_content = true
+
+[node name="unitsShownOptions" type="SpinBox" parent="cont/cont/formatting/time/unitsShown"]
+layout_mode = 2
+min_value = 1.0
+max_value = 6.0
+value = 2.0
+
+[node name="topside" type="ScrollContainer" parent="cont/cont"]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 0
+
+[node name="cont" type="HBoxContainer" parent="cont/cont/topside"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
 
 [node name="main" type="VBoxContainer" parent="cont/cont/topside/cont"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="saving" type="HBoxContainer" parent="cont/cont/topside/cont/main"]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -132,11 +182,11 @@ layout_mode = 2
 alignment = 1
 
 [node name="intervalLabel" type="RichTextLabel" parent="cont/cont/topside/cont/main/saving/main/autosave/interval"]
-custom_minimum_size = Vector2(35, 0)
+custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 10
-text = "0 secs"
+text = "0 seconds"
 fit_content = true
 autowrap_mode = 0
 
@@ -155,7 +205,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/normal_font_size = 10
-text = "60 secs"
+text = "60 seconds"
 fit_content = true
 autowrap_mode = 0
 
@@ -268,10 +318,12 @@ text = "400%"
 fit_content = true
 autowrap_mode = 0
 
-[connection signal="item_selected" from="cont/cont/topside/cont/formatting/formattingOptions" to="cont/cont/topside/cont/formatting" method="_formattingOptions_select"]
-[connection signal="item_selected" from="cont/cont/topside/cont/formatting/seperatorOptions" to="cont/cont/topside/cont/formatting" method="_seperatorOptions_select"]
-[connection signal="value_changed" from="cont/cont/topside/cont/formatting/digitsShown/digitsShownOptions" to="cont/cont/topside/cont/formatting" method="_digitsShownOptions_changed"]
-[connection signal="toggled" from="cont/cont/topside/cont/formatting/preventFlickering" to="cont/cont/topside/cont/formatting" method="_preventFlickering_toggled"]
+[connection signal="item_selected" from="cont/cont/formatting/number/formattingOptions" to="cont/cont/formatting" method="_formattingOptions_select"]
+[connection signal="item_selected" from="cont/cont/formatting/number/seperatorOptions" to="cont/cont/formatting" method="_seperatorOptions_select"]
+[connection signal="value_changed" from="cont/cont/formatting/number/digitsShown/digitsShownOptions" to="cont/cont/formatting" method="_digitsShownOptions_changed"]
+[connection signal="toggled" from="cont/cont/formatting/number/preventFlickering" to="cont/cont/formatting" method="_preventFlickering_toggled"]
+[connection signal="item_selected" from="cont/cont/formatting/time/seperatorOptions" to="cont/cont/formatting" method="_timeSeperatorOptions_select"]
+[connection signal="value_changed" from="cont/cont/formatting/time/unitsShown/unitsShownOptions" to="cont/cont/formatting" method="_timeUnitsShownOptions_changed"]
 [connection signal="value_changed" from="cont/cont/topside/cont/main/saving/main/autosave/interval/intervalSlider" to="cont/cont/topside/cont/main/saving" method="_intervalSlider_changed"]
 [connection signal="pressed" from="cont/cont/topside/cont/main/saving/main/debug/main/updateButton" to="cont/cont/topside/cont/main/saving" method="_updateButton_pressed"]
 [connection signal="pressed" from="cont/cont/topside/cont/main/saving/main/debug/main/loadFromBackupButton" to="cont/cont/topside/cont/main/saving" method="_loadFromBackupButton_pressed"]

@@ -1,5 +1,5 @@
 extends MarginContainer
-@onready var formatting = $"cont/cont/topside/cont/formatting"
+@onready var formatting = $"cont/cont/formatting"
 @onready var saving = $"cont/cont/topside/cont/main/saving"
 @onready var scaling = $"cont/cont/topside/cont/main/main/uiScaling"
 
@@ -25,5 +25,5 @@ func updateText():
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 	}

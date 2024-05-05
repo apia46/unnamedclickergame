@@ -20,15 +20,15 @@ size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[font_size=24]You are playing [rainbow freq=0.5 sat=0.2 val=1][wave amp=25.0 freq=2.5.0 connected=1][b]Unnamed Clicker Game v0.0.1.0[/b][/wave][/rainbow].[/font_size]
 
-Unnamed Clicker Game is created and maintained by [url=\"secret\"]beeka[/url]
+Unnamed Clicker Game is created and maintained by [url=\"secret\"]apia[/url]
 You can find me at @_beeka on discord
 The web version for this game can be found [color=\"cyan\"][url=\"https://Beeka274.github.io\"]here[/url][/color]
 The itch.io for this game can be found [color=\"cyan\"][url=\"https://beeka274.itch.io/unnamed-clicker-game\"]here[/url][/color]
 The github repo for this game can be found [color=\"cyan\"][url=\"https://github.com/Beeka274/unnamedclickergame\"]here[/url][/color]
 anywhere else is unofficial
 
-Lines of code: 1842
-Last updated: 2024-right-now
+Lines of code: 2354
+Last updated: 2024-05-05
 
 [u][font_size=16]Credits to:[/font_size][/u]
 Inspiration
@@ -46,9 +46,11 @@ Playtesters
 	[color=\"8CBDE3\"]enterham[/color]
 	[color=\"6A14C6\"]blokos[/color]
 	[color=\"576ABB\"]daffafm2002[/color]
+	[color=\"414799\"]Stardust[/color]
 My friends and acquaintances who made this enjoyable
 	(you know who you are)
 
 You!!hi thanks for indulging my videos game"
 fit_content = true
+meta_underlined = false
 script = ExtResource("2_fohf5")

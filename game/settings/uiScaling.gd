@@ -24,6 +24,6 @@ func updateText():
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 		"uiScalingSliderValue" : uiScalingSliderValue,
 	}

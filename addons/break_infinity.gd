@@ -34,6 +34,11 @@ var decimalPoint = Format.SEPERATOR.PERIOD
 var digitsShown = 2
 var preventFlickering = true
 
+var timeUnits = 2
+var timeAnd = false
+var timeCommas = true
+var timeOxford = true
+
 #func _init(mantissa, exponent := 0.0):
 #	if typeof(m) == TYPE_STRING:
 #		var scientific = mantissa.split("e")
@@ -55,7 +60,7 @@ var preventFlickering = true
 # to decimal
 static func D(value):
 	if value is Decimal:
-		return value
+		return value.Clone()
 	if typeof(value) == TYPE_FLOAT or typeof(value) == TYPE_INT:
 		return Dec.FromFloat(value)
 	if value == null or value == NAN:
@@ -278,6 +283,11 @@ class Decimal:
 		self.m = added.m
 		self.e = added.e
 	
+	func Modr(value):
+		var added = self.Mod(value)
+		self.m = added.m
+		self.e = added.e
+	
 	func Add(value) -> Decimal:
 		
 		var decimal = Dec.D(value)
@@ -332,6 +342,14 @@ class Decimal:
 	func DividedBy(value) -> Decimal:
 		return self.Div(value)
 	
+	func SubInteger() -> Decimal: # returns the "decimal" component: 12.34 returns 0.34
+		return self.Minus(self.Floor())
+	
+	func Mod(value) -> Decimal:
+		return self.Div(value).SubInteger().Mul(value)
+	
+	# ===== COMPARE OPERATIONS =====
+	
 	func Cmp(value) -> int: # Compares NaN values
 		var decimal = Dec.D(value)
 		if self.IsNaN():
@@ -366,14 +384,25 @@ class Decimal:
 	
 	func GreaterThan(value) -> bool:
 		var decimal = Dec.D(value)
+		
+		# if the mantissa is 0, then the number is 0.
+		# apparently exponent is not guaranteed
+		var nsign = self.m <= 0
+		var nsigncompare = decimal.m < 0
+		
 		if self.m == 0:
-			return decimal.m < 0
+			return nsigncompare
 		if decimal.m == 0:
-			return self.m > 0
-		if self.e == decimal.e:
-			return decimal.m < 0 or self.e > decimal.e 
-		return decimal.m < 0 and self.e < decimal.e
-	
+			return !nsign
+		
+		if nsign != nsigncompare: return !nsign
+		# signs are equal
+		if decimal.e < self.e: return !nsign
+		elif decimal.e > self.e: return nsign
+		# exponents are equal
+		return decimal.m < self.m
+
+
 	func LessThanOrEqualTo(value) -> bool:
 		return !self.GreaterThan(value)
 	func GreaterThanOrEqualTo(value) -> bool:
@@ -421,10 +450,9 @@ class Decimal:
 			return self
 		
 		var numberValue: float
-		if typeof(value) == TYPE_FLOAT:
-			numberValue = value
-		else:
-			numberValue = value.ToFloat()
+		if typeof(value) == TYPE_FLOAT: numberValue = value
+		elif typeof(value) == TYPE_INT: numberValue = float(value)
+		else: numberValue = value.ToFloat()
 		
 		# Fast track: If (this.e*value) is an integer and mantissa^value
 		# fits in a Number, we can do a very fast method.
@@ -520,8 +548,12 @@ class Decimal:
 			SCIENTIFIC:
 				if -2 <= self.e and self.e < 6: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
 				else: return Format.formatDecimalScientific(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
-			STANDARD: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint, prevent) + affix
-			STANDARDFULL: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			STANDARD:
+				if -2 <= self.e and self.e < 1: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
+				else: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.SHORT, Dec.seperator, Dec.decimalPoint, prevent) + affix
+			STANDARDFULL: 
+				if -2 <= self.e and self.e < 1: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
+				else: return Format.formatDecimalStandard(self, Dec.digitsShown, Format.AFFIX_LENS.LONG, Dec.seperator, Dec.decimalPoint, prevent) + affix
 			LONG: return Format.formatDecimalLong(self, Dec.digitsShown, Dec.seperator, Dec.decimalPoint, prevent) + affix
 			BLIND:
 				if noun != "": return "some " + getPluralForm(noun)
@@ -533,3 +565,7 @@ class Decimal:
 	func getPluralForm(noun) -> String:
 		if noun in INFINITIVES: return noun
 		else: return noun + "s"
+	
+	func FT(ignorePreventFlickering:=false, overrideUnits:=0) -> String:
+		if overrideUnits > 0: return Format.formatTimeWithUnits(self, overrideUnits, !Dec.preventFlickering or ignorePreventFlickering, Dec.timeAnd, Dec.timeCommas, Dec.timeOxford)
+		return Format.formatTimeWithUnits(self, Dec.timeUnits, !Dec.preventFlickering or ignorePreventFlickering, Dec.timeAnd, Dec.timeCommas, Dec.timeOxford)

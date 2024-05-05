@@ -4,9 +4,11 @@
 [ext_resource type="Script" path="res://game/cyyan/milestone.gd" id="2_ij1x4"]
 
 [node name="milestone" type="Button"]
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(200, 120)
 theme = ExtResource("1_7lyll")
 text = "Milestone 000
 Requires 0.00e000 cyyan things
 ???"
 script = ExtResource("2_ij1x4")
+
+[connection signal="pressed" from="." to="." method="_clicked"]

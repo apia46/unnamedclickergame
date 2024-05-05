@@ -3,7 +3,7 @@ const MILESTONE = preload("res://game/cyyan/milestone.tscn")
 @onready var game = $"/root/game"
 @onready var cyyan = $"../../../../.."
 
-const MAXMILESTONES = 4
+const MAXMILESTONES = 10
 
 var stage = 1
 # computed
@@ -28,6 +28,9 @@ func unlockMilestone():
 func updateMilestones():
 	if stage > 2: game.things.funnyUpgs.maxUpgs = 15; game.things.funnyUpgs.update()
 	if stage > 3: game.achievements.unlockAch("cyyan",3)
+	if stage > 4: game.achievements.unlockAch("cyyan",4)
+	if stage > 8: game.achievements.unlockAch("cyyan",7)
+	if stage > 10: game.achievements.unlockAch("magenter",0)
 
 func update():
 	for button in milestoneButtons: button.queue_free()
@@ -46,6 +49,6 @@ func updateText():
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 		"stage" : self.stage,
 	}

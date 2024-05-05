@@ -7,6 +7,11 @@ var autosaveInterval : int = 30
 
 func _ready(): pass # likely just pass
 
+func _input(event):
+	if event is InputEventKey:
+		if event.is_action_pressed("b"):
+			_loadFromBackupButton_pressed()
+
 func setFromData():
 	$"main/autosave/interval/intervalSlider".value = autosaveInterval
 
@@ -34,11 +39,11 @@ func _loadFromBackupButton_pressed(): # debug
 	game.initiateLoad(false, true)
 
 func updateText():
-	$"main/autosave/interval/intervalLabel".text = ("none" if autosaveInterval == 0 else Dec.D(autosaveInterval).F("sec", true))
-	$"main/autosave/intervalLabel".text = "Autosave Interval (0 for none) " + ("" if autosaveInterval == 0 else Dec.D(game.timeSinceSave).F("sec") + " since save")
+	$"main/autosave/interval/intervalLabel".text = ("none" if autosaveInterval == 0 else Dec.D(autosaveInterval).FT(true))
+	$"main/autosave/intervalLabel".text = "Autosave Interval (0 for none) " + ("" if autosaveInterval == 0 else Dec.D(game.timeSinceSave).FT(false, 1) + " since save")
 
 func save():
 	return {
-		"nodepath" : self.get_path(),
+		"node" : self.name,
 		"autosaveInterval" : autosaveInterval,
 	}
