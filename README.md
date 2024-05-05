@@ -5,41 +5,43 @@ im' trying !!!okay
 
 lines of code count:
 addons
-	break_infinity: 536
-	formatting: 130
+	break_infinity: 572
+	formatting: 175
 assets
 	ui
 		dropdownContainer: 35
 		hover: 8
-		popup: 24
+		popup: 26
+		savePopup: 17
 		textHover: 13
 		textPopup: 9
 
 game
 	achievements
-		achievement: 86
+		achievement: 113
 		achievementPopup: 15
-		achievements: 77
+		achievements: 86
 	cyyan
-		cyyan: 38
-		milestone: 49
-		milestones: 52
+		choices: 154
+		cyyan: 46
+		milestone: 64
+		milestones: 55
 	information
 		informationLabel: 9
 	settings
-		formatting: 64
-		saving: 45
+		formatting: 90
+		saving: 50
 		settings: 30
 		uiScaling: 30
 	things
-		clicks: 73
-		funnyUpgButton: 67
-		funnyUpgs: 68
-		generators: 83
-		things: 66
-	game: 165
+		clicks: 134
+		funnyUpgButton: 71
+		funnyUpgs: 71
+		generators: 96
+		things: 79
+	game: 234
 script_templates
 	Node
 		base: 24
-this: 46
-total: 1842
+this: 48
+total: 2354
