@@ -38,9 +38,9 @@ game
 		funnyUpgs: 71
 		generators: 96
 		things: 79
-	game: 242
+	game: 241
 script_templates
 	Node
 		base: 24
 this: 47
-total: 2361
+total: 2360

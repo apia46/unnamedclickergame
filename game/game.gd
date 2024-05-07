@@ -177,11 +177,11 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 	var copy_iter = 0
 	if fromClipboard:
 		copy_save = DisplayServer.clipboard_get().split("\n")
-		print(copy_save)
+		copy_save.resize(len(copy_save)-1)
 	elif fromBackup: save_file = FileAccess.open(BACKUPDIRECTORY, FileAccess.READ)
 	else: save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.READ)
 	
-	while (fromClipboard and copy_iter != len(copy_save) or save_file.get_position() < save_file.get_length()):
+	while (fromClipboard and copy_iter != len(copy_save) or (!fromClipboard and save_file.get_position() < save_file.get_length())):
 		var json_string
 		if fromClipboard:
 			if copy_save[0] == "":
@@ -192,7 +192,6 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 		else: json_string = save_file.get_line()
 		# [Creates the helper class to interact with JSON]
 		var json = JSON.new()
-		
 		# so json.parse sets json to the parsed of json_string. i see
 		var check = json.parse(json_string)
 		# [Check if there is any error while parsing the JSON string, skip in case of failure]
@@ -219,7 +218,7 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 								toset[key][i] = currentVar[key][i]
 					get_node(node_path).set(variable, toset)
 				else: get_node(node_path).set(variable, currentVar)
-		if node_path == "/root/game": updateTabs()
+		if node_data["node"] == "game": updateTabs()
 	update()
 	paused = false
 	$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("Loaded"))
