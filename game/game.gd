@@ -52,8 +52,9 @@ var paused = false
 
 func _ready():
 	update()
-	savePopup = SAVEPOPUP.instantiate().set_data(getSaveMetadata().timePlayed)
-	if FileAccess.file_exists(SAVEDIRECTORY): $"/root".add_child.call_deferred(savePopup)
+	if FileAccess.file_exists(SAVEDIRECTORY):
+		savePopup = SAVEPOPUP.instantiate().set_data(getSaveMetadata().timePlayed)
+		$"/root".add_child.call_deferred(savePopup)
 	
 
 func _process(delta):
@@ -166,22 +167,29 @@ func getSaveMetadata():
 
 func initiateLoad(fromClipboard:=false, fromBackup:=false):
 	paused = true
-	if not FileAccess.file_exists(SAVEDIRECTORY):
+	if not FileAccess.file_exists(SAVEDIRECTORY) and !fromBackup and !fromClipboard:
 		$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("There is no save file"))
 		paused = false
 		return
 	
 	var save_file : FileAccess
+	var copy_save
+	var copy_iter = 0
 	if fromClipboard:
-		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.WRITE)
-		save_file.store_string(DisplayServer.clipboard_get())
-		save_file.close()
-		save_file = FileAccess.open(TEMPSAVEDIRECTORY, FileAccess.READ)
+		copy_save = DisplayServer.clipboard_get().split("\n")
+		print(copy_save)
 	elif fromBackup: save_file = FileAccess.open(BACKUPDIRECTORY, FileAccess.READ)
 	else: save_file = FileAccess.open(SAVEDIRECTORY, FileAccess.READ)
 	
-	while save_file.get_position() < save_file.get_length():
-		var json_string = save_file.get_line()
+	while (fromClipboard and copy_iter != len(copy_save) or save_file.get_position() < save_file.get_length()):
+		var json_string
+		if fromClipboard:
+			if copy_save[0] == "":
+				$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("Nothing in clipboard"))
+				return
+			json_string = copy_save[copy_iter]
+			copy_iter += 1
+		else: json_string = save_file.get_line()
 		# [Creates the helper class to interact with JSON]
 		var json = JSON.new()
 		
@@ -189,8 +197,8 @@ func initiateLoad(fromClipboard:=false, fromBackup:=false):
 		var check = json.parse(json_string)
 		# [Check if there is any error while parsing the JSON string, skip in case of failure]
 		if !(check == OK):
-			push_error("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("please send save file; JSON Parse Error: " + json.get_error_message() + " in save file at line " + str(json.get_error_line())))
+			push_error("load file: JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			$"/root".add_child.call_deferred(TEXTPOPUP.instantiate().set_data("JSON Parse Error: " + json.get_error_message() + " in save file at line " + str(json.get_error_line())))
 			paused = false
 			return
 		

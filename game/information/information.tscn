@@ -18,16 +18,17 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[font_size=24]You are playing [rainbow freq=0.5 sat=0.2 val=1][wave amp=25.0 freq=2.5.0 connected=1][b]Unnamed Clicker Game v0.0.1.0[/b][/wave][/rainbow].[/font_size]
+text = "[font_size=24]You are playing [rainbow freq=0.5 sat=0.2 val=1][wave amp=25.0 freq=2.5.0 connected=1][b]Unnamed Clicker Game v0.0.1.1[/b][/wave][/rainbow].[/font_size]
 
 Unnamed Clicker Game is created and maintained by [url=\"secret\"]apia[/url]
-You can find me at @_beeka on discord
-The web version for this game can be found [color=\"cyan\"][url=\"https://Beeka274.github.io\"]here[/url][/color]
-The itch.io for this game can be found [color=\"cyan\"][url=\"https://beeka274.itch.io/unnamed-clicker-game\"]here[/url][/color]
-The github repo for this game can be found [color=\"cyan\"][url=\"https://github.com/Beeka274/unnamedclickergame\"]here[/url][/color]
+You can find me at @_apia_ on discord
+The web version for this game can be found [color=\"cyan\"][url=\"https://apia46.github.io\"]here[/url][/color]
+The itch.io for this game can be found [color=\"cyan\"][url=\"https://apia46.itch.io/unnamed-clicker-game\"]here[/url][/color]
+The github repo for this game can be found [color=\"cyan\"][url=\"https://github.com/apia46/unnamedclickergame\"]here[/url][/color]
+The github website for this game can be found [color=\"cyan\"][url=\"https://apia46.github.io/\"]here[/url][/color]
 anywhere else is unofficial
 
-Lines of code: 2354
+Lines of code: 2361
 Last updated: 2024-05-05
 
 [u][font_size=16]Credits to:[/font_size][/u]
@@ -46,7 +47,8 @@ Playtesters
 	[color=\"8CBDE3\"]enterham[/color]
 	[color=\"6A14C6\"]blokos[/color]
 	[color=\"576ABB\"]daffafm2002[/color]
-	[color=\"414799\"]Stardust[/color]
+	[color=\"347DDE\"]Stardust[/color]
+	[color=\"69D7A6\"]M_rld[/color]
 My friends and acquaintances who made this enjoyable
 	(you know who you are)
 
